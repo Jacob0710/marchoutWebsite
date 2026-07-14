@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Nuxt generated files
+.nuxt/
+.output/
+.data/
+.cache/
+dist/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Supabase local temporary files
+supabase/.temp/
+
+# Editor files
+.vscode/
+.idea/

@@ -1,0 +1,23 @@
+{
+  "name": "march-out-for-love",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "nuxt cleanup",
+    "dev": "nuxt dev --host 0.0.0.0",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.2",
+    "@supabase/supabase-js": "^2.108.2",
+    "lucide-vue-next": "^0.468.0",
+    "nuxt": "^3.15.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.7.2",
+    "vue-tsc": "^3.3.7"
+  }
+}
