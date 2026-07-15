@@ -1,7 +1,18 @@
 <script setup lang="ts">
 import { LogOut, Monitor, UserRound } from 'lucide-vue-next'
 
-const { logout } = useAuth()
+const { user, logout } = useAdminAuth()
+const isLoggingOut = ref(false)
+const logoutError = ref('')
+
+const handleLogout = async () => {
+  if (isLoggingOut.value) return
+  isLoggingOut.value = true
+  logoutError.value = ''
+  const didLogout = await logout()
+  if (!didLogout) logoutError.value = '登出失敗，請稍後再試。'
+  isLoggingOut.value = false
+}
 </script>
 
 <template>
@@ -22,17 +33,21 @@ const { logout } = useAuth()
         </NuxtLink>
         <div class="hidden items-center gap-2 rounded-md bg-cloud px-3 py-2 text-sm font-semibold text-slate-700 sm:flex">
           <UserRound class="size-4 text-teal" aria-hidden="true" />
-          Content Admin
+          {{ user?.email ?? '管理員' }}
         </div>
         <button
           type="button"
           class="focus-ring inline-flex items-center gap-2 rounded-md bg-ink px-3 py-2 text-sm font-semibold text-white transition hover:bg-teal"
-          @click="logout"
+          :disabled="isLoggingOut"
+          @click="handleLogout"
         >
           <LogOut class="size-4" aria-hidden="true" />
-          登出
+          {{ isLoggingOut ? '登出中' : '登出' }}
         </button>
       </div>
     </div>
+    <p v-if="logoutError" class="px-4 pb-3 text-right text-sm font-semibold text-red-700 sm:px-6 lg:px-8">
+      {{ logoutError }}
+    </p>
   </header>
 </template>

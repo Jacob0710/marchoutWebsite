@@ -4,11 +4,11 @@ import { HeartHandshake, Loader2, LockKeyhole } from 'lucide-vue-next'
 definePageMeta({ layout: false })
 
 const route = useRoute()
-const { login } = useAuth()
+const { login } = useAdminAuth()
 
 const form = reactive({
-  email: 'admin@marchoutforlove.org',
-  password: 'password'
+  email: '',
+  password: ''
 })
 const isSubmitting = ref(false)
 const submitError = ref('')
@@ -17,37 +17,44 @@ const { errors, validate, clearError } = useFormValidation<typeof form>({
   email: {
     required: true,
     pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-    message: 'Please enter a valid email.'
+    message: '請輸入有效的 Email。'
   },
   password: {
     required: true,
     minLength: 6,
-    message: 'Password must be at least 6 characters.'
+    message: '密碼至少需要 6 個字元。'
   }
 })
 
 useSeo({
   title: '後台登入',
-  description: '愛潮關懷社內容管理後台登入。'
+  description: '愛潮關懷社管理後台登入。'
 })
+
+const getRedirectTarget = () => {
+  const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/admin'
+  return redirect === '/admin/activities' ? redirect : '/admin'
+}
 
 const handleSubmit = async () => {
   submitError.value = ''
-  if (!validate(form)) return
+  if (!validate(form) || isSubmitting.value) return
 
   isSubmitting.value = true
-  try {
-    await new Promise((resolve) => setTimeout(resolve, 450))
-    const redirectTo = typeof route.query.redirect === 'string' ? route.query.redirect : '/admin/dashboard'
-    await login(redirectTo, {
-      email: form.email,
-      password: form.password
-    })
-  } catch {
-    submitError.value = 'Login failed. Please try again.'
-  } finally {
-    isSubmitting.value = false
+  const result = await login({ email: form.email, password: form.password })
+
+  if (result.ok) {
+    form.password = ''
+    await navigateTo(getRedirectTarget())
+  } else if (result.reason === 'forbidden') {
+    submitError.value = '此帳號沒有管理權限。'
+  } else if (result.reason === 'invalid-credentials') {
+    submitError.value = '登入失敗，請確認帳號或密碼。'
+  } else {
+    submitError.value = '登入服務暫時無法使用，請稍後再試。'
   }
+
+  isSubmitting.value = false
 }
 </script>
 
@@ -63,9 +70,9 @@ const handleSubmit = async () => {
       <div class="relative z-10 flex min-h-screen items-end p-12">
         <div>
           <p class="text-sm font-bold uppercase tracking-[0.18em] text-honey">March Out For Love</p>
-          <h1 class="mt-4 text-5xl font-bold leading-tight">內容管理後台</h1>
+          <h1 class="mt-4 text-5xl font-bold leading-tight">管理後台</h1>
           <p class="mt-5 max-w-xl text-lg leading-8 text-slate-200">
-            整理活動、消息、檔案與年度成果，讓服務紀錄能被持續查找。
+            使用已授權的管理員帳號查看活動資料。
           </p>
         </div>
       </div>
@@ -83,7 +90,7 @@ const handleSubmit = async () => {
           </div>
         </div>
 
-        <p v-if="submitError" class="mt-6 rounded-md bg-red-50 px-3 py-2 text-sm font-semibold text-red-700">
+        <p v-if="submitError" role="alert" class="mt-6 rounded-md bg-red-50 px-3 py-2 text-sm font-semibold text-red-700">
           {{ submitError }}
         </p>
 
@@ -93,19 +100,23 @@ const handleSubmit = async () => {
             <input
               v-model="form.email"
               type="email"
+              autocomplete="username"
               class="focus-ring h-11 rounded-md border px-3 text-sm"
               :class="errors.email ? 'border-red-300' : 'border-slate-200'"
+              :aria-invalid="Boolean(errors.email)"
               @input="clearError('email')"
             />
             <span v-if="errors.email" class="text-xs font-semibold text-red-600">{{ errors.email }}</span>
           </label>
           <label class="grid gap-2 text-sm font-semibold text-ink">
-            Password
+            密碼
             <input
               v-model="form.password"
               type="password"
+              autocomplete="current-password"
               class="focus-ring h-11 rounded-md border px-3 text-sm"
               :class="errors.password ? 'border-red-300' : 'border-slate-200'"
+              :aria-invalid="Boolean(errors.password)"
               @input="clearError('password')"
             />
             <span v-if="errors.password" class="text-xs font-semibold text-red-600">{{ errors.password }}</span>

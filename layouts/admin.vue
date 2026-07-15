@@ -1,3 +1,11 @@
+<script setup lang="ts">
+const { status, loadAdmin } = useAdminAuth()
+
+if (status.value === 'unknown') {
+  await loadAdmin()
+}
+</script>
+
 <template>
   <div class="min-h-screen bg-cloud text-ink lg:flex">
     <LayoutAdminSidebar />

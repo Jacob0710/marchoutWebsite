@@ -1,27 +1,15 @@
 <script setup lang="ts">
 import {
   CalendarDays,
-  FileText,
-  FolderTree,
   Gauge,
-  HeartHandshake,
-  HelpCircle,
-  Newspaper,
-  Settings,
-  Tags
+  HeartHandshake
 } from 'lucide-vue-next'
 
 const route = useRoute()
 
 const items = [
-  { label: 'Dashboard', to: '/admin/dashboard', icon: Gauge },
-  { label: '活動管理', to: '/admin/activities', icon: CalendarDays },
-  { label: '消息管理', to: '/admin/posts', icon: Newspaper },
-  { label: '檔案管理', to: '/admin/files', icon: FileText },
-  { label: '分類管理', to: '/admin/categories', icon: Tags },
-  { label: '年度成果', to: '/admin/years', icon: FolderTree },
-  { label: 'FAQ', to: '/admin/faq', icon: HelpCircle },
-  { label: '設定', to: '/admin/settings', icon: Settings }
+  { label: '後台首頁', to: '/admin', icon: Gauge },
+  { label: '活動檢視', to: '/admin/activities', icon: CalendarDays }
 ]
 </script>
 
