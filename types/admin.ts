@@ -1,4 +1,4 @@
-import type { ContentStatus } from '~/types/content'
+import type { ActivityType, ContentStatus } from '~/types/content'
 
 export interface AdminUserSummary {
   email: string
@@ -9,7 +9,11 @@ export interface AdminActivityRow {
   title: string
   slug: string
   status: ContentStatus
+  academicYear: number
+  activityType: ActivityType
   eventDate: string | null
+  assetCount: number
+  videoCount: number
   createdAt: string
   updatedAt: string
 }

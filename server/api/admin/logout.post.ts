@@ -1,6 +1,7 @@
 import { defineEventHandler } from 'h3'
 
 export default defineEventHandler(async (event) => {
+  requireSameOrigin(event)
   try {
     const supabase = createSupabaseServerClient(event)
     const { error } = await supabase.auth.signOut()

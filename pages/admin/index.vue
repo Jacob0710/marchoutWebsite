@@ -42,8 +42,8 @@ useSeo({
           <CalendarDays class="size-5" aria-hidden="true" />
         </span>
         <span>
-          <span class="block text-base font-bold text-ink">活動唯讀檢視</span>
-          <span class="mt-1 block text-sm text-muted">查看已發布與草稿活動，不提供內容修改操作。</span>
+          <span class="block text-base font-bold text-ink">活動內容管理</span>
+          <span class="mt-1 block text-sm text-muted">新增、編輯、發布活動，並管理圖片、附件與影片。</span>
         </span>
       </span>
       <ArrowRight class="size-5 shrink-0 text-muted" aria-hidden="true" />

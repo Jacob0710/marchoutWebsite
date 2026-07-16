@@ -6,7 +6,24 @@ export interface ActivityImage {
   id: string
   imageUrl: string
   caption: string
+  altText?: string
   sortOrder: number
+}
+
+export interface ActivityFile {
+  id: string
+  name: string
+  url: string
+  mimeType: string
+  sizeBytes: number
+}
+
+export interface ActivityVideo {
+  id: string
+  url: string
+  title: string
+  sortOrder: number
+  embedUrl?: string
 }
 
 export interface Activity {
@@ -26,7 +43,8 @@ export interface Activity {
   isFeatured: boolean
   tags: string[]
   images: ActivityImage[]
-  files: string[]
+  files: Array<ActivityFile | string>
+  videos?: ActivityVideo[]
 }
 
 export interface Program {

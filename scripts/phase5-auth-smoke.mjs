@@ -3,10 +3,10 @@ import { createClient } from '@supabase/supabase-js'
 const baseUrl = process.env.PHASE5_APP_URL ?? 'http://127.0.0.1:3000'
 const supabaseUrl = process.env.NUXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY
-const nonAdminEmail = process.env.PHASE5_NON_ADMIN_EMAIL
-const nonAdminPassword = process.env.PHASE5_NON_ADMIN_PASSWORD
-const adminEmail = process.env.PHASE5_ADMIN_EMAIL
-const adminPassword = process.env.PHASE5_ADMIN_PASSWORD
+const nonAdminEmail = process.env.PHASE5_NON_ADMIN_EMAIL ?? process.env.PHASE6_NON_ADMIN_EMAIL
+const nonAdminPassword = process.env.PHASE5_NON_ADMIN_PASSWORD ?? process.env.PHASE6_NON_ADMIN_PASSWORD
+const adminEmail = process.env.PHASE5_ADMIN_EMAIL ?? process.env.PHASE6_ADMIN_EMAIL
+const adminPassword = process.env.PHASE5_ADMIN_PASSWORD ?? process.env.PHASE6_ADMIN_PASSWORD
 
 const requiredValues = {
   NUXT_PUBLIC_SUPABASE_URL: supabaseUrl,

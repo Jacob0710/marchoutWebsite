@@ -7,7 +7,9 @@
     "dev": "nuxt dev --host 0.0.0.0",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "preview": "nuxt preview --host=0.0.0.0"
+    "preview": "nuxt preview --host=0.0.0.0",
+    "test:phase5": "node --env-file-if-exists=.env.phase6.local scripts/phase5-auth-smoke.mjs",
+    "test:phase6": "node --env-file-if-exists=.env.phase6.local scripts/phase6-admin-crud-smoke.mjs"
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.12.2",

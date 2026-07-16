@@ -1,14 +1,16 @@
 import type { Ref } from 'vue'
 import type { Activity } from '~/types/content'
-import type { SupabaseActivityImageRow, SupabaseActivityRow, SupabaseFileRow } from '~/types/supabase'
+import type { SupabaseActivityAssetRow, SupabaseActivityImageRow, SupabaseActivityRow, SupabaseActivityVideoRow, SupabaseFileRow } from '~/types/supabase'
 import { mockActivities } from '~/utils/mockData'
-import { mapActivityFromRow, mapActivityImageFromRow, mapFileFromRow } from '~/utils/supabaseMappers'
+import { mapActivityFromRow, mapActivityImageFromRow, mapFileFromRow, mapPublicAssetFile, mapPublicAssetImage, mapPublicVideo } from '~/utils/supabaseMappers'
 
 const publicActivityColumns =
-  'id,title,slug,academic_year,activity_type,event_date,location,participants_count,result_summary,content,cover_image_url,video_url,status,is_featured,tags' as const
+  'id,title,slug,academic_year,activity_type,event_date,location,participants_count,result_summary,content,cover_image_url,video_url,status,is_featured,tags,cover_asset_id' as const
 
 const publicActivityImageColumns = 'id,activity_id,image_url,caption,sort_order'
 const publicFileColumns = 'id,title,file_url,file_type,academic_year,activity_id,category,description,created_at'
+const publicAssetColumns = 'id,activity_id,kind,original_name,mime_type,size_bytes,alt_text,sort_order'
+const publicVideoColumns = 'id,activity_id,url,title,sort_order'
 const mockPublishedActivities = () => mockActivities.filter((activity) => activity.status === 'published')
 const publicActivityQueryError = () => new Error('Public activity data is temporarily unavailable.')
 
@@ -61,7 +63,19 @@ export const usePublicActivityBySlug = (slug: Ref<string>) => {
       if (!activityRow) return []
 
       const activity = activityRow as SupabaseActivityRow
-      const [imagesResponse, filesResponse] = await Promise.all([
+      const [assetsResponse, videosResponse, imagesResponse, filesResponse] = await Promise.all([
+        supabase
+          .from('activity_assets')
+          .select(publicAssetColumns)
+          .eq('activity_id', activity.id)
+          .order('sort_order', { ascending: true })
+          .order('id', { ascending: true }),
+        supabase
+          .from('activity_videos')
+          .select(publicVideoColumns)
+          .eq('activity_id', activity.id)
+          .order('sort_order', { ascending: true })
+          .order('id', { ascending: true }),
         supabase
           .from('activity_images')
           .select(publicActivityImageColumns)
@@ -76,13 +90,18 @@ export const usePublicActivityBySlug = (slug: Ref<string>) => {
           .order('id', { ascending: true })
       ])
 
-      if (imagesResponse.error || filesResponse.error) throw publicActivityQueryError()
+      if (assetsResponse.error || videosResponse.error || imagesResponse.error || filesResponse.error) throw publicActivityQueryError()
+
+      const assets = (assetsResponse.data ?? []) as unknown as SupabaseActivityAssetRow[]
+      const newImages = assets.filter((asset) => asset.kind === 'image').map(mapPublicAssetImage)
+      const attachments = assets.filter((asset) => asset.kind === 'attachment').map(mapPublicAssetFile)
 
       return [
         mapActivityFromRow(
           activity,
-          ((imagesResponse.data ?? []) as SupabaseActivityImageRow[]).map(mapActivityImageFromRow),
-          ((filesResponse.data ?? []) as SupabaseFileRow[]).map((file) => mapFileFromRow(file).title)
+          [...newImages, ...((imagesResponse.data ?? []) as SupabaseActivityImageRow[]).map(mapActivityImageFromRow)],
+          [...attachments, ...((filesResponse.data ?? []) as SupabaseFileRow[]).map((file) => mapFileFromRow(file).title)],
+          ((videosResponse.data ?? []) as unknown as SupabaseActivityVideoRow[]).map(mapPublicVideo)
         )
       ]
     },

@@ -63,7 +63,19 @@ useSeo({
 
         <div class="mt-10">
           <CommonSectionTitle eyebrow="Video" title="活動影片" />
-          <ActivityYouTubeEmbed class="mt-6" :title="activity.title" :url="activity.videoUrl" />
+          <div v-if="activity.videos?.length" class="mt-6 grid gap-6">
+            <div v-for="video in activity.videos" :key="video.id">
+              <ActivityYouTubeEmbed v-if="video.embedUrl" :title="video.title" :url="video.embedUrl" />
+              <a
+                v-else
+                :href="video.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="focus-ring inline-flex rounded-md border border-slate-200 bg-white px-4 py-3 font-semibold text-teal"
+              >{{ video.title }}</a>
+            </div>
+          </div>
+          <ActivityYouTubeEmbed v-else class="mt-6" :title="activity.title" :url="activity.videoUrl" />
         </div>
       </article>
 

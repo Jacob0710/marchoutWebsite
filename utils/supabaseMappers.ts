@@ -1,13 +1,16 @@
-import type { Activity, ActivityImage, FileResource, FAQItem, Post, SiteSettings } from '~/types/content'
+import type { Activity, ActivityFile, ActivityImage, ActivityVideo, FileResource, FAQItem, Post, SiteSettings } from '~/types/content'
 import type {
   SupabaseActivityImageRow,
+  SupabaseActivityAssetRow,
   SupabaseActivityRow,
+  SupabaseActivityVideoRow,
   SupabaseFaqRow,
   SupabaseFileRow,
   SupabasePostRow,
   SupabaseSiteSettingsRow
 } from '~/types/supabase'
 import { siteSettings } from '~/utils/mockData'
+import { toSafeVideoEmbedUrl } from '~/shared/activityRules'
 
 export const fallbackActivityImageUrl =
   'https://images.unsplash.com/photo-1527525443983-6e60c75fff46?auto=format&fit=crop&w=1400&q=80'
@@ -19,10 +22,35 @@ export const mapActivityImageFromRow = (row: SupabaseActivityImageRow): Activity
   sortOrder: row.sort_order ?? 0
 })
 
+export const mapPublicAssetImage = (row: Pick<SupabaseActivityAssetRow, 'id' | 'alt_text' | 'sort_order'>): ActivityImage => ({
+  id: row.id,
+  imageUrl: `/api/public/activity-assets/${row.id}`,
+  caption: row.alt_text ?? '',
+  altText: row.alt_text ?? '',
+  sortOrder: row.sort_order
+})
+
+export const mapPublicAssetFile = (row: Pick<SupabaseActivityAssetRow, 'id' | 'original_name' | 'mime_type' | 'size_bytes'>): ActivityFile => ({
+  id: row.id,
+  name: row.original_name,
+  url: `/api/public/activity-assets/${row.id}?download=1`,
+  mimeType: row.mime_type,
+  sizeBytes: Number(row.size_bytes)
+})
+
+export const mapPublicVideo = (row: Pick<SupabaseActivityVideoRow, 'id' | 'url' | 'title' | 'sort_order'>): ActivityVideo => ({
+  id: row.id,
+  url: row.url,
+  title: row.title ?? '活動影片',
+  sortOrder: row.sort_order,
+  embedUrl: toSafeVideoEmbedUrl(row.url) ?? undefined
+})
+
 export const mapActivityFromRow = (
   row: SupabaseActivityRow,
   images: ActivityImage[] = [],
-  files: string[] = []
+  files: Activity['files'] = [],
+  videos: ActivityVideo[] = []
 ): Activity => ({
   id: row.id,
   title: row.title,
@@ -34,13 +62,16 @@ export const mapActivityFromRow = (
   participantsCount: row.participants_count ?? 0,
   resultSummary: row.result_summary ?? '',
   content: row.content ?? '',
-  coverImageUrl: row.cover_image_url || fallbackActivityImageUrl,
-  videoUrl: row.video_url ?? undefined,
+  coverImageUrl: row.cover_asset_id
+    ? `/api/public/activity-assets/${row.cover_asset_id}`
+    : row.cover_image_url || fallbackActivityImageUrl,
+  videoUrl: row.video_url ? toSafeVideoEmbedUrl(row.video_url) ?? undefined : undefined,
   status: row.status,
   isFeatured: row.is_featured,
   tags: row.tags ?? [],
   images,
-  files
+  files,
+  videos
 })
 
 export const mapActivityToPayload = (activity: Partial<Activity>) => ({

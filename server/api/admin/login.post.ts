@@ -18,6 +18,7 @@ const parseLoginBody = (value: unknown): LoginBody | null => {
 }
 
 export default defineEventHandler(async (event) => {
+  requireSameOrigin(event)
   let rawBody: unknown
   try {
     rawBody = await readBody<unknown>(event)

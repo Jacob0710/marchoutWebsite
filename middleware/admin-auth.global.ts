@@ -1,6 +1,7 @@
 import { FetchError } from 'ofetch'
 
-const phaseFiveRoutes = new Set(['/admin', '/admin/activities'])
+const phaseSixStaticRoutes = new Set(['/admin', '/admin/activities', '/admin/activities/new', '/admin/activities/create'])
+const phaseSixEditRoute = /^\/admin\/activities\/(?:edit\/)?[0-9a-f-]+(?:\/edit)?$/i
 
 export default defineNuxtRouteMiddleware(async (to) => {
   if (import.meta.server || (to.path !== '/admin' && !to.path.startsWith('/admin/'))) return
@@ -23,7 +24,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
     return navigateTo('/admin')
   }
 
-  if (!phaseFiveRoutes.has(to.path)) {
+  if (!phaseSixStaticRoutes.has(to.path) && !phaseSixEditRoute.test(to.path)) {
     return abortNavigation(createError({ statusCode: 404, statusMessage: 'Page not found.' }))
   }
 })

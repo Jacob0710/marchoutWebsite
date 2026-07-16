@@ -18,6 +18,10 @@ export interface SupabaseActivityRow {
   tags: string[] | null
   created_at?: string
   updated_at?: string
+  published_at?: string | null
+  created_by?: string | null
+  updated_by?: string | null
+  cover_asset_id?: string | null
 }
 
 export interface SupabaseActivityImageRow {
@@ -26,6 +30,31 @@ export interface SupabaseActivityImageRow {
   image_url: string
   caption: string | null
   sort_order: number | null
+}
+
+export interface SupabaseActivityAssetRow {
+  id: string
+  activity_id: string
+  kind: 'image' | 'attachment'
+  storage_bucket: string
+  storage_path: string
+  original_name: string
+  mime_type: string
+  size_bytes: number
+  alt_text: string | null
+  sort_order: number
+  created_at: string
+  updated_at: string
+}
+
+export interface SupabaseActivityVideoRow {
+  id: string
+  activity_id: string
+  url: string
+  title: string | null
+  sort_order: number
+  created_at: string
+  updated_at: string
 }
 
 export interface SupabasePostRow {

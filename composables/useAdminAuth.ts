@@ -69,7 +69,7 @@ export const useAdminAuth = () => {
       user.value = null
       status.value = 'unauthenticated'
       await navigateTo('/admin/login')
-      clearNuxtData('admin-activities')
+      clearNuxtData((key) => key === 'admin-activities' || key.startsWith('admin-activity-'))
       return true
     } catch {
       return false

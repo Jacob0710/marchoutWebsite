@@ -9,7 +9,7 @@ const route = useRoute()
 
 const items = [
   { label: '後台首頁', to: '/admin', icon: Gauge },
-  { label: '活動檢視', to: '/admin/activities', icon: CalendarDays }
+  { label: '活動管理', to: '/admin/activities', icon: CalendarDays }
 ]
 </script>
 
