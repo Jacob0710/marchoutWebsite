@@ -1,6 +1,6 @@
 import { FetchError } from 'ofetch'
 
-const phaseSixStaticRoutes = new Set(['/admin', '/admin/activities', '/admin/activities/new', '/admin/activities/create'])
+const phaseSixStaticRoutes = new Set(['/admin', '/admin/activities', '/admin/activities/new', '/admin/activities/create', '/admin/access'])
 const phaseSixEditRoute = /^\/admin\/activities\/(?:edit\/)?[0-9a-f-]+(?:\/edit)?$/i
 
 export default defineNuxtRouteMiddleware(async (to) => {

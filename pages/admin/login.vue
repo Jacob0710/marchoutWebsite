@@ -33,7 +33,7 @@ useSeo({
 
 const getRedirectTarget = () => {
   const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/admin'
-  return redirect === '/admin/activities' ? redirect : '/admin'
+  return ['/admin/activities', '/admin/access'].includes(redirect) ? redirect : '/admin'
 }
 
 const handleSubmit = async () => {

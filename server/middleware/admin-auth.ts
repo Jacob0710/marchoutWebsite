@@ -1,6 +1,6 @@
 import { defineEventHandler, getRequestURL, send, sendRedirect, setResponseStatus } from 'h3'
 
-const phaseSixStaticRoutes = new Set(['/admin', '/admin/activities', '/admin/activities/new', '/admin/activities/create'])
+const phaseSixStaticRoutes = new Set(['/admin', '/admin/activities', '/admin/activities/new', '/admin/activities/create', '/admin/access'])
 const phaseSixEditRoute = /^\/admin\/activities\/(?:edit\/)?[0-9a-f-]+(?:\/edit)?$/i
 
 export default defineEventHandler(async (event) => {

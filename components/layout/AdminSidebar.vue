@@ -2,14 +2,16 @@
 import {
   CalendarDays,
   Gauge,
-  HeartHandshake
+  HeartHandshake,
+  KeyRound
 } from 'lucide-vue-next'
 
 const route = useRoute()
 
 const items = [
   { label: '後台首頁', to: '/admin', icon: Gauge },
-  { label: '活動管理', to: '/admin/activities', icon: CalendarDays }
+  { label: '活動管理', to: '/admin/activities', icon: CalendarDays },
+  { label: '管理員存取權', to: '/admin/access', icon: KeyRound }
 ]
 </script>
 

@@ -9,7 +9,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview --host=0.0.0.0",
     "test:phase5": "node --env-file-if-exists=.env.phase6.local scripts/phase5-auth-smoke.mjs",
-    "test:phase6": "node --env-file-if-exists=.env.phase6.local scripts/phase6-admin-crud-smoke.mjs"
+    "test:phase6": "node --env-file-if-exists=.env.phase6.local scripts/phase6-admin-crud-smoke.mjs",
+    "test:phase7": "node --env-file-if-exists=.env.phase6.local scripts/phase7-admin-access-smoke.mjs"
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.12.2",

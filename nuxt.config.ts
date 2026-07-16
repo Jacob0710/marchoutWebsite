@@ -4,7 +4,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       supabaseUrl: '',
-      supabaseAnonKey: ''
+      supabaseAnonKey: '',
+      siteUrl: ''
     }
   },
   css: ['~/assets/css/main.css'],
