@@ -1,186 +1,127 @@
 <script setup lang="ts">
-import { Loader2, Trash2 } from 'lucide-vue-next'
-import type { FAQItem } from '~/types/content'
+import { ArrowDown, ArrowUp, Loader2, Pencil, Plus, Trash2 } from 'lucide-vue-next'
+import type { CoreFaqItem } from '~/types/coreContent'
 
 definePageMeta({ layout: 'admin' })
 
-const { faq } = useMockContent()
-const repository = useAdminRepository()
-const tableFaq = ref<FAQItem[]>([])
-const isLoading = ref(true)
+const api = useCoreContentAdmin()
+const { data, pending, error, refresh } = await useFetch<{ items: CoreFaqItem[] }>('/api/admin/faq', {
+  default: () => ({ items: [] })
+})
+const form = reactive({ question: '', answer: '', isActive: true })
+const editingId = ref('')
+const busy = ref(false)
 const pageError = ref('')
-const form = reactive({
-  question: '',
-  answer: ''
-})
-const isSubmitting = ref(false)
-const submitError = ref('')
-const submitMessage = ref('')
-const deleteTarget = ref<FAQItem | null>(null)
-const isDeleting = ref(false)
-const deleteError = ref('')
+const message = ref('')
+const deleteTarget = ref<CoreFaqItem | null>(null)
 
-const { errors, validate, clearError } = useFormValidation<typeof form>({
-  question: { required: true, minLength: 4, message: 'Please enter a question.' },
-  answer: { required: true, minLength: 8, message: 'Please enter an answer.' }
-})
+const reset = () => {
+  Object.assign(form, { question: '', answer: '', isActive: true })
+  editingId.value = ''
+}
 
-const loadFaq = async () => {
-  isLoading.value = true
+const edit = (item: CoreFaqItem) => {
+  editingId.value = item.id
+  Object.assign(form, { question: item.question, answer: item.answer, isActive: item.isActive })
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+const submit = async () => {
+  busy.value = true
+  pageError.value = ''
+  message.value = ''
+  try {
+    if (editingId.value) await api.updateFaq(editingId.value, form)
+    else await api.createFaq({ ...form, sortOrder: data.value.items.length })
+    message.value = editingId.value ? 'FAQ 已更新。' : 'FAQ 已建立。'
+    reset()
+    await refresh()
+  } catch (reason) {
+    pageError.value = api.errorMessage(reason)
+  } finally {
+    busy.value = false
+  }
+}
+
+const move = async (index: number, direction: -1 | 1) => {
+  const target = index + direction
+  if (target < 0 || target >= data.value.items.length) return
+  const previous = [...data.value.items]
+  const reordered = [...previous]
+  const [moved] = reordered.splice(index, 1)
+  if (!moved) return
+  reordered.splice(target, 0, moved)
+  data.value.items = reordered.map((item, sortOrder) => ({ ...item, sortOrder }))
+  busy.value = true
   pageError.value = ''
   try {
-    tableFaq.value = await repository.listFaq()
-  } catch (error) {
-    tableFaq.value = [...faq]
-    pageError.value = error instanceof Error ? error.message : 'Unable to load FAQ.'
+    const result = await api.reorderFaq(reordered.map(item => item.id))
+    data.value.items = result.items
+  } catch (reason) {
+    data.value.items = previous
+    pageError.value = `排序未儲存：${api.errorMessage(reason)}`
   } finally {
-    isLoading.value = false
+    busy.value = false
   }
 }
 
-onMounted(() => {
-  void loadFaq()
-})
-
-const handleSubmit = async () => {
-  submitError.value = ''
-  submitMessage.value = ''
-  if (!validate(form)) return
-
-  isSubmitting.value = true
+const toggle = async (item: CoreFaqItem) => {
+  busy.value = true
+  pageError.value = ''
   try {
-    const created = await repository.createFaq({
-      question: form.question,
-      answer: form.answer,
-      sortOrder: tableFaq.value.length + 1,
-      isVisible: true
-    })
-    tableFaq.value = [...tableFaq.value, created]
-    form.question = ''
-    form.answer = ''
-    submitMessage.value = repository.isSupabaseConfigured
-      ? 'FAQ saved to Supabase.'
-      : 'FAQ saved to the local mock store.'
-  } catch {
-    submitError.value = 'Unable to add this FAQ. Please try again.'
+    await api.updateFaq(item.id, { isActive: !item.isActive })
+    await refresh()
+  } catch (reason) {
+    pageError.value = api.errorMessage(reason)
   } finally {
-    isSubmitting.value = false
+    busy.value = false
   }
 }
 
-const requestDelete = (item: FAQItem) => {
-  deleteTarget.value = item
-  deleteError.value = ''
-}
-
-const confirmDelete = async () => {
+const remove = async () => {
   if (!deleteTarget.value) return
-  isDeleting.value = true
-  deleteError.value = ''
+  busy.value = true
+  pageError.value = ''
   try {
-    await repository.deleteFaq(deleteTarget.value.id)
-    tableFaq.value = tableFaq.value.filter((item) => item.id !== deleteTarget.value?.id)
+    await api.mutate(`/api/admin/faq/${deleteTarget.value.id}`, 'DELETE')
     deleteTarget.value = null
-  } catch {
-    deleteError.value = 'Unable to delete this FAQ. Please try again.'
+    await refresh()
+  } catch (reason) {
+    pageError.value = api.errorMessage(reason)
   } finally {
-    isDeleting.value = false
+    busy.value = false
   }
 }
 </script>
 
 <template>
   <div class="grid gap-6">
-    <AdminAdminFormSection title="新增 FAQ">
-      <p v-if="submitError" class="mb-5 rounded-md bg-red-50 px-3 py-2 text-sm font-semibold text-red-700">
-        {{ submitError }}
-      </p>
-      <p v-if="submitMessage" class="mb-5 rounded-md bg-teal/10 px-3 py-2 text-sm font-semibold text-teal">
-        {{ submitMessage }}
-      </p>
-
-      <form class="grid gap-4 md:grid-cols-[1fr_1fr_auto] md:items-start" novalidate @submit.prevent="handleSubmit">
-        <label class="grid gap-2 text-sm font-semibold text-ink">
-          問題
-          <input
-            v-model="form.question"
-            class="focus-ring h-11 rounded-md border px-3"
-            :class="errors.question ? 'border-red-300' : 'border-slate-200'"
-            @input="clearError('question')"
-          />
-          <span v-if="errors.question" class="text-xs font-semibold text-red-600">{{ errors.question }}</span>
-        </label>
-        <label class="grid gap-2 text-sm font-semibold text-ink">
-          回答
-          <input
-            v-model="form.answer"
-            class="focus-ring h-11 rounded-md border px-3"
-            :class="errors.answer ? 'border-red-300' : 'border-slate-200'"
-            @input="clearError('answer')"
-          />
-          <span v-if="errors.answer" class="text-xs font-semibold text-red-600">{{ errors.answer }}</span>
-        </label>
-        <CommonBaseButton type="submit" :disabled="isSubmitting" class="md:mt-7">
-          <Loader2 v-if="isSubmitting" class="size-4 animate-spin" aria-hidden="true" />
-          {{ isSubmitting ? '新增中' : '新增' }}
-        </CommonBaseButton>
+    <div><p class="text-sm font-bold text-coral">FAQ</p><h1 class="mt-1 text-3xl font-bold text-ink">常見問題管理</h1></div>
+    <AdminFormSection :title="editingId ? '編輯 FAQ' : '新增 FAQ'" description="問題可停用而不必刪除；列表排序會以單一資料庫操作儲存。">
+      <form class="grid gap-4" @submit.prevent="submit">
+        <p v-if="pageError" role="alert" class="rounded-md bg-red-50 p-3 text-sm font-semibold text-red-700">{{ pageError }}</p>
+        <p v-if="message" class="rounded-md bg-teal/10 p-3 text-sm font-semibold text-teal">{{ message }}</p>
+        <label class="grid gap-2 text-sm font-semibold">問題<input v-model.trim="form.question" required minlength="4" maxlength="500" class="focus-ring h-11 rounded-md border border-slate-200 px-3" /></label>
+        <label class="grid gap-2 text-sm font-semibold">回答<textarea v-model.trim="form.answer" required minlength="8" maxlength="10000" class="focus-ring min-h-32 rounded-md border border-slate-200 p-3" /></label>
+        <label class="flex items-center gap-2 text-sm font-semibold"><input v-model="form.isActive" type="checkbox" class="size-4" /> 啟用並顯示於前台</label>
+        <div class="flex justify-end gap-2"><button v-if="editingId" type="button" class="focus-ring rounded-md border px-4 py-2 font-bold" @click="reset">取消</button><button type="submit" class="focus-ring inline-flex items-center gap-2 rounded-md bg-ink px-5 py-3 font-bold text-white" :disabled="busy"><Loader2 v-if="busy" class="size-4 animate-spin" /><Plus v-else class="size-4" />{{ editingId ? '更新' : '建立' }}</button></div>
       </form>
-    </AdminAdminFormSection>
+    </AdminFormSection>
 
-    <p v-if="pageError" class="rounded-md bg-red-50 px-3 py-2 text-sm font-semibold text-red-700">
-      {{ pageError }}
-    </p>
-
-    <CommonLoadingState v-if="isLoading" />
-
-    <AdminAdminDataTable v-else title="FAQ 管理">
-      <thead class="bg-cloud text-left text-xs font-bold uppercase tracking-wide text-muted">
-        <tr>
-          <th class="px-5 py-3">排序</th>
-          <th class="px-5 py-3">問題</th>
-          <th class="px-5 py-3">顯示</th>
-          <th class="px-5 py-3">操作</th>
-        </tr>
-      </thead>
+    <CommonLoadingState v-if="pending" />
+    <CommonEmptyState v-else-if="error" title="FAQ 載入失敗" description="請重新整理頁面。" />
+    <AdminDataTable v-else title="FAQ 清單" :description="`共 ${data.items.length} 筆；上下按鈕支援鍵盤操作。`">
+      <thead class="bg-cloud text-left text-xs font-bold uppercase text-muted"><tr><th class="px-5 py-3">排序</th><th class="px-5 py-3">內容</th><th class="px-5 py-3">狀態</th><th class="px-5 py-3">操作</th></tr></thead>
       <tbody class="divide-y divide-slate-200">
-        <tr v-for="item in tableFaq" :key="item.id">
-          <td class="px-5 py-4 text-muted">{{ item.sortOrder }}</td>
-          <td class="px-5 py-4">
-            <p class="font-semibold text-ink">{{ item.question }}</p>
-            <p class="mt-1 max-w-2xl text-sm leading-6 text-muted">{{ item.answer }}</p>
-          </td>
-          <td class="px-5 py-4">
-            <span class="rounded-md bg-teal/10 px-2.5 py-1 text-xs font-bold text-teal">
-              {{ item.isVisible ? '顯示' : '隱藏' }}
-            </span>
-          </td>
-          <td class="px-5 py-4">
-            <button
-              type="button"
-              class="focus-ring inline-flex items-center gap-2 rounded-md bg-red-50 px-3 py-2 text-sm font-bold text-red-700 transition hover:bg-red-100"
-              @click="requestDelete(item)"
-            >
-              <Trash2 class="size-4" aria-hidden="true" />
-              刪除
-            </button>
-          </td>
+        <tr v-for="(item, index) in data.items" :key="item.id">
+          <td class="px-5 py-4"><div class="flex gap-1"><button type="button" class="focus-ring rounded-md border p-2 disabled:opacity-30" :disabled="busy || index === 0" :aria-label="`將「${item.question}」上移`" @click="move(index, -1)"><ArrowUp class="size-4" /></button><button type="button" class="focus-ring rounded-md border p-2 disabled:opacity-30" :disabled="busy || index === data.items.length - 1" :aria-label="`將「${item.question}」下移`" @click="move(index, 1)"><ArrowDown class="size-4" /></button></div></td>
+          <td class="max-w-2xl px-5 py-4"><p class="font-bold text-ink">{{ item.question }}</p><p class="mt-1 whitespace-pre-line text-sm leading-6 text-muted">{{ item.answer }}</p></td>
+          <td class="px-5 py-4"><button type="button" class="focus-ring rounded-md px-3 py-2 text-sm font-bold" :class="item.isActive ? 'bg-teal/10 text-teal' : 'bg-slate-100 text-muted'" :disabled="busy" @click="toggle(item)">{{ item.isActive ? '啟用中' : '已停用' }}</button></td>
+          <td class="px-5 py-4"><div class="flex gap-2"><button type="button" class="focus-ring rounded-md border p-2" :aria-label="`編輯 ${item.question}`" @click="edit(item)"><Pencil class="size-4" /></button><button type="button" class="focus-ring rounded-md bg-red-50 p-2 text-red-700" :aria-label="`刪除 ${item.question}`" @click="deleteTarget = item"><Trash2 class="size-4" /></button></div></td>
         </tr>
-        <tr v-if="!tableFaq.length">
-          <td colspan="4" class="px-5 py-8 text-center text-sm text-muted">目前沒有 FAQ 資料。</td>
-        </tr>
+        <tr v-if="!data.items.length"><td colspan="4" class="px-5 py-8 text-center text-muted">目前沒有 FAQ。</td></tr>
       </tbody>
-    </AdminAdminDataTable>
-
-    <AdminConfirmModal
-      :open="Boolean(deleteTarget)"
-      title="刪除 FAQ"
-      :message="`確定要刪除「${deleteTarget?.question ?? ''}」嗎？這個動作目前只會影響本頁 mock 狀態。`"
-      confirm-label="刪除"
-      cancel-label="取消"
-      :is-loading="isDeleting"
-      :error="deleteError"
-      @cancel="deleteTarget = null"
-      @confirm="confirmDelete"
-    />
+    </AdminDataTable>
+    <AdminConfirmModal :open="Boolean(deleteTarget)" title="刪除 FAQ" :message="`確定刪除「${deleteTarget?.question ?? ''}」嗎？`" confirm-label="刪除" :is-loading="busy" :error="pageError" @cancel="deleteTarget = null" @confirm="remove" />
   </div>
 </template>

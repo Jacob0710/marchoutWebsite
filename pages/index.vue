@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { ArrowRight, FileText, HandHeart, MapPin, Newspaper, Sparkles, UsersRound } from 'lucide-vue-next'
 
-const { posts, programs, settings, years } = useMockContent()
+const { programs } = useMockContent()
+const { data: postsData, error: postsError } = await usePublicPosts()
+const { data: yearsData, error: yearsError } = await usePublicYears()
+const { data: settingsData, error: settingsError } = await usePublicSettings()
+const posts = computed(() => postsData.value?.items ?? [])
+const years = computed(() => yearsData.value?.items ?? [])
+const settings = computed(() => settingsData.value?.item)
 const {
   data: activities,
   error: activitiesError,
@@ -11,7 +17,7 @@ const featuredActivities = computed(() => activities.value.filter((activity) => 
 
 useSeo({
   title: 'March Out For Love | 愛潮關懷社',
-  description: settings.slogan,
+  description: settings.value?.defaultSeoDescription || '愛潮關懷社以陪伴、服務與探索行動，連結青年與社區。',
   image: featuredActivities.value[0]?.coverImageUrl
 })
 
@@ -35,7 +41,8 @@ const stats = [
         <p class="text-sm font-semibold uppercase tracking-[0.18em] text-honey">愛潮關懷社</p>
         <h1 class="mt-4 text-5xl font-bold leading-tight sm:text-6xl lg:text-7xl">March Out For Love</h1>
         <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-100 sm:text-xl">
-          {{ settings.slogan }}我們以早餐陪伴、關懷服務與城市探索串連青年和社區，讓每一次走出去都有真實的回應。
+          <template v-if="settings">{{ settings.heroSubtitle || settings.slogan }}。{{ settings.aboutSummary }}</template>
+          <template v-else-if="settingsError">網站設定暫時無法載入，請稍後重新整理。</template>
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
           <CommonBaseButton to="/programs">了解服務計畫</CommonBaseButton>
@@ -151,15 +158,16 @@ const stats = [
     <div class="page-shell grid gap-10 lg:grid-cols-[1fr_0.8fr]">
       <div>
         <CommonSectionTitle eyebrow="Years" title="年度成果軌跡" description="從 109 到 114 學年，逐步累積可被查找的服務紀錄。" />
-        <div class="mt-8 grid gap-3 sm:grid-cols-3">
+        <CommonEmptyState v-if="yearsError" class="mt-6" title="年度成果暫時無法載入" description="請稍後重新整理。" />
+        <div v-else class="mt-8 grid gap-3 sm:grid-cols-3">
           <NuxtLink
             v-for="year in years"
-            :key="year.year"
-            :to="`/years/${year.year}`"
+            :key="year.id"
+            :to="`/years/${year.academicYear}`"
             class="focus-ring rounded-lg border border-slate-200 bg-paper p-5 transition hover:border-coral hover:bg-white"
           >
-            <p class="text-3xl font-bold text-coral">{{ year.year }}</p>
-            <p class="mt-2 text-sm font-bold text-ink">{{ year.theme }}</p>
+            <p class="text-3xl font-bold text-coral">{{ year.academicYear }}</p>
+            <p class="mt-2 text-sm font-bold text-ink">{{ year.theme || year.title }}</p>
           </NuxtLink>
         </div>
       </div>
@@ -179,13 +187,15 @@ const stats = [
         <CommonBaseButton to="/news" class="mt-8" variant="secondary">更多消息</CommonBaseButton>
       </div>
       <div class="grid gap-4">
+        <CommonEmptyState v-if="postsError" title="消息暫時無法載入" description="請稍後重新整理。" />
         <NuxtLink
           v-for="post in posts.slice(0, 3)"
           :key="post.id"
           :to="`/news/${post.slug}`"
           class="focus-ring flex gap-4 rounded-lg bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-soft"
         >
-          <img :src="post.coverImageUrl" :alt="post.title" class="size-24 rounded-md object-cover" />
+          <img v-if="post.coverUrl" :src="post.coverUrl" :alt="post.coverAlt" class="size-24 rounded-md object-cover" />
+          <div v-else class="grid size-24 shrink-0 place-items-center rounded-md bg-cloud text-xs font-bold text-muted">News</div>
           <div>
             <p class="text-xs font-semibold text-coral">{{ formatDate(post.publishedAt) }}</p>
             <h3 class="mt-2 font-bold text-ink">{{ post.title }}</h3>

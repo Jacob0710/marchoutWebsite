@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const { settings } = useMockContent()
+const { data: settingsData } = await usePublicSettings()
+const settings = computed(() => settingsData.value?.item)
 
 useSeo({
   title: '關於愛潮關懷社',
@@ -18,7 +19,7 @@ const values = [
   <CommonPageHero
     eyebrow="About"
     title="關於我們"
-    :description="settings.slogan"
+    :description="settings?.slogan || '認識愛潮關懷社的服務理念。'"
     image-url="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1800&q=80"
   />
 

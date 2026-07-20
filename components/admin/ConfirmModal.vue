@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Loader2, TriangleAlert, X } from 'lucide-vue-next'
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     open: boolean
     title: string
@@ -23,6 +23,44 @@ const emit = defineEmits<{
   cancel: []
   confirm: []
 }>()
+
+const dialog = ref<HTMLElement | null>(null)
+const cancelButton = ref<HTMLButtonElement | null>(null)
+const confirmButton = ref<HTMLButtonElement | null>(null)
+const titleId = useId()
+let returnFocus: HTMLElement | null = null
+
+watch(() => props.open, async (open) => {
+  if (open) {
+    returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    await nextTick()
+    cancelButton.value?.focus()
+  } else {
+    await nextTick()
+    returnFocus?.focus()
+    returnFocus = null
+  }
+})
+
+const handleKeydown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape' && !props.isLoading) {
+    event.preventDefault()
+    emit('cancel')
+    return
+  }
+  if (event.key !== 'Tab' || !dialog.value) return
+  const focusable = [...dialog.value.querySelectorAll<HTMLElement>('button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])')]
+  if (!focusable.length) return
+  const first = focusable[0]
+  const last = focusable[focusable.length - 1]
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault()
+    last?.focus()
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault()
+    first?.focus()
+  }
+}
 </script>
 
 <template>
@@ -37,10 +75,12 @@ const emit = defineEmits<{
     >
       <div v-if="open" class="fixed inset-0 z-50 grid place-items-center bg-ink/60 px-4 py-8" role="presentation">
         <div
+          ref="dialog"
           class="w-full max-w-md rounded-lg bg-white p-5 shadow-soft"
           role="dialog"
           aria-modal="true"
-          :aria-labelledby="`${title}-modal-title`"
+          :aria-labelledby="titleId"
+          @keydown="handleKeydown"
         >
           <div class="flex items-start justify-between gap-4">
             <div class="flex gap-3">
@@ -48,7 +88,7 @@ const emit = defineEmits<{
                 <TriangleAlert class="size-5" aria-hidden="true" />
               </span>
               <div>
-                <h2 :id="`${title}-modal-title`" class="text-lg font-bold text-ink">{{ title }}</h2>
+                <h2 :id="titleId" class="text-lg font-bold text-ink">{{ title }}</h2>
                 <p class="mt-2 text-sm leading-6 text-muted">{{ message }}</p>
               </div>
             </div>
@@ -69,6 +109,7 @@ const emit = defineEmits<{
 
           <div class="mt-6 flex justify-end gap-3">
             <button
+              ref="cancelButton"
               type="button"
               class="focus-ring rounded-md border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-ink transition hover:bg-cloud disabled:cursor-not-allowed disabled:opacity-60"
               :disabled="isLoading"
@@ -77,6 +118,7 @@ const emit = defineEmits<{
               {{ cancelLabel }}
             </button>
             <button
+              ref="confirmButton"
               type="button"
               class="focus-ring inline-flex items-center gap-2 rounded-md bg-coral px-4 py-2 text-sm font-bold text-white transition hover:bg-coralDark disabled:cursor-not-allowed disabled:opacity-60"
               :disabled="isLoading"

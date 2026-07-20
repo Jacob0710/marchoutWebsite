@@ -1,265 +1,39 @@
 <script setup lang="ts">
-import { Download, FilePlus2, Loader2, Trash2 } from 'lucide-vue-next'
-import type { FileResource } from '~/types/content'
-import { academicYears } from '~/utils/mockData'
-
+import { FilePlus2, Loader2, Trash2 } from 'lucide-vue-next'
+import type { AdminFileResource, PaginatedAdminResponse } from '~/types/coreContent'
 definePageMeta({ layout: 'admin' })
-
-const { files } = useMockContent()
-const repository = useAdminRepository()
-const tableFiles = ref<FileResource[]>([])
-const isLoading = ref(true)
+const api = useCoreContentAdmin()
+const { data, pending, error, refresh } = await useFetch<PaginatedAdminResponse<AdminFileResource>>('/api/admin/files', { default: () => ({ items: [], total: 0 }) })
+const form = reactive({ title: '', description: '', academicYear: '' as number | '', category: '', sortOrder: 0 })
+const uploadFile = ref<File | null>(null)
+const editingId = ref('')
+const busy = ref(false)
+const message = ref('')
 const pageError = ref('')
-const deleteTarget = ref<FileResource | null>(null)
-const isDeleting = ref(false)
-const deleteError = ref('')
-const selectedUpload = ref<File | null>(null)
-
-const form = reactive({
-  title: '',
-  fileUrl: '',
-  fileType: 'PDF',
-  academicYear: academicYears.at(-1) ?? 114,
-  category: '',
-  description: ''
-})
-const isSubmitting = ref(false)
-const submitError = ref('')
-const submitMessage = ref('')
-
-const { errors, validate, clearError } = useFormValidation<typeof form>({
-  title: { required: true, minLength: 2, message: 'Please enter a file title.' },
-  category: { required: true, message: 'Please enter a file category.' },
-  description: { required: true, minLength: 6, message: 'Please enter a short description.' }
-})
-
-const loadFiles = async () => {
-  isLoading.value = true
-  pageError.value = ''
+const deleteTarget = ref<AdminFileResource | null>(null)
+const reset = () => { Object.assign(form, { title: '', description: '', academicYear: '', category: '', sortOrder: 0 }); uploadFile.value = null; editingId.value = '' }
+const edit = (item: AdminFileResource) => { editingId.value = item.id; Object.assign(form, { title: item.title, description: item.description, academicYear: item.academicYear ?? '', category: item.category, sortOrder: item.sortOrder }); window.scrollTo({ top: 0, behavior: 'smooth' }) }
+const chooseUpload = (event: Event) => { uploadFile.value = (event.target as HTMLInputElement).files?.[0] ?? null }
+const submit = async () => {
+  busy.value = true; pageError.value = ''; message.value = ''
   try {
-    tableFiles.value = await repository.listFiles()
-  } catch (error) {
-    tableFiles.value = [...files]
-    pageError.value = error instanceof Error ? error.message : 'Unable to load files.'
-  } finally {
-    isLoading.value = false
-  }
-}
-
-onMounted(() => {
-  void loadFiles()
-})
-
-const exportFiles = () => {
-  if (!import.meta.client) return
-  const csv = toCsv(
-    tableFiles.value.map((file) => ({
-      title: file.title,
-      fileType: file.fileType,
-      academicYear: file.academicYear ?? '',
-      category: file.category,
-      createdAt: file.createdAt
-    })),
-    ['title', 'fileType', 'academicYear', 'category', 'createdAt']
-  )
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = 'files.csv'
-  link.click()
-  URL.revokeObjectURL(url)
-}
-
-const handleUploadChange = (event: Event) => {
-  const input = event.target as HTMLInputElement
-  selectedUpload.value = input.files?.[0] ?? null
-  if (selectedUpload.value && !form.title) {
-    form.title = selectedUpload.value.name.replace(/\.[^.]+$/, '')
-  }
-}
-
-const handleSubmit = async () => {
-  submitError.value = ''
-  submitMessage.value = ''
-  if (!validate(form)) return
-
-  isSubmitting.value = true
-  try {
-    let fileUrl = form.fileUrl
-    if (selectedUpload.value) {
-      const safeName = selectedUpload.value.name.replace(/[^a-zA-Z0-9._-]/g, '-')
-      fileUrl = await repository.uploadFile('public-files', `${Date.now()}-${safeName}`, selectedUpload.value)
+    const metadata = { title: form.title, description: form.description, academicYear: form.academicYear === '' ? null : Number(form.academicYear), category: form.category, sortOrder: form.sortOrder }
+    if (editingId.value) await api.updateFile(editingId.value, metadata)
+    else {
+      const created = await api.createFile(metadata)
+      if (uploadFile.value) { const body = new FormData(); body.append('file', uploadFile.value); await api.upload(`/api/admin/files/${created.item.id}/upload`, body) }
     }
-
-    if (!fileUrl) {
-      submitError.value = 'Please provide a file URL or choose a file to upload.'
-      return
-    }
-
-    const created = await repository.createFile({
-      title: form.title,
-      fileUrl,
-      fileType: form.fileType,
-      academicYear: form.academicYear,
-      category: form.category,
-      description: form.description
-    })
-    tableFiles.value = [created, ...tableFiles.value]
-    form.title = ''
-    form.fileUrl = ''
-    form.fileType = 'PDF'
-    form.category = ''
-    form.description = ''
-    selectedUpload.value = null
-    submitMessage.value = repository.isSupabaseConfigured
-      ? 'File saved to Supabase.'
-      : 'File saved to the local mock store.'
-  } catch (error) {
-    submitError.value = error instanceof Error ? error.message : 'Unable to save this file. Please try again.'
-  } finally {
-    isSubmitting.value = false
-  }
+    message.value = editingId.value ? '檔案資料已更新。' : '檔案草稿已建立。'; reset(); await refresh()
+  } catch (reason) { pageError.value = api.errorMessage(reason) } finally { busy.value = false }
 }
-
-const requestDelete = (file: FileResource) => {
-  deleteTarget.value = file
-  deleteError.value = ''
-}
-
-const confirmDelete = async () => {
-  if (!deleteTarget.value) return
-  isDeleting.value = true
-  deleteError.value = ''
-  try {
-    await repository.deleteFile(deleteTarget.value.id)
-    tableFiles.value = tableFiles.value.filter((file) => file.id !== deleteTarget.value?.id)
-    deleteTarget.value = null
-  } catch (error) {
-    deleteError.value = error instanceof Error ? error.message : 'Unable to delete this file. Please try again.'
-  } finally {
-    isDeleting.value = false
-  }
-}
+const replace = async (item: AdminFileResource, event: Event) => { const input = event.target as HTMLInputElement; const file = input.files?.[0]; if (!file) return; busy.value = true; try { const body = new FormData(); body.append('file', file); await api.upload(`/api/admin/files/${item.id}/replace`, body); message.value = '檔案已替換。'; await refresh() } catch (reason) { pageError.value = api.errorMessage(reason) } finally { busy.value = false; input.value = '' } }
+const toggle = async (item: AdminFileResource) => { busy.value = true; try { await api.mutate(`/api/admin/files/${item.id}/${item.status === 'draft' ? 'publish' : 'unpublish'}`); await refresh() } catch (reason) { pageError.value = api.errorMessage(reason) } finally { busy.value = false } }
+const remove = async () => { if (!deleteTarget.value) return; busy.value = true; try { await api.mutate(`/api/admin/files/${deleteTarget.value.id}`, 'DELETE'); deleteTarget.value = null; await refresh() } catch (reason) { pageError.value = api.errorMessage(reason) } finally { busy.value = false } }
 </script>
-
-<template>
-  <div class="grid gap-6">
-    <AdminAdminFormSection title="新增檔案" description="可輸入外部 URL，或在 Supabase 已設定時上傳到 Storage。">
-      <p v-if="submitError" class="mb-5 rounded-md bg-red-50 px-3 py-2 text-sm font-semibold text-red-700">
-        {{ submitError }}
-      </p>
-      <p v-if="submitMessage" class="mb-5 rounded-md bg-teal/10 px-3 py-2 text-sm font-semibold text-teal">
-        {{ submitMessage }}
-      </p>
-      <form class="grid gap-5" novalidate @submit.prevent="handleSubmit">
-        <div class="grid gap-4 md:grid-cols-2">
-          <label class="grid gap-2 text-sm font-semibold text-ink">
-            檔案標題
-            <input v-model="form.title" class="focus-ring h-11 rounded-md border px-3" :class="errors.title ? 'border-red-300' : 'border-slate-200'" @input="clearError('title')" />
-            <span v-if="errors.title" class="text-xs font-semibold text-red-600">{{ errors.title }}</span>
-          </label>
-          <label class="grid gap-2 text-sm font-semibold text-ink">
-            檔案 URL
-            <input v-model="form.fileUrl" class="focus-ring h-11 rounded-md border border-slate-200 px-3" placeholder="https://..." />
-          </label>
-          <label class="grid gap-2 text-sm font-semibold text-ink">
-            上傳檔案
-            <input type="file" class="focus-ring rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" @change="handleUploadChange" />
-          </label>
-          <label class="grid gap-2 text-sm font-semibold text-ink">
-            類型
-            <input v-model="form.fileType" class="focus-ring h-11 rounded-md border border-slate-200 px-3" placeholder="PDF" />
-          </label>
-          <label class="grid gap-2 text-sm font-semibold text-ink">
-            學年度
-            <select v-model.number="form.academicYear" class="focus-ring h-11 rounded-md border border-slate-200 px-3">
-              <option v-for="year in academicYears" :key="year" :value="year">{{ year }}</option>
-            </select>
-          </label>
-          <label class="grid gap-2 text-sm font-semibold text-ink">
-            分類
-            <input v-model="form.category" class="focus-ring h-11 rounded-md border px-3" :class="errors.category ? 'border-red-300' : 'border-slate-200'" @input="clearError('category')" />
-            <span v-if="errors.category" class="text-xs font-semibold text-red-600">{{ errors.category }}</span>
-          </label>
-        </div>
-        <label class="grid gap-2 text-sm font-semibold text-ink">
-          描述
-          <textarea v-model="form.description" class="focus-ring min-h-24 rounded-md border p-3" :class="errors.description ? 'border-red-300' : 'border-slate-200'" @input="clearError('description')" />
-          <span v-if="errors.description" class="text-xs font-semibold text-red-600">{{ errors.description }}</span>
-        </label>
-        <div class="flex justify-end">
-          <CommonBaseButton type="submit" :disabled="isSubmitting">
-            <Loader2 v-if="isSubmitting" class="size-4 animate-spin" aria-hidden="true" />
-            <FilePlus2 v-else class="size-4" aria-hidden="true" />
-            {{ isSubmitting ? '儲存中' : '新增檔案' }}
-          </CommonBaseButton>
-        </div>
-      </form>
-    </AdminAdminFormSection>
-
-    <p v-if="pageError" class="rounded-md bg-red-50 px-3 py-2 text-sm font-semibold text-red-700">
-      {{ pageError }}
-    </p>
-
-    <CommonLoadingState v-if="isLoading" />
-
-    <AdminAdminDataTable v-else title="檔案管理" description="成果報告、表單與手冊資料。">
-      <template #actions>
-        <button
-          type="button"
-          class="focus-ring inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-ink transition hover:bg-cloud"
-          @click="exportFiles"
-        >
-          <Download class="size-4" aria-hidden="true" />
-          CSV
-        </button>
-      </template>
-      <thead class="bg-cloud text-left text-xs font-bold uppercase tracking-wide text-muted">
-        <tr>
-          <th class="px-5 py-3">檔案</th>
-          <th class="px-5 py-3">年度</th>
-          <th class="px-5 py-3">分類</th>
-          <th class="px-5 py-3">類型</th>
-          <th class="px-5 py-3">操作</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-slate-200">
-        <tr v-for="file in tableFiles" :key="file.id">
-          <td class="px-5 py-4">
-            <p class="font-semibold text-ink">{{ file.title }}</p>
-            <p class="mt-1 text-xs text-muted">{{ file.description }}</p>
-          </td>
-          <td class="px-5 py-4 text-muted">{{ file.academicYear ?? '無' }}</td>
-          <td class="px-5 py-4 text-muted">{{ file.category }}</td>
-          <td class="px-5 py-4 text-muted">{{ file.fileType }}</td>
-          <td class="px-5 py-4">
-            <button
-              type="button"
-              class="focus-ring inline-flex items-center gap-2 rounded-md bg-red-50 px-3 py-2 text-sm font-bold text-red-700 transition hover:bg-red-100"
-              @click="requestDelete(file)"
-            >
-              <Trash2 class="size-4" aria-hidden="true" />
-              刪除
-            </button>
-          </td>
-        </tr>
-        <tr v-if="!tableFiles.length">
-          <td colspan="5" class="px-5 py-8 text-center text-sm text-muted">目前沒有檔案資料。</td>
-        </tr>
-      </tbody>
-    </AdminAdminDataTable>
-
-    <AdminConfirmModal
-      :open="Boolean(deleteTarget)"
-      title="刪除檔案"
-      :message="`確定要刪除「${deleteTarget?.title ?? ''}」嗎？`"
-      confirm-label="刪除"
-      cancel-label="取消"
-      :is-loading="isDeleting"
-      :error="deleteError"
-      @cancel="deleteTarget = null"
-      @confirm="confirmDelete"
-    />
-  </div>
-</template>
+<template><div class="grid gap-6">
+  <div><p class="text-sm font-bold text-coral">Files</p><h1 class="mt-1 text-3xl font-bold text-ink">檔案下載管理</h1></div>
+  <AdminFormSection :title="editingId ? '編輯檔案資料' : '新增檔案草稿'" description="允許 PDF、TXT、JPG、PNG、DOCX、XLSX、PPTX，最大 20 MB。"><form class="grid gap-4" @submit.prevent="submit"><p v-if="pageError" role="alert" class="rounded-md bg-red-50 p-3 text-sm text-red-700">{{ pageError }}</p><p v-if="message" class="rounded-md bg-teal/10 p-3 text-sm text-teal">{{ message }}</p><div class="grid gap-4 md:grid-cols-2"><label class="grid gap-2 text-sm font-semibold">標題<input v-model="form.title" required maxlength="200" class="focus-ring h-11 rounded-md border border-slate-200 px-3" /></label><label class="grid gap-2 text-sm font-semibold">分類<input v-model="form.category" maxlength="100" class="focus-ring h-11 rounded-md border border-slate-200 px-3" /></label><label class="grid gap-2 text-sm font-semibold">學年度<input v-model="form.academicYear" type="number" min="90" max="200" class="focus-ring h-11 rounded-md border border-slate-200 px-3" /></label><label class="grid gap-2 text-sm font-semibold">排序<input v-model.number="form.sortOrder" type="number" min="0" class="focus-ring h-11 rounded-md border border-slate-200 px-3" /></label></div><label class="grid gap-2 text-sm font-semibold">描述<textarea v-model="form.description" maxlength="5000" class="focus-ring min-h-24 rounded-md border border-slate-200 p-3" /></label><label v-if="!editingId" class="grid gap-2 text-sm font-semibold">檔案（可稍後上傳）<input type="file" class="focus-ring rounded-md border border-slate-200 p-2" @change="chooseUpload" /></label><div class="flex justify-end gap-2"><button v-if="editingId" type="button" class="focus-ring rounded-md border px-4 py-2 font-bold" @click="reset">取消</button><button class="focus-ring inline-flex items-center gap-2 rounded-md bg-ink px-5 py-3 font-bold text-white" :disabled="busy"><Loader2 v-if="busy" class="size-4 animate-spin" /><FilePlus2 v-else class="size-4" />{{ editingId ? '更新資料' : '建立草稿' }}</button></div></form></AdminFormSection>
+  <CommonLoadingState v-if="pending" /><CommonEmptyState v-else-if="error" title="檔案載入失敗" description="請重新整理頁面。" />
+  <AdminDataTable v-else title="檔案清單" :description="`共 ${data?.total ?? 0} 筆`"><thead class="bg-cloud text-left text-xs font-bold uppercase text-muted"><tr><th class="px-5 py-3">檔案</th><th class="px-5 py-3">狀態</th><th class="px-5 py-3">上傳</th><th class="px-5 py-3">操作</th></tr></thead><tbody class="divide-y divide-slate-200"><tr v-for="item in data?.items" :key="item.id"><td class="px-5 py-4"><p class="font-bold">{{ item.title }}</p><p class="text-xs text-muted">{{ item.originalFilename || '尚未上傳' }}</p></td><td class="px-5 py-4"><AdminStatusBadge :status="item.status" /></td><td class="px-5 py-4"><label class="focus-ring inline-flex cursor-pointer rounded-md border px-3 py-2 text-sm font-bold">{{ item.hasUpload ? '替換' : '上傳' }}<input type="file" class="sr-only" :disabled="busy" @change="replace(item, $event)" /></label></td><td class="px-5 py-4"><div class="flex flex-wrap gap-2"><button class="focus-ring rounded-md border px-3 py-2 text-sm font-bold" @click="edit(item)">編輯</button><a v-if="item.hasUpload" :href="item.downloadUrl" class="focus-ring rounded-md border px-3 py-2 text-sm font-bold">測試下載</a><button class="focus-ring rounded-md bg-teal/10 px-3 py-2 text-sm font-bold text-teal" :disabled="busy || (!item.hasUpload && item.status === 'draft')" @click="toggle(item)">{{ item.status === 'draft' ? '發布' : '撤回' }}</button><button class="focus-ring rounded-md bg-red-50 p-2 text-red-700" aria-label="刪除檔案" @click="deleteTarget = item"><Trash2 class="size-4" /></button></div></td></tr><tr v-if="!data?.items.length"><td colspan="4" class="px-5 py-8 text-center text-muted">目前沒有檔案。</td></tr></tbody></AdminDataTable>
+  <AdminConfirmModal :open="Boolean(deleteTarget)" title="刪除檔案" :message="`確定刪除「${deleteTarget?.title ?? ''}」及其私有檔案嗎？`" confirm-label="刪除" :is-loading="busy" :error="pageError" @cancel="deleteTarget = null" @confirm="remove" />
+</div></template>
