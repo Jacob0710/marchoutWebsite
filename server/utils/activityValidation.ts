@@ -82,8 +82,11 @@ export const validateActivityPayload = (value: unknown, requireTitle = false): V
 
   if (own(input, 'participantsCount')) {
     provided.add('participantsCount')
-    if (!Number.isInteger(input.participantsCount) || Number(input.participantsCount) < 0) addError(errors, 'participantsCount', '參與人數必須是大於或等於 0 的整數。')
-    else values.participantsCount = Number(input.participantsCount)
+    if (input.participantsCount === null) values.participantsCount = null
+    else {
+      if (!Number.isInteger(input.participantsCount) || Number(input.participantsCount) < 0) addError(errors, 'participantsCount', '參與人數必須是大於或等於 0 的整數。')
+      else values.participantsCount = Number(input.participantsCount)
+    }
   }
 
   if (own(input, 'isFeatured')) {

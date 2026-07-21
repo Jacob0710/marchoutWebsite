@@ -12,7 +12,21 @@
     "test:phase5": "node --env-file-if-exists=.env.phase6.local scripts/phase5-auth-smoke.mjs",
     "test:phase6": "node --env-file-if-exists=.env.phase6.local scripts/phase6-admin-crud-smoke.mjs",
     "test:phase7": "node --env-file-if-exists=.env.phase6.local scripts/phase7-admin-access-smoke.mjs",
-    "test:phase8": "node --env-file-if-exists=.env.phase6.local scripts/phase8-core-content-smoke.mjs"
+    "test:phase8": "node --env-file-if-exists=.env.phase6.local scripts/phase8-core-content-smoke.mjs",
+    "phase9:discover": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/discover-sources.mjs",
+    "phase9:inventory": "node scripts/phase9/build-real-manifests.mjs",
+    "phase9:normalize": "node scripts/phase9/build-real-manifests.mjs",
+    "phase9:dry-run": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/migrate-real.mjs --mode=dry-run",
+    "phase9:dry-run:synthetic": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/migrate-content.mjs --mode=dry-run --synthetic",
+    "phase9:apply": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/migrate-real.mjs --mode=apply",
+    "phase9:apply:synthetic": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/migrate-content.mjs --mode=apply --synthetic",
+    "phase9:resume": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/migrate-real.mjs --mode=resume",
+    "phase9:resume:synthetic": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/migrate-content.mjs --mode=resume --synthetic",
+    "phase9:verify": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/verify-real.mjs",
+    "phase9:verify:synthetic": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/verify-migration.mjs",
+    "phase9:rollback-test": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/rollback-test.mjs",
+    "phase9:cleanup-scan": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/cleanup-scan.mjs",
+    "test:phase9": "node scripts/phase9/run-full-test.mjs"
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.12.2",

@@ -4,7 +4,7 @@ import { toActivitySlug } from '~/shared/activityRules'
 export default defineEventHandler(async (event) => {
   const { supabase, user } = await requireAdmin(event)
   requireSameOrigin(event)
-  const { values } = validateActivityPayload(await readBody(event), true)
+  const { values, provided } = validateActivityPayload(await readBody(event), true)
   const title = values.title!
   const slug = values.slug || toActivitySlug(title) || `draft-${crypto.randomUUID().slice(0, 12)}`
   const payload = {
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     activity_type: values.activityType ?? 'regular',
     event_date: values.eventDate ?? null,
     location: values.location ?? null,
-    participants_count: values.participantsCount ?? 0,
+    participants_count: provided.has('participantsCount') ? values.participantsCount ?? null : 0,
     result_summary: values.resultSummary ?? null,
     content: values.content ?? null,
     status: 'draft',

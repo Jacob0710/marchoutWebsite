@@ -58,7 +58,7 @@ export interface AdminActivityInput {
   activityType?: ActivityType
   eventDate?: string | null
   location?: string | null
-  participantsCount?: number
+  participantsCount?: number | null
   resultSummary?: string | null
   content?: string | null
   isFeatured?: boolean

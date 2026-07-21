@@ -1,0 +1,48 @@
+{
+  "buckets": {
+    "activity-assets": {
+      "bytes": 117015436,
+      "missingObjects": [],
+      "objects": 360,
+      "orphans": [],
+      "references": 360
+    },
+    "activity-images": {
+      "bytes": 0,
+      "missingObjects": [],
+      "objects": 0,
+      "orphans": [],
+      "references": 0
+    },
+    "content-assets": {
+      "bytes": 0,
+      "missingObjects": [],
+      "objects": 0,
+      "orphans": [],
+      "references": 0
+    },
+    "downloads": {
+      "bytes": 3093569,
+      "missingObjects": [],
+      "objects": 18,
+      "orphans": [],
+      "references": 18
+    },
+    "public-files": {
+      "bytes": 0,
+      "missingObjects": [],
+      "objects": 0,
+      "orphans": [],
+      "references": 0
+    }
+  },
+  "scannedAt": "2026-07-21T16:48:55.905Z",
+  "status": "pass",
+  "totals": {
+    "bytes": 120109005,
+    "missingObjects": 0,
+    "objects": 378,
+    "orphans": 0,
+    "references": 378
+  }
+}

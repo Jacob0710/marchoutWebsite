@@ -1,6 +1,6 @@
 # Deployment readiness
 
-Phase 8 prepares the application for staging and production deployment but does not select or configure a paid platform, DNS, or live environment.
+Phases 8–9 prepare the application, controlled migration tooling, and reviewed private-draft Wix import for staging and production deployment, but do not select or configure a paid platform, DNS, or live environment. Editorial publication and redirect activation remain separate production approvals.
 
 ## Runtime requirements
 
@@ -34,7 +34,7 @@ Before deploying application code:
 
 1. Back up the database and inventory legacy Storage objects.
 2. Apply all migrations from `supabase/migrations` in filename order.
-3. Run Phase 5–8 SQL verification scripts.
+3. Run the Phase 5–9 SQL verification scripts, including `verify-phase9-content-migration.sql`.
 4. Confirm `activity-assets`, `content-assets`, and `downloads` are private.
 5. Confirm legacy `activity-images` and `public-files` are not public.
 6. Add the exact staging/production site and invitation callback URLs to the Supabase Auth redirect allow-list.
@@ -75,6 +75,7 @@ Required acceptance:
 
 - `pnpm typecheck` and `pnpm build` from a clean checkout;
 - Phase 5, 6, 7, and 8 smoke suites;
+- the Phase 9 dry-run/apply/resume/second-apply/verify/rollback suite against isolated staging fixtures;
 - read-only SQL verification;
 - anonymous, non-admin, inactive-admin, and active-admin identity matrix;
 - full post/file/FAQ/year/settings Browser CRUD;
@@ -86,6 +87,9 @@ Required acceptance:
 ## Production checklist
 
 - [ ] Release is based on the reviewed Phase 8 tag or a known descendant.
+- [ ] Authoritative Wix URL/export has been frozen, hashed, and archived outside Git.
+- [ ] Every Phase 9 source item has a disposition, every migration blocker is resolved, and draft publication reviews have an assigned owner.
+- [ ] Real apply, resume, second apply, reconciliation, redirect validation, and rollback rehearsal passed.
 - [ ] Database backup and Storage inventory completed.
 - [ ] Ordered migrations applied and verification passed.
 - [ ] Required buckets exist and are private.
@@ -101,7 +105,11 @@ Required acceptance:
 
 ## Rollback posture
 
-Application rollback can redeploy the prior known image/commit, but database rollback is not an automatic down migration. Before migration, take a recoverable database backup and Storage inventory. Phase 8 intentionally keeps legacy URL columns and does not delete legacy bucket objects, reducing immediate data-migration risk. If a database issue occurs, stop content mutations, preserve evidence, and restore or apply a reviewed forward fix rather than improvising destructive SQL.
+Application rollback can redeploy the prior known image/commit, but database rollback is not an automatic down migration. Before migration, take a recoverable database backup and Storage inventory. Phase 8 intentionally keeps legacy URL columns and does not delete legacy bucket objects, reducing immediate data-migration risk. Phase 9 records created targets and objects in a rollback manifest, but production rollback remains an operator-reviewed action: stop mutations, preserve evidence, reconcile unrelated changes, then restore or apply a reviewed forward fix rather than improvising destructive SQL.
+
+## Phase 9 result
+
+The official Wix site was frozen, crawled, hashed, and reconciled. The controlled run imported 46 Activities, 18 Files, 6 Year Summaries, and one Site Settings merge; all content rows remain draft because publication facts and document redaction require editorial approval. All 378 objects are referenced in private Storage, the second apply produced zero mutations, Phase 5–9 regression and production-preview Browser acceptance passed, and no migration blocker remains. The 122 manual-review rows block publication or redirect activation only.
 
 ## Deferred deployment work
 

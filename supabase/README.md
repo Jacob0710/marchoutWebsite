@@ -11,6 +11,8 @@ For a fresh Supabase project, apply these files in order:
 3. `20260715_001_phase6_activity_crud_assets.sql`
 4. `20260716_001_phase7_admin_access_governance.sql`
 5. `20260720_001_phase8_core_content_platform.sql`
+6. `20260721_001_phase9_content_migration_provenance.sql`
+7. `20260721_002_phase9_publish_timestamp_consistency.sql`
 
 Use a trusted database owner through the Supabase SQL Editor or an approved migration runner. Record project, migration filename, commit, operator, timestamp, and result in the environment's operations log. SQL Editor history is not exported into Git and cannot replace migration records.
 
@@ -36,8 +38,9 @@ After applying migrations, run the repeatable read-only verification files:
 2. `verify-admin-crud.sql`
 3. `verify-admin-access.sql`
 4. `verify-phase8-core-content.sql`
+5. `verify-phase9-content-migration.sql`
 
-`verify-phase8-core-content.sql` checks schema, constraints, indexes, functions, fixed search paths, grants, RLS, policies, private buckets, and the settings singleton. A successful run reaches the final row with `phase8_invariants_verified = true`.
+`verify-phase8-core-content.sql` checks schema, constraints, indexes, functions, fixed search paths, grants, RLS, policies, private buckets, and the settings singleton. `verify-phase9-content-migration.sql` verifies the provenance tables, RLS/grants, narrow fixed-search-path RPCs, publication-timestamp triggers, target-reference integrity, and terminal run state. Its final row contains three `true` values.
 
 Then start a production preview and run:
 
@@ -46,6 +49,7 @@ pnpm test:phase5
 pnpm test:phase6
 pnpm test:phase7
 pnpm test:phase8
+pnpm test:phase9
 ```
 
 ## Credential boundary

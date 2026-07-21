@@ -95,6 +95,8 @@ Database invariants include:
 
 Phase 8 clears `published_at` on unpublish and assigns the current timestamp on every publish. This is consistent across posts, files, and year summaries.
 
+Phase 9 moves publication timestamp assignment into a fixed-search-path database trigger for activities, posts, files, and year summaries. Public RLS compares against the database clock, so using that same clock prevents a successful publish from briefly returning `404` when the application host clock is ahead by a few milliseconds. The trigger does not add grants or bypass RLS.
+
 ## Mock and Supabase modes
 
 `getContentDataMode` selects behavior:
@@ -110,3 +112,23 @@ Supabase errors do not cause a mock fallback. Administrator APIs are unavailable
 Ordered files in `supabase/migrations` are canonical. `supabase/schema.sql` is intentionally deprecated and non-executable because the historic snapshot contained unsafe policies and public bucket assumptions. A fresh environment applies all migrations in filename order, followed by the read-only verification scripts in `supabase/README.md`.
 
 The Phase 8 migration evolves existing rows in place. It retains legacy URL columns as nullable compatibility data for a later controlled migration; formal Phase 8 APIs use only private Storage metadata. SQL Editor execution history is external state, so the repository records the exact migration and a repeatable invariant verification file.
+
+## Phase 9 migration boundary
+
+```mermaid
+flowchart LR
+  Source["Frozen Wix / legacy snapshot"] --> Inventory["Inventory + SHA-256"]
+  Inventory --> Normalize["Content, asset, redirect manifests"]
+  Normalize --> Review{"Blocking review?"}
+  Review -->|yes| Draft["Draft + manual review; no real apply"]
+  Review -->|no| API["Nitro admin APIs"]
+  API --> RLS["Active-admin JWT + RLS"]
+  API --> Private["Private Storage prefixes"]
+  API --> RPC["Narrow provenance RPCs"]
+  RPC --> Provenance["Migration run + source reference"]
+  Provenance --> Verify["Reconcile + idempotency + orphan scan"]
+```
+
+`content_migration_runs` records an immutable run key, source snapshot hash, mode, lifecycle status, and aggregate evidence. `content_source_refs` maps a source-system/kind/key tuple to one target natural key and row. Both tables have RLS enabled and no direct browser table grants. Active administrators may call only the fixed-search-path Phase 9 RPCs; formal target writes and Storage uploads continue through same-origin Nitro APIs using the signed-in user's JWT.
+
+The pipeline fails closed for publication when an authoritative field is missing. Items remain draft, retain their source/hash and decision basis, and enter `manual-review.csv`; the migrator never invents dates, years, categories, participant counts, attachments, paths, or publish state. An explicit `participantsCount: null` preserves unknown source values while ordinary administrator-created drafts retain the existing API defaults. Source snapshots and manifests contain no credentials or signed URLs. The official Wix site was frozen at snapshot `3a6a00b…ceb60`; real apply created only private drafts, and the separate synthetic path proves retry, resume, second-apply idempotency, verification, and rollback.

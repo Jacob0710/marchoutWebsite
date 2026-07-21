@@ -1,6 +1,6 @@
 # March Out For Love | 愛潮關懷社
 
-March Out For Love is a Nuxt 3 SSR website and content administration platform. Phases 4–8 provide the Supabase public frontend, secure administrator authentication, activity CRUD with private assets, administrator access governance, and the formalized posts, downloads, FAQ, year summaries, and site-settings platform.
+March Out For Love is a Nuxt 3 SSR website and content administration platform. Phases 4–8 provide the Supabase public frontend, secure administrator authentication, activity CRUD with private assets, administrator access governance, and the formalized posts, downloads, FAQ, year summaries, and site-settings platform. Phase 9 adds an auditable, resumable Wix/legacy migration pipeline and the reviewed private-draft import from the frozen official Wix site.
 
 ## Stack
 
@@ -36,6 +36,7 @@ pnpm test:phase5
 pnpm test:phase6
 pnpm test:phase7
 pnpm test:phase8
+pnpm test:phase9
 ```
 
 Each smoke suite creates isolated fixtures and removes them before exit.
@@ -78,6 +79,8 @@ Files in `supabase/migrations/` are the canonical schema. Apply them in filename
 3. `20260715_001_phase6_activity_crud_assets.sql`
 4. `20260716_001_phase7_admin_access_governance.sql`
 5. `20260720_001_phase8_core_content_platform.sql`
+6. `20260721_001_phase9_content_migration_provenance.sql`
+7. `20260721_002_phase9_publish_timestamp_consistency.sql`
 
 `supabase/schema.sql` is a deliberately non-executable legacy notice, not a bootstrap script. For a fresh project, apply all migrations and then run the verification files described in `supabase/README.md`.
 
@@ -127,15 +130,32 @@ Public content routes include `/activities`, `/news`, `/files`, `/faq`, `/years`
 
 See `docs/architecture.md` for request and data flows.
 
+## Phase 9 migration workflow
+
+Phase 9 source artifacts live in `migration/phase9/`; runtime credentials, raw downloads, extracted document text, caches, and private snapshots are ignored. The committed inventory records 526 items with an explicit disposition from the frozen official Wix site (`3a6a00bcd5a5b8030ab5da6b61cd597f2df4c0762edb46dd9f8655e003cceb60`). It imports 46 Activities, 18 Files, 6 Year Summaries, and one Site Settings merge. Content with missing facts or possible personal data remains a private draft and is listed in `manual-review.csv`.
+
+```bash
+pnpm phase9:discover
+pnpm phase9:inventory
+pnpm phase9:dry-run
+pnpm phase9:apply
+pnpm phase9:resume
+pnpm phase9:verify
+pnpm phase9:cleanup-scan
+pnpm test:phase9
+```
+
+Real target writes and uploads use active-admin Nitro APIs; narrow RPCs record migration provenance. `pnpm test:phase9` separately exercises synthetic dry-run, apply, full verification, resume, a second idempotent apply, rollback, and orphan cleanup. Neither path uses a service-role key. See `docs/phase9-migration-runbook.md`, `docs/redirect-plan.md`, and `outputs/phase-9-completion-report.md`.
+
 ## Deployment readiness
 
-This application requires a Nitro-capable SSR deployment; static-only hosting is insufficient for secure cookies, administrator APIs, and private asset proxies. Configure the public site URL and Supabase redirect allow-list for each environment, run every migration and verification query, and execute all four smoke suites against staging before production promotion.
+This application requires a Nitro-capable SSR deployment; static-only hosting is insufficient for secure cookies, administrator APIs, and private asset proxies. Configure the public site URL and Supabase redirect allow-list for each environment, run every migration and verification query, and execute the Phase 5–9 suites against staging before production promotion.
 
 The project is implementation-ready but not deployed by Phase 8. Platform selection, staging infrastructure, production DNS, security-header tuning, monitoring, backups, and CI/CD remain deployment work. See `docs/deployment-readiness.md`.
 
 ## Known limitations and next phase
 
-- Existing legacy file URL columns are preserved for a later controlled object migration; new Phase 8 writes use private Storage paths.
+- Legacy Wix file URLs were migrated to private Storage-backed content records; compatibility columns remain available for unrelated historical data.
 - Rich text is intentionally plain safe text; no Markdown editor or sanitizer pipeline is included.
 - Logo upload, arbitrary category management, revisions, scheduling, analytics, search indexing, and bulk import are out of scope.
-- Phase 9 should prioritize legacy object inventory/migration, reusable content-editor improvements, operational observability, and staging E2E preparation without weakening the current RLS and server-API boundaries.
+- Phase 10 should focus on editorial review/redaction and staged redirect activation, followed by observability, backup/restore rehearsal, CI/CD, CSP/caching, and production ownership without weakening the current RLS and server-API boundaries.
