@@ -84,14 +84,12 @@ const draftRedirect = config.entries.find((item) => item.phase9Disposition === '
 assert(draftRedirect && !draftRedirect.active, 'No inactive draft-target fixture exists')
 const draftTarget = await request(draftRedirect.targetPath)
 assert(draftTarget.status === 404, 'A deferred draft target is public')
-let draftAssetId = detail.assets?.[0]?.id
-if (!draftAssetId) {
-  for (const candidate of queueBody.items.filter((item) => item.targetKind === 'activity')) {
-    const response = await request(`/api/admin/editorial/${candidate.reviewKey}`, {}, adminJar)
-    assert(response.status === 200, 'Activity editorial detail failed')
-    draftAssetId = (await response.json()).item.assets?.[0]?.id
-    if (draftAssetId) break
-  }
+let draftAssetId
+for (const candidate of queueBody.items.filter((item) => item.targetKind === 'activity')) {
+  const response = await request(`/api/admin/editorial/${candidate.reviewKey}`, {}, adminJar)
+  assert(response.status === 200, 'Activity editorial detail failed')
+  draftAssetId = (await response.json()).item.assets?.[0]?.id
+  if (draftAssetId) break
 }
 assert(draftAssetId, 'No imported draft asset fixture was found')
 const draftAsset = await request(`/api/public/activity-assets/${draftAssetId}`)
