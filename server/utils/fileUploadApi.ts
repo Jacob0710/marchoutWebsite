@@ -11,6 +11,8 @@ export const replaceFileUpload = async (event: H3Event, supabase: SupabaseClient
   const mimeType = file.type || ''
   const filename = (file.filename || 'download').slice(0, 255)
   const extension = validateContentUpload({ kind: 'document', filename, mimeType, data: bytes })
+  const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))
+  const originalSha256 = [...digest].map(byte => byte.toString(16).padStart(2, '0')).join('')
   const path = makeDownloadPath(id, extension)
   const { error: uploadError } = await supabase.storage.from(downloadsBucket).upload(path, bytes, { contentType: mimeType, upsert: false, cacheControl: '3600' })
   if (uploadError) throw apiError(502, 'STORAGE_ERROR', 'File upload failed.')
@@ -19,6 +21,7 @@ export const replaceFileUpload = async (event: H3Event, supabase: SupabaseClient
     original_filename: filename,
     mime_type: mimeType,
     size_bytes: bytes.length,
+    original_sha256: originalSha256,
     file_type: extension.toUpperCase(),
     updated_by: userId
   }).eq('id', id).select(fileSelect).single()

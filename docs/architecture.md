@@ -60,7 +60,7 @@ sequenceDiagram
   end
 ```
 
-Public APIs select only rows admitted by public RLS policies. They never accept a caller-provided Storage path. Post/year cover and file-download endpoints first resolve an eligible published database row, create a short-lived signed URL on the server, fetch the object, and return controlled headers. Public download filenames are normalized for safe `Content-Disposition`.
+Public APIs select only rows admitted by public RLS policies. They never accept a caller-provided Storage path. Post/year cover, activity-asset, and file-download endpoints first resolve an eligible published database row, download the authorized private object inside Nitro, validate its size, MIME, magic bytes and available SHA-256 evidence, then return the bytes with controlled same-origin headers. The browser is never redirected to a signed URL. Public download filenames are normalized for safe `Content-Disposition`.
 
 No database-authored content is rendered with `v-html`. Paragraph formatting is preserved with CSS whitespace behavior, keeping output text-safe.
 
@@ -74,7 +74,7 @@ No database-authored content is rendered with `v-html`. Paragraph formatting is 
 | Year summaries | `year_summaries` | `status = 'published'` | `content-assets/years/{id}/...` |
 | Settings | `site_settings` | singleton row | none in Phase 8 |
 
-`content-assets` and `downloads` are private. Storage policies permit active administrators to manage only expected prefixes. Published-object select policies are relation-scoped so the server's anon client can create a signed URL; they are not blanket public bucket policies. The browser never receives a permanent object URL or raw storage path in a public DTO.
+`content-assets` and `downloads` are private. Storage policies permit active administrators to manage only expected prefixes. Published-object select policies are relation-scoped so Nitro's anon client can download only an eligible published object; they are not blanket public bucket policies. Public and administrator asset routes return same-origin bytes and never expose a signed URL or raw storage path in a browser DTO.
 
 Delete and replace flows remove new uploads when database persistence fails, and remove displaced objects after successful metadata replacement. Database row deletion and object cleanup are both exercised by smoke tests.
 
@@ -112,6 +112,16 @@ Supabase errors do not cause a mock fallback. Administrator APIs are unavailable
 Ordered files in `supabase/migrations` are canonical. `supabase/schema.sql` is intentionally deprecated and non-executable because the historic snapshot contained unsafe policies and public bucket assumptions. A fresh environment applies all migrations in filename order, followed by the read-only verification scripts in `supabase/README.md`.
 
 The Phase 8 migration evolves existing rows in place. It retains legacy URL columns as nullable compatibility data for a later controlled migration; formal Phase 8 APIs use only private Storage metadata. SQL Editor execution history is external state, so the repository records the exact migration and a repeatable invariant verification file.
+
+## Phase 10 editorial and release boundary
+
+Phase 10 maps exactly the 70 imported drafts into private `editorial_targets`; the unrelated Activity draft has no editorial target. The 122 reviews, 83 redirect records, derivative registrations, release checkpoints/batches/items, and append-only audit records have RLS enabled, no direct anon/authenticated table policies, and no direct table grants. Active administrators reach them only through same-origin Nitro endpoints and narrow fixed-search-path RPCs.
+
+Publication requires the current target version plus resolved, item-specific content, privacy, and authorization evidence. Sensitive originals remain private and immutable; a separately hashed derivative may become the public object only after structural checks and human review. Public asset/file metadata is exposed by narrow publication-aware RPCs rather than direct table selects. The application has an exact migration-only fallback for the short code-before-schema maintenance interval; after migration revokes direct metadata grants, a missing RPC fails closed.
+
+Release manifests identify every target, review, version, and redirect. Apply is chunked, rotates a checkpoint token, supports resume and idempotent replay, and stores pre/post state for a version-safe rollback. Redirect activation is later and independent: every entry requires a reviewed target version and exact canonical-origin direct `200` evidence; draft-target mappings additionally require a resolved redirect review. The runtime imports only the tracked deterministic redirect config and ignores inactive entries.
+
+Managed target versions include publication-relevant child state (Activity assets/videos and a Year Summary's linked report file), so child edits invalidate stale approvals. Database triggers prevent direct publication/deletion and protect Phase 9 original metadata. A batch item is revalidated at execution time; an item failure records a durable failed checkpoint, stops later items, and can be rolled back without affecting unrelated content. Public and administrator proxy handlers produce their own safe error bodies so even draft `404` responses retain private/no-store and same-origin CORP headers.
 
 ## Phase 9 migration boundary
 

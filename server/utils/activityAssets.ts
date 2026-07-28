@@ -1,7 +1,6 @@
 import type { ActivityAssetKind } from '~/types/adminActivity'
 
 export const activityAssetsBucket = 'activity-assets'
-export const signedAssetUrlLifetimeSeconds = 60
 
 const definitions = {
   image: {

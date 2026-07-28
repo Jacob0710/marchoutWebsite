@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-07-22T06:10:47.851Z",
+  "status": "PARTIALLY_READY",
+  "baseline": {
+    "branch": "main",
+    "head": "0784b22893ba2cf8cc2505536c079a6e2d7dd217",
+    "originMain": "0784b22893ba2cf8cc2505536c079a6e2d7dd217",
+    "phase9TagTarget": "0784b22893ba2cf8cc2505536c079a6e2d7dd217",
+    "cleanBeforePhase10": true
+  },
+  "remoteMutations": {
+    "database": 0,
+    "storage": 0,
+    "redirectDeployment": 0,
+    "applicationDeployment": 0
+  },
+  "importedTargets": {
+    "total": 70,
+    "activities": 46,
+    "files": 18,
+    "yearSummaries": 6,
+    "published": 0,
+    "keepDraft": 70,
+    "archive": 0,
+    "preExistingActivityDraftExcluded": 1
+  },
+  "reviews": {
+    "total": 122,
+    "content": 70,
+    "redirect": 52,
+    "resolved": 0,
+    "deferred": 122,
+    "highSeverityRemaining": 40
+  },
+  "redirects": {
+    "total": 83,
+    "active": 0,
+    "keepInactive": 81,
+    "structuralActive": 0,
+    "structuralKeepInactive": 29,
+    "draftTargetActive": 0,
+    "draftTargetKeepInactive": 52,
+    "utilityArchive": 2,
+    "unauthorized410": 0,
+    "localInactiveHttpVerification": "pass",
+    "productionHttpVerification": "blocked"
+  },
+  "contentCounts": {
+    "activities": {
+      "total": 50,
+      "published": 3,
+      "draft": 47,
+      "importedDraft": 46,
+      "unrelatedDraft": 1
+    },
+    "files": {
+      "total": 18,
+      "published": 0,
+      "draft": 18
+    },
+    "yearSummaries": {
+      "total": 6,
+      "published": 0,
+      "draft": 6
+    },
+    "posts": {
+      "total": 0,
+      "published": 0,
+      "draft": 0
+    },
+    "faq": {
+      "total": 0
+    }
+  },
+  "storage": {
+    "originalObjects": 378,
+    "derivativeObjects": 0,
+    "references": 378,
+    "bytes": 120109005,
+    "orphans": 0,
+    "missing": 0,
+    "inventorySha256": "d71fc3afb7fd4c05b4193189c6c6fbea8c66b8200bc58b2a795b2a6ad1190a45",
+    "rawObjectsPersisted": false
+  },
+  "trackedHashes": {
+    "contentManifestCanonicalSha256": "3725d4ed6507970f91bd82d828a92500d553b39a296499f5086ec85df5f1f2b7",
+    "manualReviewCanonicalSha256": "d7976e5f7e4bbec477830d992e21e0bf923089e0294183b9d6dd07ca3fa7fa8f",
+    "redirectManifestCanonicalSha256": "585799405ad8cacfb61c1a6d7b838237826089426533487dd836a9859da0c057",
+    "redirectConfigSha256": "c7b21926c85bd01527eef373051aa5e5e5ed552c709f27bcf9b4788a1cf52f81",
+    "bootstrapManifestSha256": "c3b1d5ab6fe4cea0fc7a34edc0fb7c26d9fb0251b7f4ec2412400d999a5f5642"
+  },
+  "blockingCapabilities": [
+    "recoverable database checkpoint and isolated restore credentials/tools",
+    "staging and production hostnames plus deployment credentials",
+    "DNS/TLS and Wix hostname control evidence",
+    "monitoring/alert destination and accountable owner",
+    "human item-level content, privacy, redaction, and authorization decisions"
+  ],
+  "completionCommit": null,
+  "completionTag": null
+}

@@ -9,6 +9,7 @@ const mobileMenuOpen = ref(false)
 
 const mobileItems = [
   { label: '後台首頁', to: '/admin/dashboard' },
+  { label: 'Editorial 審核', to: '/admin/editorial' },
   { label: '活動管理', to: '/admin/activities' },
   { label: '最新消息', to: '/admin/posts' },
   { label: '檔案下載', to: '/admin/files' },

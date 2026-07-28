@@ -81,6 +81,8 @@ Files in `supabase/migrations/` are the canonical schema. Apply them in filename
 5. `20260720_001_phase8_core_content_platform.sql`
 6. `20260721_001_phase9_content_migration_provenance.sql`
 7. `20260721_002_phase9_publish_timestamp_consistency.sql`
+8. `20260722_001_phase10_editorial_review_queue.sql`
+9. `20260722_002_phase10_release_batches.sql`
 
 `supabase/schema.sql` is a deliberately non-executable legacy notice, not a bootstrap script. For a fresh project, apply all migrations and then run the verification files described in `supabase/README.md`.
 
@@ -147,15 +149,31 @@ pnpm test:phase9
 
 Real target writes and uploads use active-admin Nitro APIs; narrow RPCs record migration provenance. `pnpm test:phase9` separately exercises synthetic dry-run, apply, full verification, resume, a second idempotent apply, rollback, and orphan cleanup. Neither path uses a service-role key. See `docs/phase9-migration-runbook.md`, `docs/redirect-plan.md`, and `outputs/phase-9-completion-report.md`.
 
+## Phase 10 editorial release workflow
+
+The 70 Wix imports are managed separately from the pre-existing Activity draft. The committed conservative decision set keeps all 70 private drafts, activates no redirect, and archives only the two mandated Wix utility routes because no item-specific publication, privacy, authorization, final-host, or one-hop `200` evidence is available.
+
+```bash
+pnpm phase10:decisions
+pnpm phase10:static
+pnpm phase10:privacy
+pnpm phase10:redirect:verify
+pnpm test:phase10
+```
+
+Remote bootstrap, decisions, publication, derivatives, and redirect activation are blocked until a database/Storage checkpoint and isolated restore rehearsal are recorded. See `docs/phase10-backup-restore-runbook.md`, `docs/phase10-editorial-release-runbook.md`, `docs/phase10-environments-deployment-runbook.md`, `docs/phase10-incident-monitoring-runbook.md`, and `docs/phase10-rollback-runbook.md`.
+
+The current evidence-backed status is `PARTIALLY READY`, not complete. Exact counts, passed checks, failed commands, external blockers, and minimum operator actions are recorded in `outputs/phase-10-execution-status.md`; no Phase 10 completion tag is valid while those gates remain open.
+
 ## Deployment readiness
 
 This application requires a Nitro-capable SSR deployment; static-only hosting is insufficient for secure cookies, administrator APIs, and private asset proxies. Configure the public site URL and Supabase redirect allow-list for each environment, run every migration and verification query, and execute the Phase 5–9 suites against staging before production promotion.
 
-The project is implementation-ready but not deployed by Phase 8. Platform selection, staging infrastructure, production DNS, security-header tuning, monitoring, backups, and CI/CD remain deployment work. See `docs/deployment-readiness.md`.
+Phase 10 includes implementation and runbooks for these gates, but does not invent deployment authority. Final staging/production hostnames, platform credentials, database restore authority, DNS/TLS, Wix control, monitoring ownership, and production HTTP/Browser evidence remain external requirements. See `docs/deployment-readiness.md`.
 
 ## Known limitations and next phase
 
 - Legacy Wix file URLs were migrated to private Storage-backed content records; compatibility columns remain available for unrelated historical data.
 - Rich text is intentionally plain safe text; no Markdown editor or sanitizer pipeline is included.
 - Logo upload, arbitrary category management, revisions, scheduling, analytics, search indexing, and bulk import are out of scope.
-- Phase 10 should focus on editorial review/redaction and staged redirect activation, followed by observability, backup/restore rehearsal, CI/CD, CSP/caching, and production ownership without weakening the current RLS and server-API boundaries.
+- Phase 10 completion remains blocked until the real backup restore, staging/production deployment, DNS/TLS/Wix routing, monitoring ownership, and complete HTTP/Browser/regression evidence exist. No completion tag is valid before those gates pass.

@@ -10,6 +10,14 @@ export default defineEventHandler(async (event) => {
     throwContentDatabaseError(reportError)
     if (!report || report.status !== 'published') throw apiError(400, 'VALIDATION_ERROR', 'The linked report file must be published first.')
   }
+  const { data: managed, error: gateError } = await supabase.rpc('phase10_publish_managed_target', {
+    p_target_kind: 'year-summary', p_target_id: id, p_correlation_id: crypto.randomUUID()
+  })
+  if (!isPhase10RpcUnavailable(gateError)) throwEditorialRpcError(gateError)
+  if (managed === true) {
+    const refreshed = await requireExistingRow(supabase.from('year_summaries').select(yearSelect).eq('id', id).maybeSingle()) as unknown as YearRow
+    return { item: mapAdminYear(refreshed) }
+  }
   const { data, error } = await supabase.from('year_summaries').update({ status: 'published', published_at: new Date().toISOString(), updated_by: user.id }).eq('id', id).select(yearSelect).single()
   throwContentDatabaseError(error)
   return { item: mapAdminYear(data as unknown as YearRow) }

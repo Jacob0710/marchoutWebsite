@@ -2,11 +2,13 @@ import { defineEventHandler, getRequestURL, send, sendRedirect, setResponseStatu
 
 const adminStaticRoutes = new Set([
   '/admin', '/admin/dashboard', '/admin/access',
+  '/admin/editorial',
   '/admin/activities', '/admin/activities/new', '/admin/activities/create',
   '/admin/posts', '/admin/posts/create', '/admin/files', '/admin/faq',
   '/admin/years', '/admin/settings', '/admin/categories'
 ])
 const adminEditRoute = /^\/admin\/(?:activities\/(?:edit\/)?[0-9a-f-]+(?:\/edit)?|posts\/edit\/[0-9a-f-]+)$/i
+const adminEditorialRoute = /^\/admin\/editorial\/P9-[0-9]{4}$/
 
 export default defineEventHandler(async (event) => {
   const requestUrl = getRequestURL(event)
@@ -38,7 +40,7 @@ export default defineEventHandler(async (event) => {
     return send(event, responseStatus === 403 ? 'Forbidden.' : 'Service temporarily unavailable.', 'text/plain')
   }
 
-  if (!adminStaticRoutes.has(path) && !adminEditRoute.test(path)) {
+  if (!adminStaticRoutes.has(path) && !adminEditRoute.test(path) && !adminEditorialRoute.test(path)) {
     setResponseStatus(event, 404)
     return send(event, 'Page not found.', 'text/plain')
   }

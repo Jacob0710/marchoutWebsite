@@ -2,11 +2,13 @@ import { FetchError } from 'ofetch'
 
 const adminStaticRoutes = new Set([
   '/admin', '/admin/dashboard', '/admin/access',
+  '/admin/editorial',
   '/admin/activities', '/admin/activities/new', '/admin/activities/create',
   '/admin/posts', '/admin/posts/create', '/admin/files', '/admin/faq',
   '/admin/years', '/admin/settings', '/admin/categories'
 ])
 const adminEditRoute = /^\/admin\/(?:activities\/(?:edit\/)?[0-9a-f-]+(?:\/edit)?|posts\/edit\/[0-9a-f-]+)$/i
+const adminEditorialRoute = /^\/admin\/editorial\/P9-[0-9]{4}$/
 
 export default defineNuxtRouteMiddleware(async (to) => {
   if (import.meta.server || (to.path !== '/admin' && !to.path.startsWith('/admin/'))) return
@@ -29,7 +31,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
     return navigateTo('/admin')
   }
 
-  if (!adminStaticRoutes.has(to.path) && !adminEditRoute.test(to.path)) {
+  if (!adminStaticRoutes.has(to.path) && !adminEditRoute.test(to.path) && !adminEditorialRoute.test(to.path)) {
     return abortNavigation(createError({ statusCode: 404, statusMessage: 'Page not found.' }))
   }
 })

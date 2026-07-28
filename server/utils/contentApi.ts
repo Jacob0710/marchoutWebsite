@@ -90,6 +90,7 @@ export const postSelect = 'id,title,slug,excerpt,content,cover_storage_path,cove
 export const fileSelect = 'id,title,description,academic_year,category,storage_path,original_filename,mime_type,size_bytes,status,published_at,sort_order,created_at,updated_at'
 export const faqSelect = 'id,question,answer,sort_order,is_visible,created_at,updated_at'
 export const yearSelect = `id,academic_year,title,theme,summary,highlights,statistics,cover_storage_path,cover_alt,report_file_id,status,published_at,sort_order,created_at,updated_at,report_file:files!year_summaries_report_file_id_fkey(${fileSelect})`
+export const publicYearSelect = 'id,academic_year,title,theme,summary,highlights,statistics,cover_storage_path,cover_alt,report_file_id,status,published_at,sort_order,created_at,updated_at'
 export const settingsSelect = 'id,site_name,club_name_zh,club_name_en,slogan,hero_title,hero_subtitle,about_summary,logo_storage_path,facebook_url,instagram_url,youtube_url,contact_text,email,phone,map_locations,default_seo_title,default_seo_description,footer_text,updated_at'
 
 const text = (value: string | null | undefined) => value ?? ''

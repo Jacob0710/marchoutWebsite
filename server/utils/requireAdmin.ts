@@ -17,6 +17,7 @@ export const requireAdmin = async (event: H3Event): Promise<AdminContext> => {
   const { data: userData, error: userError } = await supabase.auth.getUser()
 
   if (userError || !userData.user) {
+    setOperationalAuthClass(event, 'anon')
     throw createError({ statusCode: 401, statusMessage: 'Authentication required.' })
   }
 
@@ -26,8 +27,10 @@ export const requireAdmin = async (event: H3Event): Promise<AdminContext> => {
   }
 
   if (isAdmin !== true) {
+    setOperationalAuthClass(event, 'non-admin')
     throw createError({ statusCode: 403, statusMessage: 'Administrator access required.' })
   }
 
+  setOperationalAuthClass(event, 'admin')
   return { supabase, user: userData.user }
 }

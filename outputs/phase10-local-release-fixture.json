@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "executedAt": "2026-07-22",
+  "status": "pass",
+  "scope": "isolated-in-memory-postgresql",
+  "engine": "@electric-sql/pglite@0.3.14",
+  "remoteDatabaseMutations": 0,
+  "remoteStorageMutations": 0,
+  "migrationCompilation": {
+    "status": "pass",
+    "migrations": [
+      "20260722_001_phase10_editorial_review_queue.sql",
+      "20260722_002_phase10_release_batches.sql"
+    ],
+    "phase10FunctionsCompiled": 29
+  },
+  "releaseDryRun": {
+    "status": "validated",
+    "eligible": 2,
+    "blocked": 0,
+    "stale": 0,
+    "databaseMutations": 0,
+    "storageMutations": 0
+  },
+  "partialFailure": {
+    "batchStatus": "failed",
+    "processed": 1,
+    "failedPosition": 2,
+    "errorCode": "TARGET_VERSION_CONFLICT",
+    "laterItemsAttempted": 0
+  },
+  "rollback": {
+    "status": "rolled-back",
+    "rolledBackItems": 1,
+    "cancelledItems": 1,
+    "idempotentReplay": true
+  },
+  "guardAssertions": {
+    "directManagedStatusTransitionBlocked": true,
+    "managedTargetDeleteBlocked": true,
+    "publishedTargetEditBlocked": true
+  },
+  "auditCounts": {
+    "release_planned": 1,
+    "release_applied": 1,
+    "release_rolled_back": 1,
+    "target_published": 2,
+    "target_unpublished": 2
+  },
+  "limitations": [
+    "This evidence compiles and exercises the migrations in isolated PostgreSQL-compatible memory only.",
+    "It does not replace the required restored staging database, Supabase RLS/Storage identity matrix, or production rollback rehearsal."
+  ]
+}

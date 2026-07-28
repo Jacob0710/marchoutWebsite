@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-07-22T02:46:50.724Z",
+  "status": "pass-with-external-capability-blockers",
+  "repository": {
+    "branch": "main",
+    "head": "0784b22893ba2cf8cc2505536c079a6e2d7dd217",
+    "originMain": "0784b22893ba2cf8cc2505536c079a6e2d7dd217",
+    "localTagObject": "aca93fa2bca7eb09d0c1a3fdd5b3687afbe20e1b",
+    "localTagTarget": "0784b22893ba2cf8cc2505536c079a6e2d7dd217",
+    "remoteTagObject": "aca93fa2bca7eb09d0c1a3fdd5b3687afbe20e1b",
+    "remoteTagTarget": "0784b22893ba2cf8cc2505536c079a6e2d7dd217",
+    "cleanBeforePhase10": true,
+    "agentsInstructionsFound": false
+  },
+  "phase9Evidence": {
+    "snapshotSha256": "3a6a00bcd5a5b8030ab5da6b61cd597f2df4c0762edb46dd9f8655e003cceb60",
+    "manifestFiles": {
+      "sourceSnapshot": "1f55e6cce9f60e67f95de58c4d8feadd5dc1282bf3ac20035a28faca84596c21",
+      "sourceInventory": "4293957be80b6385134e53df348675dcf894b94a7a12c391a77f9971301686fb",
+      "contentManifest": "2a9f1399b7a6646b735f81fdde087b59c787a61e22d376cdb1345ef366029abd",
+      "assetsManifest": "0f5f682ff9652d3d060bbbd573b2371001c6dd797bfb135c0f2a5c0a0c4586fc",
+      "manualReview": "37b7d808254db2de9a166a778644618d18c7dae47be43e4337bfa3559809fc28",
+      "redirects": "ca0d0c93a5d105fd49b7b6cc2fa4e9031fe72f9d634a26c305197790d11e3a7c"
+    },
+    "inventory": 526,
+    "importedTargets": {
+      "total": 70,
+      "activities": 46,
+      "files": 18,
+      "yearSummaries": 6,
+      "preExistingActivityDraftExcluded": 1
+    },
+    "reviews": {
+      "total": 122,
+      "content": 70,
+      "redirect": 52,
+      "high": 40,
+      "medium": 30,
+      "low": 52
+    },
+    "redirects": {
+      "total": 83,
+      "structuralCandidates": 29,
+      "draftTargetInactive": 52,
+      "utilityArchive": 2
+    },
+    "database": {
+      "activities": 50,
+      "activityPublished": 3,
+      "activityDraft": 47,
+      "importedActivityDraft": 46,
+      "files": 18,
+      "fileDraft": 18,
+      "yearSummaries": 6,
+      "yearDraft": 6,
+      "activeAdmins": 1,
+      "inactiveAdmins": 1,
+      "provenanceMissing": 0,
+      "provenanceHashMismatch": 0
+    },
+    "storage": {
+      "objects": 378,
+      "references": 378,
+      "bytes": 120109005,
+      "orphans": 0,
+      "missing": 0,
+      "activityAssets": 360,
+      "downloads": 18,
+      "contentAssets": 0,
+      "activityImages": 0,
+      "publicFiles": 0
+      ,
+      "fullObjectHashInventory": {
+        "status": "pass",
+        "inventorySha256": "d71fc3afb7fd4c05b4193189c6c6fbea8c66b8200bc58b2a795b2a6ad1190a45",
+        "missingHashSizeBucketTuples": 0,
+        "unexpectedHashSizeBucketTuples": 0,
+        "rawObjectsPersisted": false,
+        "firstAttempt": "timed-out-after-604-seconds-without-complete-evidence",
+        "retry": "completed-with-concurrency-capped-at-4"
+      }
+    },
+    "security": {
+      "anonymousDraftRows": 0,
+      "anonymousStorageObjects": 0,
+      "directAdminGovernanceTableAccessDenied": true,
+      "directMigrationProvenanceTableAccessDenied": true,
+      "privateStorageBoundaryObserved": true
+    }
+  },
+  "externalCapabilities": {
+    "databaseDumpOrPitrCredential": false,
+    "productionHostname": false,
+    "stagingHostname": false,
+    "deploymentCredential": false,
+    "wixHostnameControlEvidence": false,
+    "monitoringProvisioningCredential": false
+  },
+  "mutationAllowed": false,
+  "reason": "No database/Storage restore checkpoint can be proven with the available credentials; remote mutations remain fail-closed."
+}

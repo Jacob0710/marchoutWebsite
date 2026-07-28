@@ -4,6 +4,7 @@ export default defineEventHandler(async (event) => {
   const { supabase } = await requireAdmin(event)
   requireSameOrigin(event)
   const id = requireUuid(getRouterParam(event, 'id'), 'Activity')
+  await requirePhase10TargetDeleteAllowed(supabase, 'activity', id)
   const { data: assets, error: assetError } = await supabase
     .from('activity_assets')
     .select('storage_path')
@@ -23,7 +24,7 @@ export default defineEventHandler(async (event) => {
   if (paths.length) {
     const { error: cleanupError } = await supabase.storage.from(activityAssetsBucket).remove(paths)
     if (cleanupError) {
-      console.error('Phase 6 activity Storage cleanup requires retry.', { activityId: id, paths })
+      console.error('Phase 6 activity Storage cleanup requires retry.', { activityId: id, objectCount: paths.length })
       throw apiError(502, 'STORAGE_ERROR', 'Activity was deleted, but one or more stored files require cleanup.')
     }
   }
