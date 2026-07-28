@@ -1,9 +1,9 @@
 # Phase 10 execution status
 
 Date: 2026-07-29 (Asia/Taipei)
-Status: **PARTIALLY READY — Vercel production is healthy; legacy Wix 301 activation is blocked by the Wix custom-domain requirement**
+Status: **READY FOR COMPLETION — greenfield scope confirmed; final merge and tag in progress**
 
-This report records the verified Phase 10 release state. The application, production database migration, conservative editorial reconciliation, backup/restore rehearsal, Vercel SSR deployment, and production validation are complete. The Phase 10 completion tag is intentionally absent because the legacy Wix hostname cannot serve the required redirects while the Wix site remains on its free `wixsite.com` address.
+This report records the verified Phase 10 release state. The application, production database migration, conservative editorial reconciliation, backup/restore rehearsal, Vercel SSR deployment, and production validation are complete. On 2026-07-29 the project owner confirmed that this is a greenfield website: Wix is a historical content source only, and no Wix hostname, DNS cutover, or legacy redirect is required.
 
 ## 1. Release identity
 
@@ -43,7 +43,7 @@ The production synthetic suite passed `/api/health`, `/api/health/ready`, `/`, `
 
 - All 70 imported targets have explicit deferred/keep-draft decisions.
 - All 52 draft-target redirect reviews have explicit deferred/keep-inactive decisions.
-- All 29 structural redirects remain fail-closed until the legacy hostname can perform them.
+- All 29 structural redirects remain intentionally inactive as historical mappings under the greenfield scope.
 - Forty high-severity reviews remain explicitly deferred.
 - The unrelated pre-existing Activity draft was not included in the 70-target Phase 9 editorial set.
 
@@ -83,33 +83,25 @@ The production synthetic suite passed `/api/health`, `/api/health/ready`, `/`, `
 - Monitoring owner: `Jacob0710`.
 - Backup/restore, editorial release, deployment, incident monitoring, and rollback runbooks are present.
 
-## 7. Blocking legacy-host evidence
+## 7. Greenfield scope decision and Wix cleanup
 
 - Authoritative legacy site: `https://a0903080125.wixsite.com/website`
 - Wix site ID: `06e8ea3e-f44b-4c0a-b8e9-a8cd44088952`
-- Wix ownership was confirmed through the signed-in dashboard.
-- Wix Redirect Manager displayed the explicit warning: `您的網站必須連線至自訂網域，否則您的 301 重新導向將無法作用。`
-- The earlier temporary `/home` validation redirect was deleted.
-- On 2026-07-29, Wix Redirect Manager contained one user-created rule: `/website` to `https://marchout-website-2tjtdkbfq-jacob0710s-projects.vercel.app`.
-- The Wix custom-domain warning remained after a full page reload. The “Connect domain” action opened the domain purchase/connection flow, confirming that no custom domain is currently attached.
-- Live HTTP evidence did not show a working migration redirect:
-  - `https://a0903080125.wixsite.com/website` returned HTTP 200 from Wix.
-  - `/website/home` and `/website/about` returned HTTP 200 from Wix.
-  - `/website/website`, the effective site-relative path for the configured `/website` rule, returned HTTP 404.
-  - The configured Vercel preview target returned HTTP 302 to Vercel authentication, while the production target `https://marchout-website.vercel.app` returned HTTP 200.
-- The 29-row structural redirect CSV is prepared as ignored private runtime evidence, but importing it now would create configurations that Wix states cannot work.
-
-The Phase 10 Definition of Done requires each structural legacy URL to return a real HTTP 301, then reach the canonical production URL in one hop with a final HTTP 200. The free Wix hostname cannot satisfy this gate. Connecting a custom domain to Wix, and retaining control of that domain long enough to serve the redirects, is the remaining operator prerequisite and may require a paid Wix plan/domain.
+- The project owner explicitly confirmed that the Vercel application is a new standalone website and does not require Wix redirection.
+- Wix remains a provenance source only; no DNS, domain, hosting, or runtime dependency connects it to the new site.
+- The one `/website` redirect that had been added during operator exploration was deleted on 2026-07-29.
+- Wix Redirect Manager was verified at zero redirects after deletion.
+- The 29 structural candidates and 52 draft-target mappings remain inactive in the application manifest for historical reconciliation only.
+- Static redirect verification passed with 83 records, 0 active, 0 duplicate, 0 unauthorized `410`, and no public draft disclosure.
 
 ## 8. Release decision
 
 - Vercel production: **READY**
 - Application, database, security, backup/restore, and monitoring implementation: **READY**
-- Legacy-host redirect activation and live one-hop HTTP verification: **BLOCKED**
-- Overall Phase 10: **PARTIALLY READY**
-- Pull request: remains draft
-- Merge to `main`: not performed
-- Completion tag `phase-10-editorial-release-operations-complete`: not created
-- Canva architecture diagram: intentionally deferred until the Phase 10 blocking redirect gate is resolved
+- Wix redirect activation: **NOT IN SCOPE — greenfield site decision**
+- Redirect reconciliation: **READY — 83 explicit fail-closed decisions**
+- Overall Phase 10 implementation: **READY FOR COMPLETION**
+- Pull request, `main` merge, completion tag, and final hash reconciliation: in progress
+- Canva architecture diagram: follows the successful final release checks
 
-To complete Phase 10, connect an owned custom domain to the Wix site, confirm that Wix Redirect Manager no longer shows the custom-domain warning, import the 29 structural mappings, and verify all legacy URLs as `301 -> one hop -> 200`. Only after those checks pass should the pull request be finalized, merged, tagged, and followed by the Canva website architecture diagram.
+The final release operation is to rerun the quality and production checks, merge the reviewed pull request, record the final `main` and tag hashes, and create the Canva website architecture diagram.

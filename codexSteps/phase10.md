@@ -8,6 +8,20 @@
 
 ---
 
+## 2026-07-29 綠地新站範圍修訂
+
+專案擁有者已明確確認本專案是全新的獨立網站，不取代、不接管、也不需要重新導向既有 Wix 網站。此決策是 Phase 10 的權威範圍修訂，並覆蓋本文件中所有把 Wix hostname、Wix DNS、自訂網域或舊站 301 activation 視為完成阻塞條件的敘述。
+
+- Wix 僅保留為 Phase 9 內容來源與 provenance evidence。
+- 不連接 Wix 自訂網域，不在 Wix 建立 redirect，不要求舊 Wix hostname 導向 Vercel。
+- 29 個 structural redirect candidates 與 52 個 draft-target mappings 保留在資料庫與 manifest 中作為歷史對帳資料，狀態維持 inactive。
+- 2 個 Wix utility routes 維持 archive。
+- Redirect 的 Phase 10 驗收標準改為：83 筆均有明確、可稽核且 fail-closed 的決策；0 筆意外 active；0 duplicate、loop、chain、未授權 `410` 或 draft disclosure。
+- Vercel 正式站的 TLS、SSR、health、security/cache、SEO、monitoring、backup/restore 與正式環境驗證仍是必要 Definition of Done。
+- 因 Wix redirect 不在產品範圍內，缺少 Wix hostname ownership 或 Wix 301 HTTP 證據不得再阻止 completion tag。
+
+---
+
 ## 0. Codex 執行指令
 
 你現在負責 March Out For Love 網站 Phase 10。請先完整閱讀本文件、儲存庫內的 `AGENTS.md`、既有 `codexSteps/phase3.md` 至 `phase9.md`（若存在）、Phase 7–9 完成報告、架構文件、部署準備文件、migration、verification SQL、smoke scripts 與 `package.json`，再開始修改。
