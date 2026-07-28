@@ -1,9 +1,9 @@
 # Phase 10 execution status
 
 Date: 2026-07-29 (Asia/Taipei)
-Status: **READY FOR COMPLETION — greenfield scope confirmed; final merge and tag in progress**
+Status: **COMPLETE**
 
-This report records the verified Phase 10 release state. The application, production database migration, conservative editorial reconciliation, backup/restore rehearsal, Vercel SSR deployment, and production validation are complete. On 2026-07-29 the project owner confirmed that this is a greenfield website: Wix is a historical content source only, and no Wix hostname, DNS cutover, or legacy redirect is required.
+This report records the completed Phase 10 release state. The application, production database migration, conservative editorial reconciliation, backup/restore rehearsal, Vercel SSR deployment, production validation, GitHub merge, and release reconciliation are complete. On 2026-07-29 the project owner confirmed that this is a greenfield website: Wix is a historical content source only, and no Wix hostname, DNS cutover, or legacy redirect is required.
 
 ## 1. Release identity
 
@@ -11,8 +11,10 @@ This report records the verified Phase 10 release state. The application, produc
 - Phase 9 baseline: `0784b22893ba2cf8cc2505536c079a6e2d7dd217`
 - Baseline tag: `phase-9-wix-content-migration-complete`
 - Release-candidate commit deployed to production: `8404531122867ea26d1f759e2f3e52285a69b55e`
+- Phase 10 squash merge commit: `37b84ac3dfab708c1a8a41b93bfb91ea66e9332a`
 - Release branch: `codex/phase10-release`
-- Draft pull request: `https://github.com/Jacob0710/marchoutWebsite/pull/1`
+- Merged pull request: `https://github.com/Jacob0710/marchoutWebsite/pull/1`
+- Completion tag: `phase-10-editorial-release-operations-complete`
 - Phase specification: `codexSteps/phase10.md`
 - Phase document convention: lowercase `phase<number>.md` files directly under `codexSteps/`
 
@@ -21,7 +23,8 @@ This report records the verified Phase 10 release state. The application, produc
 - Hosting: Vercel Hobby (free), Nuxt/Nitro SSR
 - Project: `marchout-website`
 - Production URL: `https://marchout-website.vercel.app`
-- Production deployment ID: `Atb8SggaF1oh6moiyDcvEdcyfnX3`
+- Initial validated production deployment ID: `Atb8SggaF1oh6moiyDcvEdcyfnX3`
+- Post-merge Vercel deployment check ID: `3rBpXZ5d1EZHsyDkQf6wduSKg53r`
 - Production state: Ready
 - Preview deployment ID: `BZySwTweBi64PscumEFRbJWqgd83`
 - GitHub checks on deployed commit:
@@ -31,6 +34,8 @@ This report records the verified Phase 10 release state. The application, produc
   - Scheduled production synthetic and protected manual release gate: correctly skipped for the pull-request event
 
 The production synthetic suite passed `/api/health`, `/api/health/ready`, `/`, `/about`, `/activities`, `/files`, `/years`, `/robots.txt`, and `/sitemap.xml`. The slowest recorded request was 4,072 ms, below the configured 5,000 ms threshold.
+
+After the Phase 10 merge deployed, the same nine production endpoints passed again with zero mutations; the slowest recorded response was 3,198 ms. The post-merge anonymous, non-admin, and active-admin read-only smoke also passed with zero remote mutations.
 
 ## 3. Final conservative editorial state
 
@@ -100,8 +105,10 @@ The production synthetic suite passed `/api/health`, `/api/health/ready`, `/`, `
 - Application, database, security, backup/restore, and monitoring implementation: **READY**
 - Wix redirect activation: **NOT IN SCOPE — greenfield site decision**
 - Redirect reconciliation: **READY — 83 explicit fail-closed decisions**
-- Overall Phase 10 implementation: **READY FOR COMPLETION**
-- Pull request, `main` merge, completion tag, and final hash reconciliation: in progress
-- Canva architecture diagram: follows the successful final release checks
+- Overall Phase 10: **COMPLETE**
+- Pull request: merged to `main`
+- Completion tag: `phase-10-editorial-release-operations-complete`
+- Final completion evidence commit: the commit containing this report and targeted by the completion tag
+- Local `main`, `origin/main`, local tag target, and remote tag target are required to match in the final release verification
 
-The final release operation is to rerun the quality and production checks, merge the reviewed pull request, record the final `main` and tag hashes, and create the Canva website architecture diagram.
+The Canva website architecture diagram is produced after this completed release verification as a separate design deliverable.
