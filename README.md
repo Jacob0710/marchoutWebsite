@@ -163,17 +163,17 @@ pnpm test:phase10
 
 Remote bootstrap, decisions, publication, derivatives, and redirect activation are blocked until a database/Storage checkpoint and isolated restore rehearsal are recorded. See `docs/phase10-backup-restore-runbook.md`, `docs/phase10-editorial-release-runbook.md`, `docs/phase10-environments-deployment-runbook.md`, `docs/phase10-incident-monitoring-runbook.md`, and `docs/phase10-rollback-runbook.md`.
 
-The current evidence-backed status is `PARTIALLY READY`, not complete. Exact counts, passed checks, failed commands, external blockers, and minimum operator actions are recorded in `outputs/phase-10-execution-status.md`; no Phase 10 completion tag is valid while those gates remain open.
+Phase 10 is complete under the owner-confirmed greenfield scope. Wix is a frozen historical content source only; the new Vercel site does not take over the Wix hostname and does not require legacy redirects. Exact counts, validation evidence, deployment identity, backup/restore results, and the final release decision are recorded in `outputs/phase-10-execution-status.md`. The completion tag is `phase-10-editorial-release-operations-complete`.
 
 ## Deployment readiness
 
 This application requires a Nitro-capable SSR deployment; static-only hosting is insufficient for secure cookies, administrator APIs, and private asset proxies. Configure the public site URL and Supabase redirect allow-list for each environment, run every migration and verification query, and execute the Phase 5–9 suites against staging before production promotion.
 
-Phase 10 includes implementation and runbooks for these gates, but does not invent deployment authority. Final staging/production hostnames, platform credentials, database restore authority, DNS/TLS, Wix control, monitoring ownership, and production HTTP/Browser evidence remain external requirements. See `docs/deployment-readiness.md`.
+Phase 10 includes implementation and runbooks for these gates. The production deployment is the independent Vercel site at `https://marchout-website.vercel.app`; Wix has no DNS, redirect, hosting, or runtime role. Platform credentials, database restore authority, monitoring ownership, and production HTTP/Browser evidence remain controlled operational inputs. See `docs/deployment-readiness.md`.
 
 ## Known limitations and next phase
 
 - Legacy Wix file URLs were migrated to private Storage-backed content records; compatibility columns remain available for unrelated historical data.
 - Rich text is intentionally plain safe text; no Markdown editor or sanitizer pipeline is included.
 - Logo upload, arbitrary category management, revisions, scheduling, analytics, search indexing, and bulk import are out of scope.
-- Phase 10 completion remains blocked until the real backup restore, staging/production deployment, DNS/TLS/Wix routing, monitoring ownership, and complete HTTP/Browser/regression evidence exist. No completion tag is valid before those gates pass.
+- Historical Wix redirect mappings remain inactive by design because this is a greenfield website. They are retained only for provenance and reconciliation.
