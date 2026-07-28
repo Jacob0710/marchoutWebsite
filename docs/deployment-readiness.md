@@ -111,6 +111,16 @@ Application rollback can redeploy the prior known image/commit, but database rol
 
 The official Wix site was frozen, crawled, hashed, and reconciled. The controlled run imported 46 Activities, 18 Files, 6 Year Summaries, and one Site Settings merge; all content rows remain draft because publication facts and document redaction require editorial approval. All 378 objects are referenced in private Storage, the second apply produced zero mutations, Phase 5–9 regression and production-preview Browser acceptance passed, and no migration blocker remains. The 122 manual-review rows block publication or redirect activation only.
 
+## Phase 10 operational runbooks
+
+- `phase10-backup-restore-runbook.md`
+- `phase10-environments-deployment-runbook.md`
+- `phase10-editorial-release-runbook.md`
+- `phase10-incident-monitoring-runbook.md`
+- `phase10-rollback-runbook.md`
+
+These runbooks are fail-closed: missing hostname, platform, backup/restore, Wix/DNS, monitoring, or operator evidence cannot be replaced with placeholders.
+
 ## Deferred deployment work
 
 Phase 12 remains blocked on external platform decisions and production authority, including hosting selection, DNS/TLS, production Supabase configuration, billing, monitoring vendors, incident ownership, CI/CD, staging data policy, and a production release window. Those items require the relevant account owners and are intentionally not performed by Phase 8.

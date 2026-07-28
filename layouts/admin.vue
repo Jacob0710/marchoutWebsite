@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const { status, loadAdmin } = useAdminAuth()
 
+useHead({ meta: [{ name: 'robots', content: 'noindex, nofollow, noarchive' }] })
+
 if (status.value === 'unknown') {
   await loadAdmin()
 }

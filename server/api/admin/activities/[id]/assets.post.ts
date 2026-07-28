@@ -25,6 +25,8 @@ export default defineEventHandler(async (event) => {
   const filename = file.filename || 'upload'
   const mimeType = file.type || 'application/octet-stream'
   const extension = validateAssetUpload({ kind, filename, mimeType, data })
+  const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', data))
+  const originalSha256 = [...digest].map(byte => byte.toString(16).padStart(2, '0')).join('')
   const storagePath = makeActivityAssetPath(id, kind, extension)
   const { error: uploadError } = await supabase.storage
     .from(activityAssetsBucket)
@@ -39,6 +41,7 @@ export default defineEventHandler(async (event) => {
     original_name: filename.slice(0, 255),
     mime_type: mimeType,
     size_bytes: data.length,
+    original_sha256: originalSha256,
     alt_text: kind === 'image' ? altText : null,
     sort_order: sortOrder,
     created_by: user.id
@@ -46,7 +49,7 @@ export default defineEventHandler(async (event) => {
 
   if (metadataError) {
     const { error: rollbackError } = await supabase.storage.from(activityAssetsBucket).remove([storagePath])
-    if (rollbackError) console.error('Phase 6 upload rollback requires retry.', { activityId: id, paths: [storagePath] })
+    if (rollbackError) console.error('Phase 6 upload rollback requires retry.', { activityId: id, objectCount: 1 })
     throw internalApiError()
   }
   const activity = await getAdminActivity(supabase, id)

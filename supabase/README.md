@@ -13,6 +13,9 @@ For a fresh Supabase project, apply these files in order:
 5. `20260720_001_phase8_core_content_platform.sql`
 6. `20260721_001_phase9_content_migration_provenance.sql`
 7. `20260721_002_phase9_publish_timestamp_consistency.sql`
+8. `20260722_001_phase10_editorial_review_queue.sql`
+9. `20260722_002_phase10_release_batches.sql`
+10. `20260722_003_phase10_redirect_review_hotfix.sql`
 
 Use a trusted database owner through the Supabase SQL Editor or an approved migration runner. Record project, migration filename, commit, operator, timestamp, and result in the environment's operations log. SQL Editor history is not exported into Git and cannot replace migration records.
 
@@ -28,7 +31,9 @@ Private buckets:
 - `content-assets`: post and year-summary covers
 - `downloads`: downloadable file objects
 
-Published-object Storage select policies are constrained by path and the related published database row. They exist so the server anon client can issue a short-lived signed URL; no Phase 8 bucket is public and no blanket object-read policy exists.
+Published-object Storage select policies are constrained by path and the related published database row. They let the Nitro server download an authorized object and return validated same-origin bytes; no Phase 8 bucket is public, no blanket object-read policy exists, and browser routes do not expose signed URLs.
+
+Phase 10 removes the legacy direct public table-read policies from `activity_assets` and `files`. Anonymous callers obtain only narrow published metadata through the Phase 10 RPCs; authenticated non-admin users receive no raw asset/file rows. Managed-content triggers block bypassing the reviewed release lifecycle and preserve immutable Phase 9 originals.
 
 ## Verification
 
@@ -39,8 +44,11 @@ After applying migrations, run the repeatable read-only verification files:
 3. `verify-admin-access.sql`
 4. `verify-phase8-core-content.sql`
 5. `verify-phase9-content-migration.sql`
+6. `verify-phase10-editorial-release.sql` after the deterministic Phase 10 bootstrap and decisions
 
 `verify-phase8-core-content.sql` checks schema, constraints, indexes, functions, fixed search paths, grants, RLS, policies, private buckets, and the settings singleton. `verify-phase9-content-migration.sql` verifies the provenance tables, RLS/grants, narrow fixed-search-path RPCs, publication-timestamp triggers, target-reference integrity, and terminal run state. Its final row contains three `true` values.
+
+`verify-phase10-editorial-release.sql` checks the private review/release tables, safe public metadata RPCs, fixed-search-path functions, exact 70/122/83 reconciliation, separation of the existing Activity draft, evidence-gated publication/redirect state, derivative/original boundaries, Storage readability predicates, and append-only audit enforcement. It must run with a database owner after bootstrap; application credentials cannot read the private tables directly.
 
 Then start a production preview and run:
 
@@ -50,6 +58,7 @@ pnpm test:phase6
 pnpm test:phase7
 pnpm test:phase8
 pnpm test:phase9
+pnpm test:phase10
 ```
 
 ## Credential boundary

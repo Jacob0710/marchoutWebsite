@@ -2,7 +2,6 @@ import { apiError } from '~/server/utils/apiErrors'
 
 export const contentAssetsBucket = 'content-assets'
 export const downloadsBucket = 'downloads'
-export const signedContentUrlLifetimeSeconds = 60
 
 const imageTypes: Record<string, readonly string[]> = {
   'image/jpeg': ['jpg', 'jpeg'],

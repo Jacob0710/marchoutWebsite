@@ -1,0 +1,648 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshotSha256": "3a6a00bcd5a5b8030ab5da6b61cd597f2df4c0762edb46dd9f8655e003cceb60",
+  "sourceEvidence": {
+    "canonicalContentManifestSha256": "3725d4ed6507970f91bd82d828a92500d553b39a296499f5086ec85df5f1f2b7",
+    "canonicalManualReviewSha256": "d7976e5f7e4bbec477830d992e21e0bf923089e0294183b9d6dd07ca3fa7fa8f",
+    "canonicalRedirectsSha256": "585799405ad8cacfb61c1a6d7b838237826089426533487dd836a9859da0c057"
+  },
+  "policy": "fail-closed-deferred-until-item-specific-evidence",
+  "summary": {
+    "total": 70,
+    "publish": 0,
+    "keepDraft": 70,
+    "archive": 0
+  },
+  "decisions": [
+    {
+      "reviewKey": "P9-0001",
+      "sourceKey": "wix:asset-source:2642b76d6996564aa309ac9645aa93e7dc6005a28f1acf3435469768c73115a2",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0002",
+      "sourceKey": "wix:asset-source:30190e56aab62c7f108079d11b3e28be1f075544a299b4499616ef2749a918d3",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0003",
+      "sourceKey": "wix:asset-source:4c029f4e34dbd6107e4def18cf97bd2333dcd4186f68ab4b3a923971a76b890a",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0004",
+      "sourceKey": "wix:asset-source:56af2bce6dcf1cf08a4958c0350e584720087a3bce1dc3469216fd0a8f4279da",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0005",
+      "sourceKey": "wix:asset-source:5f3e6d8ae5c8f95e2fddd99026716a029101033a901ccafe501461b38a1f8bae",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0006",
+      "sourceKey": "wix:asset-source:60339fa72b13d2999f69dd0691fb1133b3279250091e143b255a9102fa5e7e99",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0007",
+      "sourceKey": "wix:asset-source:63cfed568f7d99489500216c74060c821efcae81014175db672305f58de0e8c6",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0008",
+      "sourceKey": "wix:asset-source:65b1e1abce9823ceb2f35ddac678ff414e6c84f773424bde560857a607ce130c",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0009",
+      "sourceKey": "wix:asset-source:72d413405514683aa64f5891ceed7d67de7800d724048f4e68da0b090889a8c7",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0010",
+      "sourceKey": "wix:asset-source:761807c59197dd1755c8e6623d95e56616fa562b1891342c51e6fe8731cded63",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0011",
+      "sourceKey": "wix:asset-source:8490a7532a6706aa4b4fa12f920ebadd7852b81f504ecd48dbbaf29ac95e3988",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0012",
+      "sourceKey": "wix:asset-source:a84719ce6814635cd33ebf424d7dedb954c583ea2fdd7e5f0d9595276993ef8c",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0013",
+      "sourceKey": "wix:asset-source:a8dd4833fe0e8f39782a96c18110db15cd9ed2f591fa8eaa48d1c5cfb9de5f90",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0014",
+      "sourceKey": "wix:asset-source:b18e08a186c9bcb684812f5d9726d4e54e771d7ddb91b4f9f597bc3542ea55e9",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0015",
+      "sourceKey": "wix:asset-source:b3e6692cb0c07293a5fe23e4bffae369e9204af7c4ad63e5599aef479d1ef687",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0016",
+      "sourceKey": "wix:asset-source:c40624c3103a6418dd4cd931c3d03cc022ea3637854f6848a0335894460a56d7",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0017",
+      "sourceKey": "wix:asset-source:dcb696435cf76e68685e1edafe8e81fa9d67dbd640be5c55db4c2506cefba09c",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0018",
+      "sourceKey": "wix:asset-source:edf9ad6849ee0ce35383ffad39283a6929dad3571240253b35a3cf593617e504",
+      "targetKind": "file",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0019",
+      "sourceKey": "wix:page:acrjz",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0020",
+      "sourceKey": "wix:page:ad87y",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0021",
+      "sourceKey": "wix:page:ay10r",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0022",
+      "sourceKey": "wix:page:eeuqi",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0023",
+      "sourceKey": "wix:page:eove1",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0024",
+      "sourceKey": "wix:page:euvvm",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0025",
+      "sourceKey": "wix:page:finuh",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0026",
+      "sourceKey": "wix:page:fl2ot",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0027",
+      "sourceKey": "wix:page:fpv52",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0028",
+      "sourceKey": "wix:page:fu3bz",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0029",
+      "sourceKey": "wix:page:fuug2",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0030",
+      "sourceKey": "wix:page:fxl97",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0031",
+      "sourceKey": "wix:page:g23od",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0032",
+      "sourceKey": "wix:page:gqhoh",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0033",
+      "sourceKey": "wix:page:io4hd",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0034",
+      "sourceKey": "wix:page:j881c",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0035",
+      "sourceKey": "wix:page:jd4jc",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0036",
+      "sourceKey": "wix:page:jefj3",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0037",
+      "sourceKey": "wix:page:k9aiv",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0038",
+      "sourceKey": "wix:page:lb7xk",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0039",
+      "sourceKey": "wix:page:mh72i",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0040",
+      "sourceKey": "wix:page:mqpxs",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0041",
+      "sourceKey": "wix:page:mwqi8",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0042",
+      "sourceKey": "wix:page:ncu3n",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0043",
+      "sourceKey": "wix:page:nz8m8",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0044",
+      "sourceKey": "wix:page:o2emp",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0045",
+      "sourceKey": "wix:page:o3j0h",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0046",
+      "sourceKey": "wix:page:o6h8s",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0047",
+      "sourceKey": "wix:page:on53s",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0048",
+      "sourceKey": "wix:page:r9q61",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0049",
+      "sourceKey": "wix:page:ra9kd",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0050",
+      "sourceKey": "wix:page:rndc1",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0051",
+      "sourceKey": "wix:page:shxze",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0052",
+      "sourceKey": "wix:page:sr7vx",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0053",
+      "sourceKey": "wix:page:syp73",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0054",
+      "sourceKey": "wix:page:t4l6d",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0055",
+      "sourceKey": "wix:page:u61it",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0056",
+      "sourceKey": "wix:page:vro4w",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0057",
+      "sourceKey": "wix:page:vzfv3",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0058",
+      "sourceKey": "wix:page:wiy6e",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0059",
+      "sourceKey": "wix:page:wnlfh",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0060",
+      "sourceKey": "wix:page:wquq1",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0061",
+      "sourceKey": "wix:page:xhbeh",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0062",
+      "sourceKey": "wix:page:y2p9y",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0063",
+      "sourceKey": "wix:page:yq45v",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0064",
+      "sourceKey": "wix:page:zsngn",
+      "targetKind": "activity",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0065",
+      "sourceKey": "wix:page:g9w59",
+      "targetKind": "year-summary",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0066",
+      "sourceKey": "wix:page:ouiqj",
+      "targetKind": "year-summary",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0067",
+      "sourceKey": "wix:page:jrpju",
+      "targetKind": "year-summary",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0068",
+      "sourceKey": "wix:page:iq9ti",
+      "targetKind": "year-summary",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0069",
+      "sourceKey": "wix:page:nw4b4",
+      "targetKind": "year-summary",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    },
+    {
+      "reviewKey": "P9-0070",
+      "sourceKey": "wix:page:faot0",
+      "targetKind": "year-summary",
+      "state": "deferred",
+      "decision": "keep-draft",
+      "reasonCode": "manual-content-privacy-authorization-evidence-required",
+      "reason": "No item-specific content correctness, privacy clearance, and publication authorization evidence is available; keep this Phase 9 import private and draft."
+    }
+  ]
+}

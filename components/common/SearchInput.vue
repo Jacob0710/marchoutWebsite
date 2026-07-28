@@ -4,6 +4,7 @@ import { Search } from 'lucide-vue-next'
 defineProps<{
   modelValue: string
   placeholder?: string
+  label?: string
 }>()
 
 const emit = defineEmits<{
@@ -13,6 +14,7 @@ const emit = defineEmits<{
 
 <template>
   <label class="relative block">
+    <span class="sr-only">{{ label ?? '搜尋' }}</span>
     <Search class="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted" aria-hidden="true" />
     <input
       :value="modelValue"

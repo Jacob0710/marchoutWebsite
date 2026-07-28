@@ -2,6 +2,7 @@
 import {
   CalendarDays,
   CircleHelp,
+  ClipboardCheck,
   FileDown,
   Gauge,
   HeartHandshake,
@@ -16,6 +17,7 @@ const route = useRoute()
 
 const items = [
   { label: '後台首頁', to: '/admin/dashboard', icon: Gauge },
+  { label: 'Editorial 審核', to: '/admin/editorial', icon: ClipboardCheck },
   { label: '活動管理', to: '/admin/activities', icon: CalendarDays },
   { label: '最新消息', to: '/admin/posts', icon: Newspaper },
   { label: '檔案下載', to: '/admin/files', icon: FileDown },

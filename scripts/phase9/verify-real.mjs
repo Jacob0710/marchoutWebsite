@@ -7,10 +7,28 @@ const jsonl = async (path) => {
   const text = await readFile(resolve(root, path), 'utf8')
   return text.trim() ? text.trim().split(/\r?\n/).map(JSON.parse) : []
 }
+const expectPrivateProxy = async (response, label) => {
+  await expectStatus(response, 200, label)
+  if (response.headers.has('location') || !response.headers.get('cache-control')?.includes('no-store')
+    || response.headers.get('cross-origin-resource-policy') !== 'same-origin') {
+    throw new Error(`${label} did not preserve the Phase 10 same-origin/private-cache boundary`)
+  }
+  const expectedLength = Number(response.headers.get('content-length'))
+  const receivedLength = (await response.arrayBuffer()).byteLength
+  if (!Number.isSafeInteger(expectedLength) || expectedLength < 1 || expectedLength !== receivedLength) {
+    throw new Error(`${label} returned an invalid byte count`)
+  }
+}
+const expectDraftProxy404 = async (response, label) => {
+  await expectStatus(response, 404, label)
+  if (response.headers.has('location') || !response.headers.get('cache-control')?.includes('no-store')
+    || response.headers.get('cross-origin-resource-policy') !== 'same-origin') {
+    throw new Error(`${label} did not preserve the Phase 10 draft/private-cache boundary`)
+  }
+}
 const manifest = await jsonl('migration/phase9/content-manifest.jsonl')
 const assets = await jsonl('migration/phase9/assets-manifest.jsonl')
 const snapshot = await readJson('migration/phase9/source-snapshot.json')
-const state = await readJson('.phase9-cache/real-state.json')
 const session = await createAppSession()
 const client = await createAdminClient()
 const statusCounts = { activity: { draft: 0, published: 0 }, file: { draft: 0, published: 0 }, 'year-summary': { draft: 0, published: 0 } }
@@ -21,7 +39,6 @@ try {
     if (!ref || ref.normalized_sha256 !== item.normalizedHash || ref.source_sha256 !== item.sourceHash || ref.target_kind !== item.targetKind) throw new Error(`Invalid provenance: ${item.migrationKey}`)
     provenance += 1
     const id = ref.target_id
-    state.targets[item.migrationKey] ??= { id, kind: item.targetKind }
     if (item.targetKind === 'activity') {
       const body = await responseJson(await session.request(`/api/admin/activities/${id}`), 200, `verify ${item.migrationKey}`)
       const row = body.activity
@@ -32,8 +49,8 @@ try {
       storageBytes += row.assets.reduce((sum, asset) => sum + asset.sizeBytes, 0)
       await expectStatus(await session.request(`/activities/${row.slug}`), 404, `draft activity isolation ${item.migrationKey}`)
       if (row.assets[0]) {
-        await expectStatus(await session.request(`/api/admin/activity-assets/${row.assets[0].id}/file`), 302, `admin asset ${item.migrationKey}`)
-        await expectStatus(await session.request(`/api/public/activity-assets/${row.assets[0].id}`), 404, `draft asset isolation ${item.migrationKey}`)
+        await expectPrivateProxy(await session.request(`/api/admin/activity-assets/${row.assets[0].id}/file`), `admin asset ${item.migrationKey}`)
+        await expectDraftProxy404(await session.request(`/api/public/activity-assets/${row.assets[0].id}`), `draft asset isolation ${item.migrationKey}`)
       }
     } else if (item.targetKind === 'file') {
       const body = await responseJson(await session.request(`/api/admin/files/${id}`), 200, `verify ${item.migrationKey}`)
@@ -42,8 +59,8 @@ try {
       targetRows += 1
       storageObjects += 1
       storageBytes += body.item.sizeBytes
-      await expectStatus(await session.request(`/api/admin/files/${id}/download`), 302, `admin file ${item.migrationKey}`)
-      await expectStatus(await session.request(`/api/public/files/${id}/download`), 404, `draft file isolation ${item.migrationKey}`)
+      await expectPrivateProxy(await session.request(`/api/admin/files/${id}/download`), `admin file ${item.migrationKey}`)
+      await expectDraftProxy404(await session.request(`/api/public/files/${id}/download`), `draft file isolation ${item.migrationKey}`)
     } else if (item.targetKind === 'year-summary') {
       const body = await responseJson(await session.request(`/api/admin/years/${id}`), 200, `verify ${item.migrationKey}`)
       if (body.item.status !== 'draft' || body.item.academicYear !== item.payload.academicYear) throw new Error(`Year reconciliation failed: ${item.migrationKey}`)

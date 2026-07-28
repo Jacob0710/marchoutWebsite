@@ -2,6 +2,7 @@
   "name": "march-out-for-love",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@11.9.0",
   "scripts": {
     "predev": "nuxt cleanup",
     "dev": "nuxt dev --host 0.0.0.0",
@@ -26,7 +27,23 @@
     "phase9:verify:synthetic": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/verify-migration.mjs",
     "phase9:rollback-test": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/rollback-test.mjs",
     "phase9:cleanup-scan": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase9.local --env-file-if-exists=.env.phase6.local scripts/phase9/cleanup-scan.mjs",
-    "test:phase9": "node scripts/phase9/run-full-test.mjs"
+    "test:phase9": "node scripts/phase9/run-full-test.mjs",
+    "phase10:backup:inventory": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase6.local --env-file-if-exists=.env.phase10.local scripts/phase10/backup-checkpoint.mjs --mode=inventory",
+    "phase10:backup:checkpoint": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase6.local --env-file-if-exists=.env.phase10.local scripts/phase10/backup-checkpoint.mjs --mode=checkpoint",
+    "phase10:backup:restore": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase6.local --env-file-if-exists=.env.phase10.local scripts/phase10/backup-checkpoint.mjs --mode=restore-rehearsal",
+    "phase10:restore:verify": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase6.local --env-file-if-exists=.env.phase10.local scripts/phase10/verify-restored-database.mjs",
+    "phase10:decisions": "node scripts/phase10/build-decision-manifests.mjs",
+    "phase10:bootstrap:dry-run": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase6.local --env-file-if-exists=.env.phase10.local scripts/phase10/bootstrap-editorial.mjs --mode=dry-run",
+    "phase10:bootstrap:apply": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase6.local --env-file-if-exists=.env.phase10.local scripts/phase10/bootstrap-editorial.mjs --mode=apply",
+    "phase10:decisions:dry-run": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase6.local --env-file-if-exists=.env.phase10.local scripts/phase10/apply-conservative-decisions.mjs --mode=dry-run",
+    "phase10:redirect:generate": "node scripts/phase10/generate-redirect-config.mjs --mode=dry-run",
+    "phase10:redirect:verify": "node scripts/phase10/verify-redirects.mjs --mode=static",
+    "phase10:redirect:verify:http": "node scripts/phase10/verify-redirects.mjs --mode=http",
+    "phase10:privacy": "node scripts/phase10/privacy-fixture-test.mjs",
+    "phase10:static": "node scripts/phase10/static-verify.mjs",
+    "phase10:synthetic": "node scripts/phase10/synthetic-check.mjs",
+    "test:phase10:smoke": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase10.local --env-file-if-exists=.env.phase6.local scripts/phase10/smoke-read-only.mjs",
+    "test:phase10": "pnpm run phase10:static && pnpm run phase10:redirect:verify && pnpm run phase10:privacy"
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.12.2",

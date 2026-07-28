@@ -21,6 +21,13 @@ dist/
 migration/phase9/private/
 migration/phase9/tmp/
 
+# Phase 10 private checkpoints, exports, derivatives, and runtime evidence
+.phase10-private/
+.phase10-cache/
+migration/phase10/private/
+migration/phase10/tmp/
+outputs/phase10-browser-private/
+
 # Logs
 *.log
 

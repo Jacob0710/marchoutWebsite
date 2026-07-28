@@ -13,6 +13,11 @@ export default defineEventHandler(async (event) => {
   if (activity.coverAssetId && !activity.assets.some((asset) => asset.id === activity.coverAssetId && asset.kind === 'image')) {
     throw apiError(400, 'VALIDATION_ERROR', 'Cover image is invalid.', { coverAssetId: ['封面必須是同一活動的圖片。'] })
   }
+  const { data: managed, error: gateError } = await supabase.rpc('phase10_publish_managed_target', {
+    p_target_kind: 'activity', p_target_id: id, p_correlation_id: crypto.randomUUID()
+  })
+  if (!isPhase10RpcUnavailable(gateError)) throwEditorialRpcError(gateError)
+  if (managed === true) return { activity: await getAdminActivity(supabase, id) }
   const now = new Date().toISOString()
   const { error } = await supabase.from('activities').update({
     status: 'published', published_at: activity.publishedAt ?? now, updated_at: now, updated_by: user.id

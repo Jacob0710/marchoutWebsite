@@ -33,7 +33,8 @@ useSeo({
 
 const getRedirectTarget = () => {
   const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/admin'
-  return ['/admin/activities', '/admin/access'].includes(redirect) ? redirect : '/admin'
+  const editorialRoute = redirect === '/admin/editorial' || /^\/admin\/editorial\/P9-[0-9]{4}$/.test(redirect)
+  return editorialRoute || ['/admin/activities', '/admin/access'].includes(redirect) ? redirect : '/admin'
 }
 
 const handleSubmit = async () => {
@@ -80,7 +81,11 @@ const handleSubmit = async () => {
 
     <section class="grid place-items-center px-4 py-12">
       <div class="w-full max-w-md rounded-lg bg-white p-8 shadow-soft">
-        <div class="flex items-center gap-3">
+        <div class="lg:hidden">
+          <p class="text-sm font-semibold text-muted">愛潮關懷社</p>
+          <h1 class="mt-1 text-2xl font-bold text-ink">登入後台</h1>
+        </div>
+        <div class="hidden items-center gap-3 lg:flex">
           <span class="grid size-12 place-items-center rounded-md bg-coral text-white">
             <HeartHandshake class="size-6" aria-hidden="true" />
           </span>

@@ -8,7 +8,10 @@ export default defineEventHandler(async (event) => {
     sizeBytes: 0, publishedAt: item.createdAt, downloadUrl: item.fileUrl
   })) }
   const supabase = createSupabaseAnonServerClient(event)
-  const { data, error } = await supabase.from('files').select(fileSelect).order('sort_order').order('published_at', { ascending: false }).order('id')
-  throwContentDatabaseError(error)
-  return { items: ((data ?? []) as unknown as FileRow[]).map(mapPublicFile) }
+  const response = await supabase.rpc('phase10_public_files')
+  const fallback = isPhase10RpcUnavailable(response.error)
+    ? await supabase.from('files').select(fileSelect).order('sort_order').order('published_at', { ascending: false }).order('id')
+    : response
+  throwContentDatabaseError(fallback.error)
+  return { items: ((fallback.data ?? []) as unknown as FileRow[]).map(mapPublicFile) }
 })

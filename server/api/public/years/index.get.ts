@@ -8,7 +8,11 @@ export default defineEventHandler(async (event) => {
     coverAlt: `${item.year} 學年度成果`, reportFile: null, publishedAt: new Date(0).toISOString()
   })) }
   const supabase = createSupabaseAnonServerClient(event)
-  const { data, error } = await supabase.from('year_summaries').select(yearSelect).order('academic_year', { ascending: false }).order('id')
-  throwContentDatabaseError(error)
-  return { items: ((data ?? []) as unknown as YearRow[]).map(mapPublicYear) }
+  let files = await supabase.rpc('phase10_public_files')
+  if (isPhase10RpcUnavailable(files.error)) files = await supabase.from('files').select(fileSelect).order('sort_order').order('published_at', { ascending: false }).order('id')
+  const years = await supabase.from('year_summaries').select(publicYearSelect).order('academic_year', { ascending: false }).order('id')
+  throwContentDatabaseError(years.error || files.error)
+  const fileById = new Map(((files.data ?? []) as unknown as FileRow[]).map((file) => [file.id, file]))
+  const rows = ((years.data ?? []) as unknown as YearRow[]).map((year) => ({ ...year, report_file: year.report_file_id ? fileById.get(year.report_file_id) ?? null : null }))
+  return { items: rows.map(mapPublicYear) }
 })
