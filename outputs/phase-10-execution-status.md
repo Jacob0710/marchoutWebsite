@@ -89,7 +89,14 @@ The production synthetic suite passed `/api/health`, `/api/health/ready`, `/`, `
 - Wix site ID: `06e8ea3e-f44b-4c0a-b8e9-a8cd44088952`
 - Wix ownership was confirmed through the signed-in dashboard.
 - Wix Redirect Manager displayed the explicit warning: `您的網站必須連線至自訂網域，否則您的 301 重新導向將無法作用。`
-- A temporary `/home` redirect was created only to validate this platform behavior and was then deleted. Wix Redirect Manager was returned to zero redirects.
+- The earlier temporary `/home` validation redirect was deleted.
+- On 2026-07-29, Wix Redirect Manager contained one user-created rule: `/website` to `https://marchout-website-2tjtdkbfq-jacob0710s-projects.vercel.app`.
+- The Wix custom-domain warning remained after a full page reload. The “Connect domain” action opened the domain purchase/connection flow, confirming that no custom domain is currently attached.
+- Live HTTP evidence did not show a working migration redirect:
+  - `https://a0903080125.wixsite.com/website` returned HTTP 200 from Wix.
+  - `/website/home` and `/website/about` returned HTTP 200 from Wix.
+  - `/website/website`, the effective site-relative path for the configured `/website` rule, returned HTTP 404.
+  - The configured Vercel preview target returned HTTP 302 to Vercel authentication, while the production target `https://marchout-website.vercel.app` returned HTTP 200.
 - The 29-row structural redirect CSV is prepared as ignored private runtime evidence, but importing it now would create configurations that Wix states cannot work.
 
 The Phase 10 Definition of Done requires each structural legacy URL to return a real HTTP 301, then reach the canonical production URL in one hop with a final HTTP 200. The free Wix hostname cannot satisfy this gate. Connecting a custom domain to Wix, and retaining control of that domain long enough to serve the redirects, is the remaining operator prerequisite and may require a paid Wix plan/domain.
