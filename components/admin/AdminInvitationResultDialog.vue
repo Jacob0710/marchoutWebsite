@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Check, Copy, X } from 'lucide-vue-next'
+import { Check, Copy, X } from '@lucide/vue'
 
 const props = defineProps<{ open: boolean; email: string; inviteUrl: string }>()
 const emit = defineEmits<{ close: [] }>()

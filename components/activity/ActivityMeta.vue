@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Calendar, MapPin, UsersRound } from 'lucide-vue-next'
+import { Calendar, MapPin, UsersRound } from '@lucide/vue'
 
 defineProps<{
   date: string

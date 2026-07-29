@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Loader2, Send } from 'lucide-vue-next'
+import { Loader2, Send } from '@lucide/vue'
 import type { CreateAdminInvitationInput } from '~/types/adminAccess'
 
 const props = withDefaults(defineProps<{ isLoading?: boolean; error?: string; resetKey?: number }>(), { isLoading: false, error: '', resetKey: 0 })

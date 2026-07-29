@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowRight, FileText, HandHeart, MapPin, Newspaper, Sparkles, UsersRound } from 'lucide-vue-next'
+import { ArrowRight, FileText, HandHeart, MapPin, Newspaper, Sparkles, UsersRound } from '@lucide/vue'
 
 const { programs } = useMockContent()
 const { data: postsData, error: postsError } = await usePublicPosts()
@@ -175,7 +175,7 @@ const stats = [
         <Sparkles class="size-8 text-honey" aria-hidden="true" />
         <h3 class="mt-5 text-2xl font-bold">影像紀錄</h3>
         <p class="mt-3 leading-7 text-slate-300">整理活動片段、志工訪談與服務回顧，讓每一次投入都能被看見。</p>
-        <ActivityYouTubeEmbed class="mt-6" title="March Out For Love 年度回顧" url="https://www.youtube.com/embed/dQw4w9WgXcQ" />
+        <ActivityYouTubeEmbed class="mt-6" title="March Out For Love 年度回顧" url="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" />
       </div>
     </div>
   </section>

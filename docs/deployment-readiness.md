@@ -121,6 +121,8 @@ The official Wix site was frozen, crawled, hashed, and reconciled. The controlle
 
 These runbooks are fail-closed: missing hostname, platform, backup/restore, Wix/DNS, monitoring, or operator evidence cannot be replaced with placeholders.
 
-## Deferred deployment work
+## Phase 12 release hardening
 
-Phase 12 remains blocked on external platform decisions and production authority, including hosting selection, DNS/TLS, production Supabase configuration, billing, monitoring vendors, incident ownership, CI/CD, staging data policy, and a production release window. Those items require the relevant account owners and are intentionally not performed by Phase 8.
+The repository now defines local Chromium and cross-browser Playwright gates, isolated staging verification, namespaced seed/cleanup, release approval evidence, and read-only production smoke. The operational contract is in `docs/phase12-staging-release-runbook.md`.
+
+Phase 12 still fails closed until account owners provide a distinct staging Vercel origin, a distinct staging Supabase project and Storage, dedicated staging identities, environment secrets/variables, a traceable approval artifact, and an approved production window. Production data or identities must never be reused to make staging checks pass.

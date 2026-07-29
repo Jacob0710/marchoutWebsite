@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { HeartHandshake, Menu, X } from 'lucide-vue-next'
+import { HeartHandshake, Menu, X } from '@lucide/vue'
 
 const route = useRoute()
 const isOpen = ref(false)
@@ -27,7 +27,7 @@ watch(
     <nav class="page-shell flex min-h-16 items-center justify-between gap-4">
       <NuxtLink to="/" class="focus-ring flex items-center gap-3 rounded-md">
         <span class="grid size-10 place-items-center rounded-full bg-coral text-white">
-          <HeartHandshake class="size-5" aria-hidden="true" />
+          <HeartHandshake data-testid="site-brand-icon" class="size-5" aria-hidden="true" />
         </span>
         <span class="leading-tight">
           <span class="block text-sm font-semibold text-ink">愛潮關懷社</span>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Compass, FolderLock, HeartHandshake } from 'lucide-vue-next'
+import { Compass, FolderLock, HeartHandshake } from '@lucide/vue'
 definePageMeta({ layout: 'admin' })
 const categories = [
   { value: 'regular', label: '常態陪伴', description: '持續性的陪伴、課輔與社區服務。', icon: HeartHandshake },

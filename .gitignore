@@ -7,6 +7,7 @@ node_modules/
 .data/
 .cache/
 coverage/
+coverage-application/
 dist/
 
 # Environment variables
@@ -31,6 +32,14 @@ outputs/phase10-browser-private/
 
 # Phase 11 local test and verification evidence
 .phase11-cache/
+
+# Phase 12 Playwright auth, fixtures, reports, and failure artifacts
+.phase12-cache/
+.env.e2e
+.env.phase12.local
+playwright/.auth/
+playwright-report/
+test-results/
 
 # Logs
 *.log

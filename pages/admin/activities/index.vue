@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Plus, Search } from 'lucide-vue-next'
+import { Plus, Search } from '@lucide/vue'
 import type { AdminActivityListRow } from '~/types/adminActivity'
 import { activityTypeLabels } from '~/shared/activityRules'
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { HeartHandshake, Loader2, LockKeyhole } from 'lucide-vue-next'
+import { HeartHandshake, Loader2, LockKeyhole } from '@lucide/vue'
 
 definePageMeta({ layout: false })
 

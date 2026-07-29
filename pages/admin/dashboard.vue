@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CalendarDays, FileText, HelpCircle, Newspaper, UsersRound } from 'lucide-vue-next'
+import { CalendarDays, FileText, HelpCircle, Newspaper, UsersRound } from '@lucide/vue'
 import type { AdminFileResource, AdminPost, AdminYearSummary, CoreFaqItem, PaginatedAdminResponse } from '~/types/coreContent'
 import type { AdminActivityListRow } from '~/types/adminActivity'
 

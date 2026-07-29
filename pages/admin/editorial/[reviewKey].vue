@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowLeft, FileCheck2, Loader2, ShieldAlert, Upload } from 'lucide-vue-next'
+import { ArrowLeft, FileCheck2, Loader2, ShieldAlert, Upload } from '@lucide/vue'
 import type { EditorialDecision, EditorialReviewUpdateInput, EditorialState } from '~/types/editorial'
 
 definePageMeta({ layout: 'admin' })

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Loader2 } from 'lucide-vue-next'
+import { Loader2 } from '@lucide/vue'
 import type { AdminActivity, AdminActivityInput } from '~/types/adminActivity'
 import { activityTypeLabels, toActivitySlug } from '~/shared/activityRules'
 
@@ -152,7 +152,7 @@ onBeforeRouteLeave(() => {
         <template v-if="activity">
           <CommonBaseButton v-if="activity.status === 'draft'" type="button" :disabled="Boolean(action)" @click="confirmAction = 'publish'">發布</CommonBaseButton>
           <CommonBaseButton v-else type="button" variant="secondary" :disabled="Boolean(action)" @click="confirmAction = 'unpublish'">撤回</CommonBaseButton>
-          <button type="button" class="focus-ring rounded-md px-5 py-3 text-sm font-bold text-red-700" :disabled="Boolean(action)" @click="confirmAction = 'delete'">刪除</button>
+          <button data-testid="delete-activity" type="button" class="focus-ring rounded-md px-5 py-3 text-sm font-bold text-red-700" :disabled="Boolean(action)" @click="confirmAction = 'delete'">刪除</button>
         </template>
       </div>
     </form>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FilePlus2, Loader2, Trash2 } from 'lucide-vue-next'
+import { FilePlus2, Loader2, Trash2 } from '@lucide/vue'
 import type { AdminFileResource, PaginatedAdminResponse } from '~/types/coreContent'
 definePageMeta({ layout: 'admin' })
 const api = useCoreContentAdmin()

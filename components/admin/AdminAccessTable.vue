@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Loader2, ShieldCheck, ShieldOff } from 'lucide-vue-next'
+import { Loader2, ShieldCheck, ShieldOff } from '@lucide/vue'
 import type { AdminAccount } from '~/types/adminAccess'
 
 defineProps<{ admins: AdminAccount[]; busyUserId?: string }>()

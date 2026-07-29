@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Loader2, Save, Send, Undo2 } from 'lucide-vue-next'
+import { Loader2, Save, Send, Undo2 } from '@lucide/vue'
 import type { AdminPost } from '~/types/coreContent'
 import { toContentSlug } from '~/shared/contentRules'
 

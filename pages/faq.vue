@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChevronDown } from 'lucide-vue-next'
+import { ChevronDown } from '@lucide/vue'
 const { data, pending, error } = await usePublicFaq()
 const faq = computed(() => data.value?.items ?? [])
 const activeId = ref('')

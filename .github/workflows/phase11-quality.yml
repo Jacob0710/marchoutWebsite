@@ -21,10 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
       - run: corepack enable
@@ -42,7 +42,7 @@ jobs:
       - run: git diff --check
       - name: Upload coverage evidence
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: phase11-coverage-${{ github.sha }}
           path: coverage/
@@ -54,8 +54,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - uses: actions/dependency-review-action@2031cfc080254a8a887f58cffee85186f0e49e48 # v4.9.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
         with:
           fail-on-severity: high
 
@@ -64,41 +64,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
       - name: Hourly production health and public-route contract
         env:
           PHASE10_SYNTHETIC_ORIGIN: https://marchout-website.vercel.app
         run: node scripts/phase10/synthetic-check.mjs
-
-  protected-release-gate:
-    if: github.event_name == 'workflow_dispatch'
-    needs: quality
-    environment: staging
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        with:
-          node-version: 24
-      - run: corepack enable
-      - run: pnpm install --frozen-lockfile
-      - name: Protected Phase 10 smoke
-        env:
-          PHASE10_BASE_URL: ${{ vars.PHASE10_BASE_URL }}
-          NUXT_PUBLIC_SUPABASE_URL: ${{ vars.NUXT_PUBLIC_SUPABASE_URL }}
-          NUXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NUXT_PUBLIC_SUPABASE_ANON_KEY }}
-          PHASE10_ADMIN_EMAIL: ${{ secrets.PHASE10_ADMIN_EMAIL }}
-          PHASE10_ADMIN_PASSWORD: ${{ secrets.PHASE10_ADMIN_PASSWORD }}
-          PHASE10_INACTIVE_ADMIN_EMAIL: ${{ secrets.PHASE10_INACTIVE_ADMIN_EMAIL }}
-          PHASE10_INACTIVE_ADMIN_PASSWORD: ${{ secrets.PHASE10_INACTIVE_ADMIN_PASSWORD }}
-        run: pnpm run test:phase10:smoke
-      - name: External-origin synthetic contract
-        env:
-          PHASE10_SYNTHETIC_ORIGIN: ${{ vars.PHASE10_BASE_URL }}
-        run: pnpm run phase10:synthetic

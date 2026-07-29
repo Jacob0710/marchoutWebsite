@@ -11,6 +11,7 @@ export default createConfigForNuxt()
       '.phase10-private/**',
       '.phase11-cache/**',
       'coverage/**',
+      'coverage-application/**',
       'migration/phase9/private/**',
       'migration/phase9/tmp/**',
       'migration/phase10/private/**',

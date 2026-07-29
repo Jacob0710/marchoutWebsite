@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     phase10Environment: 'local',
     phase10HstsEnabled: 'false',
     phase10VerificationOrigins: '',
+    phase12ReleaseSha: '',
     public: {
       supabaseUrl: '',
       supabaseAnonKey: '',

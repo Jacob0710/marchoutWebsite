@@ -182,6 +182,21 @@ pnpm phase11:audit
 
 `pnpm test:phase11` runs the credential-free local quality path as one command. Pull-request CI receives no Supabase or administrator secret; authenticated read-only smoke remains behind the protected `staging` environment. Coverage currently measures the explicitly listed pure domain/security helpers rather than claiming whole-application coverage. See `codexSteps/phase11.md` and `outputs/phase-11-execution-status.md`.
 
+## Phase 12 browser and release hardening
+
+Phase 12 adds a deterministic Playwright matrix, a separate application-integration coverage gate, isolated staging seed/cleanup controls, immutable Node 24 GitHub Actions, and approval-bound production promotion.
+
+```bash
+pnpm install --frozen-lockfile
+pnpm exec playwright install --with-deps
+pnpm phase12:verify
+pnpm test:application
+pnpm test:e2e:chromium
+pnpm phase12:scan-artifacts
+```
+
+Local browser tests use the built mock-mode application and require no production credential. Authenticated, mutation and full cross-browser journeys require the independent staging topology documented in `docs/phase12-staging-release-runbook.md`; the scripts fail closed if either the web or Supabase origin matches production. Warning decisions are recorded in `docs/phase12-warning-governance.md`.
+
 ## Deployment readiness
 
 This application requires a Nitro-capable SSR deployment; static-only hosting is insufficient for secure cookies, administrator APIs, and private asset proxies. Configure the public site URL and Supabase redirect allow-list for each environment, run every migration and verification query, and execute the Phase 5–9 suites against staging before production promotion.

@@ -30,9 +30,12 @@ export default defineEventHandler((event) => {
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
-    "frame-ancestors 'none'"
+    "frame-ancestors 'none'",
+    'report-uri /api/security/csp-report',
+    'report-to csp-endpoint'
   ].join('; ')
   setResponseHeader(event, 'Content-Security-Policy-Report-Only', policy)
+  setResponseHeader(event, 'Reporting-Endpoints', 'csp-endpoint="/api/security/csp-report"')
   setResponseHeader(event, 'X-Content-Type-Options', 'nosniff')
   setResponseHeader(event, 'Referrer-Policy', 'strict-origin-when-cross-origin')
   setResponseHeader(event, 'Permissions-Policy', 'camera=(), geolocation=(), microphone=(), payment=(), usb=()')
