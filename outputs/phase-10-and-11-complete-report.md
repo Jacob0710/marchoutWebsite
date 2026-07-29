@@ -12,7 +12,7 @@ Evidence precedence:
 
 1. The final execution reports and final Git/GitHub states in this document are authoritative for phase completion.
 2. `outputs/phase10-preflight.json` and `outputs/phase10-execution-reconciliation.json` are dated preflight/checkpoint records from 2026-07-22. Their `PARTIALLY_READY` or external-blocker fields describe the state before the later authorized production work; they do not supersede the final Phase 10 completion report dated 2026-07-29.
-3. Phase 11 is implementation-complete but remains in an open draft pull request. It has not been merged to `main` and has no Phase 11 completion tag.
+3. Phase 11 is merged and released. PR #2, post-merge `main` CI, the matching Vercel production deployment, credential-free synthetic, protected authenticated read-only smoke, branch protection, and the completion tag are mutually traceable.
 4. “Passed” means the named local command, GitHub check, deployment check, or protected workflow completed successfully. It does not mean an independent third party reproduced every claim.
 
 ## 1. Executive summary
@@ -20,7 +20,7 @@ Evidence precedence:
 | Phase | Final state | Git state | Remote evidence | Production mutation |
 | --- | --- | --- | --- | --- |
 | Phase 10 | **COMPLETE** | PR #1 merged; annotated completion tag present | Production deployment, read-only smoke, synthetic, backup/restore and reconciliation passed | Authorized Phase 10 database/editorial release work completed |
-| Phase 11 | **EXECUTION COMPLETE** | Draft PR #2 open, clean and mergeable at `a8e4307` | PR quality, Dependency Review, Vercel preview and protected read-only gate passed | None |
+| Phase 11 | **MERGED / RELEASED COMPLETE** | PR #2 merged; completion tag points to the final release-evidence `main` commit | PR and `main` quality, Dependency Review, Vercel production, synthetic and protected read-only gate passed | None |
 
 Cross-phase result:
 
@@ -260,7 +260,7 @@ Browser verification:
 
 ## B1. Status and release identity
 
-Final status: **EXECUTION COMPLETE — DRAFT PR READY FOR REVIEW / MERGE**
+Final status: **MERGED / RELEASED COMPLETE**
 
 - Phase 11 baseline: `81a6add79fa2d8d42f8c5d85900222156a7d1c7c`
 - Baseline branch: `main`
@@ -269,15 +269,18 @@ Final status: **EXECUTION COMPLETE — DRAFT PR READY FOR REVIEW / MERGE**
 - Clean-runner fix: `1541824564fef6dc662bee25c628961f216f513e`
 - Remote-evidence report commit: `767b471b1eb515546cefc4f7ec8e4b81ab9871f8`
 - Final Definition-of-Done commit: `a8e4307fe47e9042472b9c3e2fdefc714fe738fe`
-- Draft PR: https://github.com/Jacob0710/marchoutWebsite/pull/2
-- PR state: open draft
-- PR mergeability: `MERGEABLE`
-- PR merge state: `CLEAN`
-- Phase 11 completion tag: none
+- Complete-report commit on the Phase 11 branch: `16d9b6af7f8d3eb30fc1946f152608101ac1b5c2`
+- Pull request: https://github.com/Jacob0710/marchoutWebsite/pull/2
+- Review model: owner-accepted single-maintainer mode; no independent reviewer was available and required approvals are `0`.
+- PR state: merged at `2026-07-29T14:03:01Z`
+- Merge method: merge commit
+- Merge and initial released `main` commit: `5ec57903537d81472e89f94308b89fa887f5620f`
+- Phase 11 completion tag: `phase-11-automated-testing-ci-complete`
+- Completion tag target: the final `main` release-evidence commit containing this report; the remote tag ref is the authoritative target SHA.
 - Phase 11 specification: `codexSteps/phase11.md`
 - All 13 Definition-of-Done items in the specification are checked.
 
-Phase 11 has not been merged to `main`. Therefore “execution complete” means implementation and all defined validation gates passed on the branch; it does not mean repository release/merge completion.
+The completion tag is created only after this final documentation change is merged to `main`, its required CI and matching production deployment pass, and production read-only validation is repeated. Embedding the resulting commit SHA inside the same commit would be self-referential, so the immutable remote tag ref and final handoff are the authoritative SHA record.
 
 ## B2. Toolchain
 
@@ -461,6 +464,35 @@ Final protected workflow:
 - Dependency Review: correctly skipped because this was not a pull-request event.
 - Production synthetic schedule job: correctly skipped because this was not a scheduled event.
 
+Final report PR run:
+
+- Run: https://github.com/Jacob0710/marchoutWebsite/actions/runs/30458773570
+- Commit: `16d9b6af7f8d3eb30fc1946f152608101ac1b5c2`
+- `quality`: passed.
+- `dependency-review`: passed.
+- Vercel preview: passed.
+
+Merge and initial `main` release:
+
+- PR #2 merged at `2026-07-29T14:03:01Z` using a merge commit.
+- Merge commit: `5ec57903537d81472e89f94308b89fa887f5620f`.
+- Post-merge `main` run: https://github.com/Jacob0710/marchoutWebsite/actions/runs/30458939796
+- The run passed frozen install, repository verification, manifest determinism, ESLint, production dependency audit, curated coverage, typecheck, Phase 10 regression, production build, built SSR integration, whitespace verification, and coverage artifact upload.
+- Vercel production deployment ID: `5658859954`.
+- Deployment commit: `5ec57903537d81472e89f94308b89fa887f5620f`.
+- Deployment URL: `https://marchout-website-qy3swdg12-jacob0710s-projects.vercel.app`.
+- Canonical production origin: `https://marchout-website.vercel.app`.
+
+Production validation:
+
+- Credential-free production synthetic passed at `2026-07-29T14:04:52.265Z`.
+- All required endpoints returned `200`: `/api/health`, `/api/health/ready`, `/`, `/about`, `/activities`, `/files`, `/years`, `/robots.txt`, and `/sitemap.xml`.
+- The slowest response was `/` at `4204 ms`, below the `5000 ms` threshold.
+- Credential-free mutations: `0`.
+- Final protected run: https://github.com/Jacob0710/marchoutWebsite/actions/runs/30459102010
+- Authenticated smoke passed with 122 reviews, 70 targets, 83 redirects, and `remoteMutations: 0`.
+- Its external synthetic passed all nine endpoints; the slowest response was `/` at `2181 ms`, and mutations were `0`.
+
 ## B8. Staging environment configuration
 
 - GitHub environment: `staging`.
@@ -480,6 +512,10 @@ Final protected workflow:
   - `main`
   - `codex/phase11-*`
 - No required-reviewer rule is configured because no separate reviewer was supplied.
+- `main` branch protection is enabled and enforced for administrators.
+- Pull requests are required; strict required checks are `quality`, `dependency-review`, and `Vercel`.
+- Required approving reviews are `0` under the owner-approved single-maintainer model.
+- Conversations must be resolved; force pushes and branch deletion are disabled.
 
 The Vercel preview URL was protected by Vercel SSO. With explicit owner approval, the protected environment used `https://marchout-website.vercel.app` as the target for authenticated and synthetic read-only checks. The smoke performed no release apply and no production mutation.
 
@@ -499,7 +535,7 @@ The Vercel preview URL was protected by Vercel SSO. With explicit owner approval
 - Workflow YAML lint: passed.
 - Dependabot YAML lint: passed.
 - `git diff --check`: passed.
-- Final branch worktree after publishing: clean.
+- Repository diff after publishing: clean except for the owner-preserved, intentionally untracked `outputs/phase-11-completion-handoff.md`.
 
 Phase 10 invariant regression:
 
@@ -514,29 +550,39 @@ Phase 10 invariant regression:
 
 ## B10. Residual risks and warnings
 
-- PR #2 remains a draft and has not been merged.
-- No Phase 11 completion tag exists.
-- The protected read-only gate targets the production HTTPS origin because the preview is Vercel-SSO protected and there is no separately exposed staging hostname.
-- GitHub `staging` has branch restrictions but no required human reviewer.
-- `@nuxt/cli@3.37.0` requests `@nuxt/schema ^4.4.6` while Nuxt 3.21.10 installs schema 3.21.10. Frozen install, typecheck, tests and build pass; no unsafe cross-major override was applied.
-- `lucide-vue-next@0.468.0` is deprecated upstream in favor of `@lucide/vue`; migration was deferred as unrelated to Phase 11.
-- Nitro emits a trailing-slash export mapping deprecation warning during build.
-- GitHub annotates pinned JavaScript actions whose bundled Node 20 runtime is forced onto Node 24. All actions completed successfully; future compatible action updates should remove the warning.
-- Coverage is curated, not whole-application coverage.
-- Dependency Review only evaluates dependency changes represented to GitHub; it is not a substitute for all SAST/DAST or manual security review.
+Owner `Jacob0710` explicitly accepted these residual risks on 2026-07-29 (Asia/Taipei):
+
+1. Coverage is limited to selected pure domain and security modules; it is not whole-application coverage.
+2. No complete browser E2E matrix exists.
+3. The protected `staging` gate exercises the production origin because there is no separately exposed staging hostname.
+4. GitHub `staging` has branch restrictions but no required human reviewer.
+5. `main` originally had no branch protection or ruleset. This was mitigated before merge with required pull requests, strict required checks, administrator enforcement, resolved conversations, and disabled force-push/deletion; the single-maintainer approval count remains `0`.
+6. `@nuxt/cli@3.37.0` requests `@nuxt/schema ^4.4.6` while Nuxt 3.21.10 installs schema 3.21.10. No unsafe cross-major override was applied.
+7. `lucide-vue-next@0.468.0` is deprecated upstream in favor of `@lucide/vue`; migration is deferred as unrelated to Phase 11.
+8. Nitro emits a trailing-slash export mapping deprecation warning during build.
+9. GitHub annotates pinned JavaScript actions whose bundled Node 20 runtime is forced onto Node 24; all actions completed successfully.
+10. Repository verification includes `--others` in the set named tracked files, so untracked repository candidates are also scanned.
+11. `git diff --check` verifies whitespace errors and is not a complete clean-worktree assertion.
+
+Dependency Review evaluates dependency changes represented to GitHub; it is not a substitute for all SAST, DAST, browser E2E, or independent manual security review.
 
 ## B11. Phase 11 final decision
 
-- Local implementation: **READY**
+- Local implementation: **COMPLETE**
 - Credential-free quality gate: **PASS**
 - Remote PR CI: **PASS**
 - Dependency Review: **PASS**
 - Vercel preview: **PASS**
+- Owner acceptance: **RECORDED**
+- Pull request: **MERGED**
+- Post-merge `main` CI: **PASS**
+- Vercel production deployment: **READY / CORRECT COMMIT**
+- Production credential-free synthetic: **PASS**
 - Protected environment-scoped read-only smoke: **PASS**
 - Production mutation: **NONE**
-- Pull request: **DRAFT / CLEAN / MERGEABLE**
-- Overall Phase 11 execution: **COMPLETE**
-- Repository merge/release: **PENDING OWNER REVIEW**
+- Branch protection: **ENABLED**
+- Completion tag: **`phase-11-automated-testing-ci-complete` → final release-evidence `main` commit**
+- Overall Phase 11 execution and release: **MERGED / RELEASED COMPLETE**
 
 ---
 
@@ -553,7 +599,7 @@ A reviewer should distinguish implementation evidence from independent assurance
 7. Should the GitHub `staging` environment require a separate human reviewer before secrets are released?
 8. Should pinned GitHub Actions be upgraded to releases that natively target Node 24?
 9. Are the pnpm overrides appropriately narrow and documented?
-10. Is PR #2 ready to leave draft status and merge, or are additional review/security gates warranted?
+10. Are the completed merge, branch protection, production deployment, read-only validation and completion tag sufficient for the project’s release-governance standard?
 
 ## Suggested prompt to send with this report
 
@@ -564,8 +610,8 @@ A reviewer should distinguish implementation evidence from independent assurance
 1. 報告中已提供的證據；
 2. 只能視為作者聲明、尚未獨立驗證的內容；
 3. 互相矛盾、過時或可能誤導的內容；
-4. 真正會阻止 Phase 11 PR 合併的 blocker；
-5. 可以合併後再處理的 residual risk。
+4. 是否存在會推翻 Phase 11 `MERGED / RELEASED COMPLETE` 判定的 blocker；
+5. 可以列入後續維護的 residual risk。
 
 請依序輸出：
 - Executive verdict：PASS / PASS WITH CONDITIONS / BLOCK
@@ -574,8 +620,8 @@ A reviewer should distinguish implementation evidence from independent assurance
 - Security 與 supply-chain 判讀
 - CI/CD、staging 與 production safety 判讀
 - 數據或證據矛盾清單
-- 合併 PR #2 前必做事項
-- 合併後 30 天內建議事項
+- 發布證據與 completion tag 的可追溯性
+- 發布後 30 天內建議事項
 
 不要因為報告寫著 COMPLETE 就直接相信；請根據提供的 commit、tag、PR、run、測試、coverage、migration、backup/restore、redirect 與 residual-risk 證據判斷。
 ```
