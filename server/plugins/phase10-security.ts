@@ -32,9 +32,9 @@ export default defineNitroPlugin((nitroApp) => {
       return
     }
     for (const key of Object.keys(response.headers)) {
-      if (key.toLowerCase() === 'x-powered-by') delete response.headers[key]
-      if (isPrivateRoute && key.toLowerCase() === 'cache-control') delete response.headers[key]
-      if (isAssetProxy && key.toLowerCase() === 'cross-origin-resource-policy') delete response.headers[key]
+      if (key.toLowerCase() === 'x-powered-by') Reflect.deleteProperty(response.headers, key)
+      if (isPrivateRoute && key.toLowerCase() === 'cache-control') Reflect.deleteProperty(response.headers, key)
+      if (isAssetProxy && key.toLowerCase() === 'cross-origin-resource-policy') Reflect.deleteProperty(response.headers, key)
     }
     if (isPrivateRoute) response.headers['cache-control'] = 'private, no-store, max-age=0'
     if (isAssetProxy) response.headers['cross-origin-resource-policy'] = 'same-origin'

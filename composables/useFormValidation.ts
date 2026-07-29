@@ -12,12 +12,12 @@ export const useFormValidation = <T extends object>(rules: Partial<Record<String
   const errors = reactive({}) as ValidationErrors<T>
 
   const clearError = (field: StringKeyOf<T>) => {
-    delete errors[field]
+    Reflect.deleteProperty(errors, field)
   }
 
   const clearErrors = () => {
     for (const field of Object.keys(errors) as StringKeyOf<T>[]) {
-      delete errors[field]
+      Reflect.deleteProperty(errors, field)
     }
   }
 

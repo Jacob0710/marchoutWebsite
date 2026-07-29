@@ -14,8 +14,9 @@ const publicCacheable = (path: string, method: string) => method === 'GET'
 export default defineEventHandler((event) => {
   const config = useRuntimeConfig(event)
   const url = getRequestURL(event)
-  let supabaseOrigin = ''
-  try { supabaseOrigin = config.public.supabaseUrl ? new URL(config.public.supabaseUrl).origin : '' } catch { supabaseOrigin = '' }
+  const supabaseOrigin = (() => {
+    try { return config.public.supabaseUrl ? new URL(config.public.supabaseUrl).origin : '' } catch { return '' }
+  })()
   const connectSources = ["'self'", supabaseOrigin].filter(Boolean).join(' ')
   const policy = [
     "default-src 'self'",

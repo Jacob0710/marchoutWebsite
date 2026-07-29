@@ -6,7 +6,7 @@ interface SitemapRow { path: string; updatedAt?: string | null }
 export default defineEventHandler(async (event) => {
   const origin = getPublicOrigin(event)
   const staticPaths = ['/', '/about', '/organization', '/activities', '/files', '/years', '/news', '/faq', '/contact', '/programs', '/programs/breakfast', '/programs/exploration']
-  let dynamic: SitemapRow[] = []
+  let dynamic: SitemapRow[]
   if (getContentDataMode(event) === 'mock') {
     dynamic = [
       ...mockActivities.filter((item) => item.status === 'published').map((item) => ({ path: `/activities/${item.slug}` })),

@@ -239,6 +239,8 @@ export const throwContentDatabaseError = (error: PostgrestError | null, conflict
   throw internalApiError()
 }
 
+// Supabase is intentionally created without a generated Database generic; callers map or validate selected fields.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const requireExistingRow = async (query: PromiseLike<{ data: any; error: PostgrestError | null }>): Promise<Record<string, any>> => {
   const { data, error } = await query
   throwContentDatabaseError(error)
