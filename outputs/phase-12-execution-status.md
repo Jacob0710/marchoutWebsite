@@ -28,8 +28,9 @@
 ## Current State
 
 - status: `BLOCKED — LOCAL IMPLEMENTATION VERIFIED / EXTERNAL STAGING NOT AVAILABLE`
-- current commit at the start of Phase 12 implementation: `2a4ede7bcb21ff0692d89592e1e0d35aa0eb2e2f`
+- verified implementation commit: `b9d8bc0c070b7c51d854cc4d77ffc6a36360b602`
 - current branch: `codex/phase12-e2e-staging-release-hardening`
+- draft PR: `https://github.com/Jacob0710/marchoutWebsite/pull/12`
 - blockers:
   - 尚無與 production 分離、可供 CI 使用的 Vercel staging project／canonical origin／token。
   - 尚無與 production 分離的 Supabase staging project、Auth identities、Storage 與 service-role secret。
@@ -59,8 +60,8 @@
 
 ## In Progress
 
-- 將本機已驗證變更提交並建立 draft PR。
-- 取得 remote PR quality 與 dependency review 證據。
+- 取得獨立 staging 外部資源與帳號權限。
+- 保持 draft PR，不在 staging DoD 完成前 merge。
 
 ## Pending
 
@@ -93,6 +94,9 @@
 | `pnpm dlx yaml-lint@1.7.0 .github/workflows/*.yml` | PASS | all workflow YAML valid |
 | `git diff --check` | PASS | no whitespace errors |
 | `pnpm peers check` | UPSTREAM BLOCKED | Nuxt 3.21.10 pins `@nuxt/schema` 3.21.10 while `@nuxt/cli` 3.37 declares `^4.4.6`; not suppressed |
+| PR Phase 11 quality | PASS | run `30475592163`; `quality` and `dependency-review` successful |
+| PR Phase 12 quality | PASS | run `30475597349`; `phase12-quality` and `dependency-review` successful |
+| Vercel preview check | PASS | PR head `b9d8bc0c070b7c51d854cc4d77ffc6a36360b602` |
 
 ## Staging
 
@@ -148,10 +152,9 @@
 - 在獨立 staging 建立前，authenticated CRUD、identity boundary、private asset 與 cleanup DoD 不能以本機 mock 替代。
 - 現有 `staging` environment 仍保存舊 Phase 10 production-mapped variables／secret names；在新的獨立資源與 Phase 12 secrets 驗證前不得執行 mutation gate。
 - Nitro DEP0155、Nuxt peer metadata 與五個 transitive deprecation 由 upstream dependency graph 造成；均已重現、分類且未用 suppress 或不安全 override 偽裝修復。
-- 尚無 remote PR/main/staging/production run，因此不得宣告 Phase 12 完成。
+- PR head 的無 secrets quality gates 已全綠；尚無 final main、staging 或 production run，因此不得宣告 Phase 12 完成。
 
 ## Next Action
 
-- 先提交並推送本機已驗證的 Phase 12 branch，取得無 secrets 的 PR quality 證據。
 - 由有權限的操作者建立或授權獨立 Vercel／Supabase staging，依 runbook 設定 GitHub environment。
 - owner 留下 `PHASE12-STAGING-APPROVED <sha>` 後執行 staging workflow；只有 staging、cleanup、approval、production 與 final main 全部成功後，才建立 complete report 與 completion tag。
