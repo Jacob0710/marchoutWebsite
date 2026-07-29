@@ -129,19 +129,19 @@ Stop and report rather than weaken a gate when:
 
 ## 8. Definition of Done
 
-- [ ] `codexSteps/phase11.md` is committed.
-- [ ] Frozen install passes on Node 24.
-- [ ] Repository/security verification passes.
-- [ ] ESLint passes with zero warnings.
-- [ ] Unit and component tests pass.
-- [ ] Curated coverage thresholds pass.
-- [ ] Typecheck and production build pass.
-- [ ] Phase 10 regression suite passes.
-- [ ] Built SSR integration contract passes.
-- [ ] Production dependency audit has zero high and zero critical findings.
-- [ ] GitHub Actions use immutable full commit SHAs and least privilege.
-- [ ] Dependabot configuration is present.
-- [ ] Phase 11 execution status records exact results and remaining risk.
+- [x] `codexSteps/phase11.md` is committed.
+- [x] Frozen install passes on Node 24.
+- [x] Repository/security verification passes.
+- [x] ESLint passes with zero warnings.
+- [x] Unit and component tests pass.
+- [x] Curated coverage thresholds pass.
+- [x] Typecheck and production build pass.
+- [x] Phase 10 regression suite passes.
+- [x] Built SSR integration contract passes.
+- [x] Production dependency audit has zero high and zero critical findings.
+- [x] GitHub Actions use immutable full commit SHAs and least privilege.
+- [x] Dependabot configuration is present.
+- [x] Phase 11 execution status records exact results and remaining risk.
 
 ## 9. Deliverables
 
