@@ -18,7 +18,7 @@
     "test": "vitest run",
     "test:unit": "vitest run --project unit",
     "test:components": "vitest run --project components",
-    "test:coverage": "vitest run --project unit --project components --coverage",
+    "test:coverage": "nuxi prepare && vitest run --project unit --project components --coverage",
     "test:integration": "node scripts/phase11/local-ssr-smoke.mjs",
     "phase11:verify": "node scripts/phase11/verify-repository.mjs",
     "phase11:audit": "pnpm audit --prod --audit-level=high",
