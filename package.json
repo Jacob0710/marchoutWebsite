@@ -3,13 +3,26 @@
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.9.0",
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "scripts": {
     "predev": "nuxt cleanup",
     "dev": "nuxt dev --host 0.0.0.0",
     "build": "nuxt build",
     "typecheck": "nuxi typecheck",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
     "generate": "nuxt generate",
     "preview": "nuxt preview --host=0.0.0.0",
+    "test": "vitest run",
+    "test:unit": "vitest run --project unit",
+    "test:components": "vitest run --project components",
+    "test:coverage": "vitest run --project unit --project components --coverage",
+    "test:integration": "node scripts/phase11/local-ssr-smoke.mjs",
+    "phase11:verify": "node scripts/phase11/verify-repository.mjs",
+    "phase11:audit": "pnpm audit --prod --audit-level=high",
+    "test:phase11": "pnpm run phase11:verify && pnpm run lint && pnpm run phase11:audit && pnpm run test:coverage && pnpm run typecheck && pnpm run test:phase10 && pnpm run build && pnpm run test:integration",
     "test:phase5": "node --env-file-if-exists=.env.phase6.local scripts/phase5-auth-smoke.mjs",
     "test:phase6": "node --env-file-if-exists=.env.phase6.local scripts/phase6-admin-crud-smoke.mjs",
     "test:phase7": "node --env-file-if-exists=.env.phase6.local scripts/phase7-admin-access-smoke.mjs",
@@ -46,15 +59,24 @@
     "test:phase10": "pnpm run phase10:static && pnpm run phase10:redirect:verify && pnpm run phase10:privacy"
   },
   "dependencies": {
-    "@nuxtjs/tailwindcss": "^6.12.2",
+    "@nuxtjs/tailwindcss": "6.14.0",
     "@supabase/ssr": "0.12.0",
     "@supabase/supabase-js": "^2.108.2",
+    "h3": "1.15.11",
     "lucide-vue-next": "^0.468.0",
-    "nuxt": "^3.15.0"
+    "nuxt": "^3.21.10",
+    "vue": "3.5.40"
   },
   "devDependencies": {
+    "@nuxt/eslint-config": "1.16.0",
+    "@vitejs/plugin-vue": "6.0.8",
+    "@vitest/coverage-v8": "4.1.10",
+    "@vue/test-utils": "2.4.11",
+    "eslint": "10.8.0",
+    "happy-dom": "20.11.1",
     "tailwindcss": "^3.4.19",
     "typescript": "^5.7.2",
+    "vitest": "4.1.10",
     "vue-tsc": "^3.3.7"
   }
 }

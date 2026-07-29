@@ -165,6 +165,23 @@ Remote bootstrap, decisions, publication, derivatives, and redirect activation a
 
 Phase 10 is complete under the owner-confirmed greenfield scope. Wix is a frozen historical content source only; the new Vercel site does not take over the Wix hostname and does not require legacy redirects. Exact counts, validation evidence, deployment identity, backup/restore results, and the final release decision are recorded in `outputs/phase-10-execution-status.md`. The completion tag is `phase-10-editorial-release-operations-complete`.
 
+## Phase 11 automated testing and CI
+
+Phase 11 adds Nuxt-aware ESLint, Vitest unit and component suites, curated coverage thresholds, a built Nitro SSR contract smoke, tracked-file secret/private-artifact checks, immutable GitHub Action references, production dependency audit, and Dependabot maintenance.
+
+```bash
+pnpm install --frozen-lockfile
+pnpm lint
+pnpm test:coverage
+pnpm typecheck
+pnpm test:phase10
+pnpm build
+pnpm test:integration
+pnpm phase11:audit
+```
+
+`pnpm test:phase11` runs the credential-free local quality path as one command. Pull-request CI receives no Supabase or administrator secret; authenticated read-only smoke remains behind the protected `staging` environment. Coverage currently measures the explicitly listed pure domain/security helpers rather than claiming whole-application coverage. See `codexSteps/phase11.md` and `outputs/phase-11-execution-status.md`.
+
 ## Deployment readiness
 
 This application requires a Nitro-capable SSR deployment; static-only hosting is insufficient for secure cookies, administrator APIs, and private asset proxies. Configure the public site URL and Supabase redirect allow-list for each environment, run every migration and verification query, and execute the Phase 5–9 suites against staging before production promotion.

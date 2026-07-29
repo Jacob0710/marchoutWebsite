@@ -5,11 +5,20 @@ import { encodedLegacyPathForSource, phase9SnapshotSha256, readCsv, readJson, re
 
 const baseline = '0784b22893ba2cf8cc2505536c079a6e2d7dd217'
 const git = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim()
+const isAncestor = (ancestor, descendant) => {
+  try {
+    execFileSync('git', ['merge-base', '--is-ancestor', ancestor, descendant], { cwd: root, stdio: 'ignore' })
+    return true
+  } catch {
+    return false
+  }
+}
 const head = git('rev-parse', 'HEAD')
 const originMain = git('rev-parse', 'refs/remotes/origin/main')
 const tag = git('rev-list', '-n', '1', 'phase-9-wix-content-migration-complete')
-const baselineIsAncestor = execFileSync('git', ['merge-base', '--is-ancestor', baseline, head], { cwd: root }).toString() === ''
-if (!baselineIsAncestor || ![baseline, head].includes(originMain) || tag !== baseline) throw new Error('Phase 9 Git baseline/tag ancestry drifted')
+if (!isAncestor(baseline, head) || !isAncestor(originMain, head) || tag !== baseline) {
+  throw new Error('Phase 9 Git baseline/tag ancestry drifted')
+}
 
 const [content, reviews, redirects, config, decisions] = await Promise.all([
   readJsonl('migration/phase9/content-manifest.jsonl'),
@@ -79,7 +88,9 @@ for (const fragment of requiredReleaseSql) {
 const elevatedPrefix = ['sb', 'secret', ''].join('_')
 if (/service[_-]?role/i.test(sql) || sql.toLowerCase().includes(elevatedPrefix)) throw new Error('Elevated credential material or naming entered migrations')
 
+const deleted = new Set(git('ls-files', '--deleted').split(/\r?\n/).filter(Boolean))
 const listed = git('ls-files', '--cached', '--others', '--exclude-standard').split(/\r?\n/).filter(Boolean)
+  .filter((path) => !deleted.has(path))
 const bannedArtifacts = listed.filter((path) => /(^|\/)(?:\.env(?:\.|$)|\.nuxt|\.output|\.phase10-private|\.phase10-cache)(\/|$)|\.(?:log|har)$|(?:screenshot|render-cache|download-cache)/i.test(path)
   && path !== '.env.example')
 if (bannedArtifacts.length) throw new Error(`Runtime/private artifacts are present: ${bannedArtifacts.join(', ')}`)

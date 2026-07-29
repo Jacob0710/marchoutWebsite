@@ -12,7 +12,7 @@ interface DashboardData {
   years: PaginatedAdminResponse<AdminYearSummary>
 }
 const requestHeaders = import.meta.server ? useRequestHeaders(['cookie']) : undefined
-const { data, pending, error, refresh } = await useAsyncData<DashboardData>('admin-dashboard', async () => {
+const { data, pending, error, refresh: refreshData } = await useAsyncData<DashboardData>('admin-dashboard', async () => {
   const [activityResult, posts, files, faq, years] = await Promise.all([
     $fetch<{ activities: AdminActivityListRow[] }>('/api/admin/activities', { headers: requestHeaders }),
     $fetch<PaginatedAdminResponse<AdminPost>>('/api/admin/posts', { headers: requestHeaders }),
@@ -22,6 +22,7 @@ const { data, pending, error, refresh } = await useAsyncData<DashboardData>('adm
   ])
   return { activities: activityResult.activities, posts, files, faq, years }
 })
+const refresh = () => refreshData()
 const metrics = computed(() => [
   { label: '活動', value: data.value?.activities.length ?? 0, icon: CalendarDays, color: 'text-coral' },
   { label: '消息', value: data.value?.posts.total ?? 0, icon: Newspaper, color: 'text-teal' },
