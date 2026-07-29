@@ -2,6 +2,10 @@
 
 This runbook is the operator contract for `.github/workflows/phase12-staging-e2e.yml` and `.github/workflows/phase12-production-release.yml`. It never permits production credentials or production data in staging.
 
+Use `docs/phase12-staging-access-checklist.md` for the per-value source,
+secret scope, job scope, rejection rules, operator authorization requests, and
+the full pre-merge/final-main execution order.
+
 ## Required topology
 
 | Boundary | Staging | Production |
