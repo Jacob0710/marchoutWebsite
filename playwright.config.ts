@@ -1,10 +1,19 @@
 import { defineConfig, devices } from '@playwright/test'
+import { isIP } from 'node:net'
 
 const localBaseUrl = 'http://127.0.0.1:4173'
 const stagingBaseUrl = process.env.PHASE12_STAGING_BASE_URL?.trim()
 const explicitBaseUrl = process.env.PHASE12_BASE_URL?.trim()
 const baseURL = stagingBaseUrl || explicitBaseUrl || localBaseUrl
 const remote = Boolean(stagingBaseUrl || explicitBaseUrl)
+const stagingHostIp = process.env.PHASE12_STAGING_HOST_IP?.trim() || ''
+const chromiumLaunchOptions = stagingBaseUrl && isIP(stagingHostIp)
+  ? {
+      args: [
+        `--host-resolver-rules=MAP ${new URL(stagingBaseUrl).hostname} ${stagingHostIp}`
+      ]
+    }
+  : undefined
 const smokeFiles = [
   '**/public-navigation.spec.ts',
   '**/public-activities.spec.ts',
@@ -58,7 +67,7 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] }
+      use: { ...devices['Desktop Chrome'], launchOptions: chromiumLaunchOptions }
     },
     {
       name: 'firefox',
@@ -73,7 +82,7 @@ export default defineConfig({
     {
       name: 'mobile-chromium',
       testMatch: smokeFiles,
-      use: { ...devices['Pixel 7'] }
+      use: { ...devices['Pixel 7'], launchOptions: chromiumLaunchOptions }
     }
   ]
 })
