@@ -4,12 +4,16 @@ on:
   workflow_dispatch:
     inputs:
       release_sha:
-        description: Exact protected main commit to deploy and test
+        description: Exact protected main or Draft PR head commit to deploy and test
         required: true
         type: string
+      pull_request:
+        description: Draft PR number for pre-merge staging; leave empty for protected main
+        required: false
+        type: string
       approval_issue:
-        description: Issue containing owner approval for this exact staging commit
-        required: true
+        description: Owner approval issue for protected-main runs; leave empty for pre-merge staging
+        required: false
         type: string
   schedule:
     - cron: '23 3 * * 1'
@@ -24,6 +28,7 @@ concurrency:
 env:
   VERCEL_CLI_VERSION: 58.3.0
   PHASE12_RELEASE_SHA: ${{ inputs.release_sha || github.sha }}
+  PHASE12_PR_NUMBER: ${{ inputs.pull_request }}
   PHASE12_STAGING_APPROVAL_ISSUE: ${{ inputs.approval_issue }}
 
 jobs:
@@ -32,6 +37,7 @@ jobs:
       checks: read
       contents: read
       issues: read
+      pull-requests: read
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -42,13 +48,18 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
-      - name: Require the current protected main commit
+      - name: Require the exact protected-main or Draft PR commit
         shell: bash
         run: |
           set -euo pipefail
-          git fetch origin main
           test "$(git rev-parse HEAD)" = "$PHASE12_RELEASE_SHA"
-          test "$(git rev-parse origin/main)" = "$PHASE12_RELEASE_SHA"
+          git fetch origin main
+          if [[ -z "$PHASE12_PR_NUMBER" ]]; then
+            test "$(git rev-parse origin/main)" = "$PHASE12_RELEASE_SHA"
+          else
+            [[ "$PHASE12_PR_NUMBER" =~ ^[0-9]+$ ]]
+            test "$(git rev-parse origin/main)" != "$PHASE12_RELEASE_SHA"
+          fi
       - name: Verify required checks and traceable owner staging approval
         env:
           GITHUB_TOKEN: ${{ github.token }}
