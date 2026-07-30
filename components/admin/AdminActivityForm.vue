@@ -32,6 +32,13 @@ const fill = (activity?: AdminActivity | null) => {
 }
 fill(props.activity)
 watch(() => props.activity, fill)
+watch(
+  () => form.title,
+  title => {
+    if (!form.slug) form.slug = toActivitySlug(title)
+  },
+  { flush: 'sync' }
+)
 watch(form, () => { if (!hydrating) dirty.value = true }, { deep: true })
 onMounted(() => {
   hydrating = false
@@ -95,8 +102,6 @@ const tagsText = computed({
   get: () => form.tags?.join(', ') ?? '',
   set: (value: string) => { form.tags = value.split(',').map((tag) => tag.trim()).filter(Boolean) }
 })
-const suggestSlug = () => { if (!form.slug) form.slug = toActivitySlug(form.title) }
-
 onBeforeRouteLeave(() => {
   if (!dirty.value || !import.meta.client) return true
   return window.confirm('尚有未儲存的變更，確定要離開嗎？')
@@ -110,7 +115,7 @@ onBeforeRouteLeave(() => {
     <form class="grid gap-5" novalidate @submit.prevent="save">
       <div class="grid gap-4 md:grid-cols-2">
         <label class="grid gap-2 text-sm font-semibold">活動標題
-          <input v-model="form.title" class="focus-ring h-11 rounded-md border border-slate-200 px-3" @blur="suggestSlug" />
+          <input v-model="form.title" class="focus-ring h-11 rounded-md border border-slate-200 px-3" />
           <span v-if="fieldErrors.title" class="text-xs text-red-600">{{ fieldErrors.title[0] }}</span>
         </label>
         <label class="grid gap-2 text-sm font-semibold">Slug
