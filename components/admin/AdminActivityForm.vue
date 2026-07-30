@@ -17,6 +17,7 @@ const errorMessage = ref('')
 const action = ref<'save' | 'publish' | 'unpublish' | 'delete' | null>(null)
 const confirmAction = ref<'publish' | 'unpublish' | 'delete' | null>(null)
 const dirty = ref(false)
+const isHydrated = ref(false)
 let hydrating = true
 
 const fill = (activity?: AdminActivity | null) => {
@@ -32,7 +33,10 @@ const fill = (activity?: AdminActivity | null) => {
 fill(props.activity)
 watch(() => props.activity, fill)
 watch(form, () => { if (!hydrating) dirty.value = true }, { deep: true })
-onMounted(() => { hydrating = false })
+onMounted(() => {
+  hydrating = false
+  isHydrated.value = true
+})
 
 const payload = (): AdminActivityInput => ({
   ...form,
@@ -148,7 +152,7 @@ onBeforeRouteLeave(() => {
       <label class="inline-flex items-center gap-2 text-sm font-semibold"><input v-model="form.isFeatured" type="checkbox" class="size-4" />首頁精選</label>
       <div class="flex flex-wrap justify-end gap-3">
         <CommonBaseButton to="/admin/activities" variant="secondary">返回列表</CommonBaseButton>
-        <CommonBaseButton type="submit" :disabled="Boolean(action)"><Loader2 v-if="action === 'save'" class="size-4 animate-spin" />儲存草稿</CommonBaseButton>
+        <CommonBaseButton type="submit" :disabled="!isHydrated || Boolean(action)"><Loader2 v-if="action === 'save'" class="size-4 animate-spin" />儲存草稿</CommonBaseButton>
         <template v-if="activity">
           <CommonBaseButton v-if="activity.status === 'draft'" type="button" :disabled="Boolean(action)" @click="confirmAction = 'publish'">發布</CommonBaseButton>
           <CommonBaseButton v-else type="button" variant="secondary" :disabled="Boolean(action)" @click="confirmAction = 'unpublish'">撤回</CommonBaseButton>

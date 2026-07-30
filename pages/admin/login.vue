@@ -133,7 +133,7 @@ const handleSubmit = async () => {
           </label>
           <button
             type="submit"
-            class="focus-ring inline-flex items-center justify-center gap-2 rounded-md bg-ink px-5 py-3 text-sm font-bold text-white transition hover:bg-teal disabled:cursor-not-allowed disabled:opacity-60"
+            class="focus-ring inline-flex items-center justify-center gap-2 rounded-md bg-ink px-5 py-3 text-sm font-bold text-white transition hover:bg-teal disabled:cursor-not-allowed disabled:opacity-75"
             :disabled="!isHydrated || isSubmitting"
           >
             <Loader2 v-if="isSubmitting" class="size-4 animate-spin" aria-hidden="true" />

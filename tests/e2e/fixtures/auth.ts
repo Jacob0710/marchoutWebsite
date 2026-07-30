@@ -12,12 +12,13 @@ export const loginWith = async (page: Page, kind: 'admin' | 'non-admin') => {
     response.request().method() === 'POST' && new URL(response.url()).pathname === '/api/admin/login',
   { timeout: 30_000 })
   await submit.click()
-  await loginResponse
-  return credentials
+  const response = await loginResponse
+  return { credentials, response }
 }
 
 export const loginAsAdmin = async (page: Page) => {
-  await loginWith(page, 'admin')
+  const { response } = await loginWith(page, 'admin')
   await expect(page).toHaveURL(/\/admin(?:\/)?$/, { timeout: 30_000 })
   await expect(page.getByRole('heading', { name: '管理後台', exact: true })).toBeVisible({ timeout: 30_000 })
+  return response
 }

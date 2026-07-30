@@ -31,7 +31,9 @@ test.describe('staging administrator CRUD journey', () => {
       await page.getByLabel('參與人數').fill('12')
       await page.getByLabel('活動成果摘要').fill('Phase 12 isolated staging browser journey result.')
       await page.getByLabel('活動正文').fill('This fixture exists only for the Phase 12 staging CRUD journey.')
-      await page.getByRole('button', { name: '儲存草稿' }).click()
+      const saveDraft = page.getByRole('button', { name: '儲存草稿' })
+      await expect(saveDraft).toBeEnabled({ timeout: 30_000 })
+      await saveDraft.click()
       await expect(page).toHaveURL(/\/admin\/activities\/[0-9a-f-]+\/edit$/i)
       activityId = page.url().match(/\/admin\/activities\/([0-9a-f-]+)\/edit$/i)?.[1] || ''
       expect(activityId).toMatch(/^[0-9a-f-]{36}$/i)

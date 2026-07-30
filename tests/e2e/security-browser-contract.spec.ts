@@ -22,14 +22,22 @@ test.describe('browser security contract', () => {
 test.describe('authenticated browser security contract', () => {
   test('enforces secure HttpOnly session, no-store admin HTML, and same-origin mutation', async ({ page }) => {
     test.skip(!isStaging, 'Session and same-origin checks require isolated staging auth.')
-    await loginAsAdmin(page)
+    const loginResponse = await loginAsAdmin(page)
 
     const cookies = (await page.context().cookies()).filter(cookie => cookie.name.startsWith('sb-'))
     expect(cookies.length).toBeGreaterThan(0)
+    const sessionCookieHeaders = (await loginResponse.headersArray())
+      .filter(header => header.name.toLowerCase() === 'set-cookie' && header.value.startsWith('sb-'))
+      .map(header => header.value)
+    expect(sessionCookieHeaders.length).toBeGreaterThan(0)
+    for (const value of sessionCookieHeaders) {
+      expect(value).toMatch(/;\s*HttpOnly(?:;|$)/i)
+      expect(value).toMatch(/;\s*Secure(?:;|$)/i)
+      expect(value).toMatch(/;\s*SameSite=Lax(?:;|$)/i)
+    }
     for (const cookie of cookies) {
       expect(cookie.httpOnly).toBe(true)
       expect(cookie.secure).toBe(true)
-      expect(cookie.sameSite).toBe('Lax')
     }
     const visibleCookieNames = await page.evaluate(() => document.cookie)
     for (const cookie of cookies) expect(visibleCookieNames).not.toContain(`${cookie.name}=`)
