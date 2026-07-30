@@ -55,14 +55,22 @@ test.describe('staging administrator CRUD journey', () => {
       await expect(page.getByLabel('影片名稱').last()).toHaveValue('Phase 12 staging video')
 
       await page.getByLabel('活動成果摘要').fill('Phase 12 edited isolated staging result.')
+      const updateResponse = page.waitForResponse(response =>
+        response.request().method() === 'PATCH'
+        && new URL(response.url()).pathname === `/api/admin/activities/${activityId}`)
       await page.getByRole('button', { name: '儲存草稿' }).click()
-      await expect(page.getByText('草稿已儲存。')).toBeVisible()
+      expect((await updateResponse).status()).toBe(200)
+      await page.reload()
+      await expect(page.getByLabel('活動成果摘要')).toHaveValue('Phase 12 edited isolated staging result.')
 
       await page.getByRole('button', { name: '發布', exact: true }).click()
       const publishDialog = page.getByRole('dialog', { name: '發布活動' })
       await expect(publishDialog).toBeVisible()
+      const publishResponse = page.waitForResponse(response =>
+        response.request().method() === 'POST'
+        && new URL(response.url()).pathname === `/api/admin/activities/${activityId}/publish`)
       await publishDialog.getByRole('button', { name: '確認發布' }).click()
-      await expect(page.getByText('活動已發布。')).toBeVisible()
+      expect((await publishResponse).status()).toBe(200)
 
       const publicPage = await page.context().newPage()
       await publicPage.goto(`/activities/${slug}`)
@@ -72,13 +80,20 @@ test.describe('staging administrator CRUD journey', () => {
 
       await page.getByRole('button', { name: '撤回', exact: true }).click()
       const withdrawDialog = page.getByRole('dialog', { name: '撤回活動' })
+      const withdrawResponse = page.waitForResponse(response =>
+        response.request().method() === 'POST'
+        && new URL(response.url()).pathname === `/api/admin/activities/${activityId}/unpublish`)
       await withdrawDialog.getByRole('button', { name: '確認撤回' }).click()
-      await expect(page.getByText('活動已撤回為草稿。')).toBeVisible()
+      expect((await withdrawResponse).status()).toBe(200)
       expect((await page.context().request.get(`/activities/${slug}`)).status()).toBe(404)
 
       await page.getByTestId('delete-activity').click()
       const deleteDialog = page.getByRole('dialog', { name: '刪除活動' })
+      const deleteResponse = page.waitForResponse(response =>
+        response.request().method() === 'DELETE'
+        && new URL(response.url()).pathname === `/api/admin/activities/${activityId}`)
       await deleteDialog.getByRole('button', { name: '永久刪除' }).click()
+      expect((await deleteResponse).status()).toBe(200)
       await expect(page).toHaveURL(/\/admin\/activities$/)
       activityId = ''
     } finally {
