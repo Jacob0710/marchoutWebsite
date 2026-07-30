@@ -41,13 +41,13 @@ test.describe('staging administrator CRUD journey', () => {
       await page.getByLabel('檔案').setInputFiles({ name: `${fixturePrefix}.png`, mimeType: 'image/png', buffer: png })
       await page.getByLabel('替代文字').first().fill('Phase 12 staging fixture pixel')
       await page.getByRole('button', { name: '上傳' }).click()
-      await expect(page.getByText('資產已上傳。')).toBeVisible()
+      await expect(page.getByAltText('Phase 12 staging fixture pixel')).toBeVisible()
       await page.getByRole('button', { name: '設為封面' }).click()
 
       await page.getByLabel('種類').selectOption('attachment')
       await page.getByLabel('檔案').setInputFiles({ name: `${fixturePrefix}.pdf`, mimeType: 'application/pdf', buffer: pdf })
       await page.getByRole('button', { name: '上傳' }).click()
-      await expect(page.getByText('資產已上傳。')).toBeVisible()
+      await expect(page.getByText(`${fixturePrefix}.pdf`, { exact: true })).toBeVisible()
 
       await page.getByLabel('影片 URL').first().fill('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
       await page.getByLabel('影片名稱').first().fill('Phase 12 staging video')
