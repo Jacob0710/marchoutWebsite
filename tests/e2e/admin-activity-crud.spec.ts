@@ -52,7 +52,7 @@ test.describe('staging administrator CRUD journey', () => {
       await page.getByLabel('影片 URL').first().fill('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
       await page.getByLabel('影片名稱').first().fill('Phase 12 staging video')
       await page.getByRole('button', { name: '新增', exact: true }).click()
-      await expect(page.getByText('Phase 12 staging video')).toBeVisible()
+      await expect(page.getByLabel('影片名稱').last()).toHaveValue('Phase 12 staging video')
 
       await page.getByLabel('活動成果摘要').fill('Phase 12 edited isolated staging result.')
       await page.getByRole('button', { name: '儲存草稿' }).click()
