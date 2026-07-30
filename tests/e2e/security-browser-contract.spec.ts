@@ -22,7 +22,6 @@ test.describe('browser security contract', () => {
 test.describe('authenticated browser security contract', () => {
   test('enforces secure HttpOnly session, no-store admin HTML, and same-origin mutation', async ({ page }) => {
     test.skip(!isStaging, 'Session and same-origin checks require isolated staging auth.')
-    test.skip(test.info().project.name !== 'chromium', 'Authenticated security smoke runs once on Chromium.')
     await loginAsAdmin(page)
 
     const cookies = (await page.context().cookies()).filter(cookie => cookie.name.startsWith('sb-'))

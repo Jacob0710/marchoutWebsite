@@ -55,3 +55,4 @@ supabase/.temp/
 # Editor files
 .vscode/
 .idea/
+.vercel

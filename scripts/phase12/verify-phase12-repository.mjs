@@ -106,6 +106,10 @@ if (!/verify-staging-approval\.mjs/.test(stagingWorkflow)) throw new Error('Stag
 if (!/needs\.seed\.result != 'skipped'/.test(stagingWorkflow)) throw new Error('Staging cleanup is not fail-safe after a partial seed.')
 const browserJob = stagingWorkflow.match(/\n {2}browser-e2e:[\s\S]*?(?=\n {2}[a-z][a-z0-9-]+:|\s*$)/)?.[0] || ''
 if (/SERVICE_ROLE/.test(browserJob)) throw new Error('Staging browser job must not receive the service role.')
+const crossBrowserSecurity = fs.readFileSync(path.join(root, 'tests/e2e/security-browser-contract.spec.ts'), 'utf8')
+if (/test\.info\(\)\.project\.name\s*!==/.test(crossBrowserSecurity)) {
+  throw new Error('The staging security contract must run in every configured browser project without project-specific skips.')
+}
 const productionWorkflow = fs.readFileSync(path.join(root, '.github/workflows/phase12-production-release.yml'), 'utf8')
 if (!/environment:\s*production/.test(productionWorkflow)) throw new Error('Production workflow lacks its protected environment.')
 if (/PHASE12_(?:ADMIN|NON_ADMIN)_(?:EMAIL|PASSWORD)/.test(productionWorkflow)) throw new Error('Production workflow references staging identities.')
