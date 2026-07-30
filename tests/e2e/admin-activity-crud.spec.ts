@@ -41,18 +41,38 @@ test.describe('staging administrator CRUD journey', () => {
 
       await page.getByLabel('檔案').setInputFiles({ name: `${fixturePrefix}.png`, mimeType: 'image/png', buffer: png })
       await page.getByLabel('替代文字').first().fill('Phase 12 staging fixture pixel')
+      const imageUploadResponse = page.waitForResponse(response =>
+        response.request().method() === 'POST'
+        && new URL(response.url()).pathname === `/api/admin/activities/${activityId}/assets`)
       await page.getByRole('button', { name: '上傳' }).click()
+      expect((await imageUploadResponse).status()).toBe(200)
       await expect(page.getByAltText('Phase 12 staging fixture pixel')).toBeVisible()
+      const coverResponse = page.waitForResponse(response =>
+        response.request().method() === 'POST'
+        && new URL(response.url()).pathname === `/api/admin/activities/${activityId}/cover`)
       await page.getByRole('button', { name: '設為封面' }).click()
+      expect((await coverResponse).status()).toBe(200)
+      await expect(page.getByRole('button', { name: '清除封面' })).toBeVisible()
 
       await page.getByLabel('種類').selectOption('attachment')
       await page.getByLabel('檔案').setInputFiles({ name: `${fixturePrefix}.pdf`, mimeType: 'application/pdf', buffer: pdf })
+      const attachmentUploadResponse = page.waitForResponse(response =>
+        response.request().method() === 'POST'
+        && new URL(response.url()).pathname === `/api/admin/activities/${activityId}/assets`)
       await page.getByRole('button', { name: '上傳' }).click()
+      expect((await attachmentUploadResponse).status()).toBe(200)
       await expect(page.getByText(`${fixturePrefix}.pdf`, { exact: true })).toBeVisible()
+      await page.waitForLoadState('networkidle')
 
       await page.getByLabel('影片 URL').first().fill('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
       await page.getByLabel('影片名稱').first().fill('Phase 12 staging video')
-      await page.getByRole('button', { name: '新增', exact: true }).click()
+      const addVideo = page.getByRole('button', { name: '新增', exact: true })
+      await addVideo.click({ trial: true })
+      const videoResponse = page.waitForResponse(response =>
+        response.request().method() === 'POST'
+        && new URL(response.url()).pathname === `/api/admin/activities/${activityId}/videos`)
+      await addVideo.click()
+      expect((await videoResponse).status()).toBe(200)
       await expect(page.getByLabel('影片名稱').last()).toHaveValue('Phase 12 staging video')
 
       await page.getByLabel('活動成果摘要').fill('Phase 12 edited isolated staging result.')
@@ -77,7 +97,10 @@ test.describe('staging administrator CRUD journey', () => {
       const publishedBody = await published.json()
       expect(publishedBody.activity).toMatchObject({ status: 'published', slug })
       await expect.poll(
-        async () => (await page.context().request.get(`/activities/${slug}`)).status(),
+        async () => (await page.context().request.get(
+          `/activities/${slug}?phase12-check=${Date.now()}`,
+          { headers: { 'cache-control': 'no-cache', pragma: 'no-cache' } }
+        )).status(),
         { timeout: 30_000, intervals: [500, 1_000, 2_000] }
       ).toBe(200)
 
@@ -95,7 +118,10 @@ test.describe('staging administrator CRUD journey', () => {
       await withdrawDialog.getByRole('button', { name: '確認撤回' }).click()
       expect((await withdrawResponse).status()).toBe(200)
       await expect.poll(
-        async () => (await page.context().request.get(`/activities/${slug}`)).status(),
+        async () => (await page.context().request.get(
+          `/activities/${slug}?phase12-check=${Date.now()}`,
+          { headers: { 'cache-control': 'no-cache', pragma: 'no-cache' } }
+        )).status(),
         { timeout: 30_000, intervals: [500, 1_000, 2_000] }
       ).toBe(404)
 
