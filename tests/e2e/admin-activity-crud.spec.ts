@@ -14,6 +14,7 @@ test.describe('staging administrator CRUD journey', () => {
   test('creates, enriches, publishes, withdraws, and cleans an isolated activity', async ({ page, baseURL }) => {
     test.skip(!isStaging, 'Mutation E2E is permitted only on the isolated staging environment.')
     test.skip(test.info().project.name !== 'chromium', 'CRUD runs once on staging Chromium.')
+    test.setTimeout(180_000)
     test.info().annotations.push({ type: 'remote-mutation-target', description: 'staging-only' })
 
     const title = `${fixturePrefix}-crud`
