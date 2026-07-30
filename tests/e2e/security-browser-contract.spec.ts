@@ -41,6 +41,7 @@ test.describe('authenticated browser security contract', () => {
     const rejected = await requestWithOrigin(
       page.context(),
       '/api/admin/settings',
+      'PATCH',
       'https://phase12-cross-origin.invalid',
       { organizationName: 'must-not-change' }
     )
