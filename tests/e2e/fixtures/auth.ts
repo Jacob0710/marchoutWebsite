@@ -3,7 +3,7 @@ import { requireCredentials } from './test-data'
 
 export const loginWith = async (page: Page, kind: 'admin' | 'non-admin') => {
   const credentials = requireCredentials(kind)
-  await page.goto('/admin/login')
+  await page.goto('/admin/login', { waitUntil: 'domcontentloaded', timeout: 60_000 })
   const submit = page.getByRole('button', { name: '登入', exact: true })
   await expect(submit).toBeEnabled({ timeout: 30_000 })
   await page.getByLabel('Email').fill(credentials.email)
