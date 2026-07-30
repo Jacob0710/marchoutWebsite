@@ -32,8 +32,8 @@ Missing date, year, classification, participant count, result, attachment contex
 
 Apply in filename order after a recoverable backup and Storage inventory:
 
-1. `20260721_001_phase9_content_migration_provenance.sql`
-2. `20260721_002_phase9_publish_timestamp_consistency.sql`
+1. `20260721000100_phase9_content_migration_provenance.sql`
+2. `20260721000200_phase9_publish_timestamp_consistency.sql`
 
 Run `supabase/verify-phase9-content-migration.sql`. A successful result is `true / true / true` for provenance, target integrity, and terminal run state. The verification covers RLS, revoked direct grants, authenticated-only narrow RPC execution, fixed search paths, target validation, publication triggers, and unfinished runs.
 

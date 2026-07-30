@@ -1,4 +1,4 @@
--- Run in the Supabase SQL Editor after 20260716_001_phase7_admin_access_governance.sql.
+-- Run in the Supabase SQL Editor after 20260716000100_phase7_admin_access_governance.sql.
 -- This script is read-only and raises on the first security or schema regression.
 
 begin;

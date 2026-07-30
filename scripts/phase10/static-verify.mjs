@@ -37,8 +37,8 @@ for (const row of redirects) {
 }
 
 const migrations = await Promise.all([
-  'supabase/migrations/20260722_001_phase10_editorial_review_queue.sql',
-  'supabase/migrations/20260722_002_phase10_release_batches.sql'
+  'supabase/migrations/20260722000100_phase10_editorial_review_queue.sql',
+  'supabase/migrations/20260722000200_phase10_release_batches.sql'
 ].map((path) => readFile(resolve(root, path), 'utf8')))
 const sql = migrations.join('\n')
 const expectedTables = [

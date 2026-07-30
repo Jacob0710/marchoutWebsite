@@ -9,8 +9,8 @@
   "migrationCompilation": {
     "status": "pass",
     "migrations": [
-      "20260722_001_phase10_editorial_review_queue.sql",
-      "20260722_002_phase10_release_batches.sql"
+      "20260722000100_phase10_editorial_review_queue.sql",
+      "20260722000200_phase10_release_batches.sql"
     ],
     "phase10FunctionsCompiled": 29
   },
