@@ -15,7 +15,7 @@ identity change, secret change, merge, or production operation.
   skipped tests.
 - Do not create a Phase 12 completion report or completion tag.
 
-## Current GitHub `staging` environment
+## Current verified GitHub `staging` environment
 
 Verified inventory on 2026-07-31:
 
@@ -23,10 +23,12 @@ Verified inventory on 2026-07-31:
 - The staging/production Supabase comparison variables, staging public key,
   staging-only service-role key, and both staging identity pairs are present
   under the exact Phase 12 names below.
-- One owner required reviewer is configured.
-- The only deployment branch policy is `main`.
-- Vercel staging URL/project/token values remain unset until the independent
-  Vercel project is created and verified.
+- Independent staging Vercel URL/project/token names are configured.
+- No required reviewer blocks the pre-merge matrix. Owner approval is obtained
+  only after `90/90`, cleanup, residual-zero, and artifact evidence succeeds.
+- The deployment branch policies are `main` and the exact Phase 12 branch
+  `codex/phase12-e2e-staging-release-hardening`.
+- Actual values remain outside Git, PR text, Markdown, logs, and artifacts.
 
 ## GitHub `staging` environment contract
 
@@ -54,7 +56,8 @@ Workflow-generated values require no GitHub configuration:
 | Name | Source | Use |
 | --- | --- | --- |
 | `PHASE12_RELEASE_SHA` | Explicit dispatch input or scheduled workflow SHA | Exact candidate traceability |
-| `PHASE12_STAGING_APPROVAL_ISSUE` | Explicit dispatch input | Owner staging-authorization evidence |
+| `PHASE12_PR_NUMBER` | Explicit dispatch input for pre-merge staging | Require an open Draft PR whose head equals the release SHA |
+| `PHASE12_STAGING_APPROVAL_ISSUE` | Explicit dispatch input for protected-main staging only | Owner staging-authorization evidence |
 | `PHASE12_E2E_RUN_ID` | GitHub `run_id-run_attempt` | Fixture namespace |
 | `PHASE12_MUTATION_TARGET=staging` | Workflow constant | Mutation fail-closed guard |
 | `PHASE12_STAGING_ISOLATION_CONFIRMED=true` | Workflow constant after isolation job | Mutation fail-closed guard |
@@ -79,50 +82,26 @@ references only. No production token, production password, production
 service-role key, or production mutation credential is accepted by a staging
 job.
 
-## Vercel operator checklist
+## Verified Vercel staging inventory
 
-The authorized Vercel operator must:
+The dedicated `marchout-staging` project and canonical
+`https://marchout-staging.vercel.app` origin are configured and distinct from
+production. The project has its own project identity and deployment credential.
+It receives only staging public runtime values. It does not receive a Supabase
+service-role key, database password, production administrator credential, or
+production runtime value.
 
-1. Create a dedicated staging project rather than reuse
-   `marchout-website`.
-2. Connect it to `Jacob0710/marchoutWebsite` without changing the production
-   project connection.
-3. Assign a dedicated HTTPS staging alias that cannot canonicalize or redirect
-   to `https://marchout-website.vercel.app`.
-4. Record the staging `orgId`, staging `projectId`, and canonical staging URL.
-5. Create or authorize a staging deployment identity/token with the minimum
-   practical scope; do not supply the production release token.
-6. Do not add the Supabase service-role key, database password, production
-   admin credentials, or production Supabase values to the Vercel project.
-7. Authorize Codex or the repository operator to place only the approved
-   Phase 12 values into the GitHub `staging` environment.
+## Verified Supabase staging inventory
 
-## Supabase operator checklist
+A separate staging project is linked and proven distinct from production. All
+eleven tracked migrations align locally and remotely. The three required
+buckets are private, tracked policies are present, one dedicated active-admin
+identity has exactly one active mapping, and one dedicated non-admin has none.
+Site and redirect URLs use the independent Vercel staging canonical origin.
+Credentials remain in platform secret stores; database credentials are not
+required by the browser workflow.
 
-The authorized Supabase operator must:
-
-1. Create a separate staging project. The current verifier requires a distinct
-   Supabase origin/project ref; a production schema or production dataset is
-   not accepted.
-2. Record the staging project URL, anon/publishable credential, and
-   service-role credential without placing their values in chat, Git, logs, or
-   reports.
-3. Provide a trusted database-owner path for applying the eleven ordered files in
-   `supabase/migrations/`.
-4. Confirm these buckets exist and remain private:
-   `activity-assets`, `content-assets`, and `downloads`.
-5. Confirm the tracked Storage policies, RLS, grants, and fixed-search-path
-   functions were created by the migrations; do not add blanket public or
-   authenticated-write policies.
-6. Create a dedicated staging active-admin Auth user and the corresponding
-   active `admin_users` row through the trusted bootstrap procedure.
-7. Create a dedicated staging non-admin Auth user with no active
-   `admin_users` row.
-8. Add only the exact staging site and invitation/auth callback URLs.
-9. Authorize the GitHub `staging` secrets listed above. A database URL/password
-   or Auth Admin credential is not required by the workflows.
-
-## Ordered execution after access is granted
+## Ordered execution for the Draft PR exact head
 
 No step below is authorized by this document. Stop immediately on any origin,
 project, identity, check, cleanup, or SHA mismatch.
@@ -132,53 +111,49 @@ project, identity, check, cleanup, or SHA mismatch.
 2. Run `pnpm run phase12:verify-staging`; require different web origins,
    different Supabase origins, no production redirect, `environment=staging`,
    the exact candidate SHA, and readiness `200`.
-3. Take the staging-only database/Storage checkpoint required by the migration
-   runbook.
-4. Apply the eleven tracked staging migrations in the exact order documented in
-   `supabase/README.md`; record operator, project ref, filename, commit,
-   timestamp, and result.
-5. Run the six read-only SQL verification files in documented order. Do not
-   proceed on any false invariant.
-6. Confirm the active-admin and non-admin staging identities and their opposite
+3. Confirm the eleven tracked migrations remain LOCAL／REMOTE aligned and rerun
+   the read-only SQL/RLS/policy/grant/function verification set. Do not proceed
+   on any false invariant.
+4. Confirm the active-admin and non-admin staging identities and their opposite
    authorization results.
-7. Confirm `activity-assets`, `content-assets`, and `downloads` are private and
+5. Confirm `activity-assets`, `content-assets`, and `downloads` are private and
    their policies match the tracked migrations.
-8. Deploy the PR head to the dedicated staging Vercel project and repeat the
-   origin/Supabase/release-SHA verification.
-9. Run `pnpm run phase12:seed` with the staging-only service role and
+6. Deploy the Draft PR exact head to the dedicated staging Vercel project and
+   repeat the origin/Supabase/release-SHA verification.
+7. Run `pnpm run phase12:seed` with the staging-only service role and
    run-scoped namespace.
-10. Run the full staging Playwright matrix: Chromium `27`, Firefox `21`,
-    WebKit `21`, Mobile Chromium `21`; require `90/90` passed, `0` skipped,
-    `0` failed, and `0` flaky.
-11. Run `pnpm run phase12:staging-result` and
-    `pnpm run phase12:scan-artifacts`; require secret findings `0`.
-12. Run `pnpm run phase12:cleanup` even after a browser failure.
-13. Verify fixture rows, asset rows, and exact Storage objects are all `0`.
+8. Run the full staging Playwright matrix: Chromium `27`, Firefox `21`,
+   WebKit `21`, Mobile Chromium `21`; require `90/90` passed, `0` skipped,
+   `0` failed, and `0` flaky.
+9. Run `pnpm run phase12:staging-result` and
+   `pnpm run phase12:scan-artifacts`; require secret findings `0`.
+10. Run `pnpm run phase12:cleanup` even after a browser failure.
+11. Verify fixture rows, asset rows, and exact Storage objects are all `0`.
     Repeat cleanup once to prove idempotency.
-14. Record owner PR acceptance for the tested PR SHA and evidence; only then
+12. Record owner PR acceptance for the tested PR SHA and evidence; only then
     convert PR `#12` from Draft to Ready.
-15. Merge through protected `main`; do not bypass branch protection. Record the
+13. Merge through protected `main`; do not bypass branch protection. Record the
     resulting final-main SHA.
-16. Require final-main `quality`, `phase12-quality`, `dependency-review`, and
+14. Require final-main `quality`, `phase12-quality`, `dependency-review`, and
     `Vercel` checks to succeed.
-17. Because the protected staging workflow requires the exact current
+15. Because the protected staging workflow requires the exact current
     `origin/main` SHA, record
     `PHASE12-STAGING-APPROVED <final-main-sha>` in an issue labeled
     `phase12-staging-approved`, then dispatch the full staging workflow for that
     exact SHA. This is a second, mandatory unchanged-release staging run; the
     pre-merge result cannot substitute for final-main evidence.
-18. Require the final-main staging workflow, cleanup, residual `0`, artifact
+16. Require the final-main staging workflow, cleanup, residual `0`, artifact
     scan, and machine-readable result to succeed.
-19. Record `PHASE12-APPROVED <final-main-sha>` in an issue labeled
+17. Record `PHASE12-APPROVED <final-main-sha>` in an issue labeled
     `phase12-release-approved`.
-20. Dispatch production promotion with the exact final-main SHA, successful
+18. Dispatch production promotion with the exact final-main SHA, successful
     final-main staging run ID, and approval issue number.
-21. Run credential-free and authenticated read-only production smoke only.
-22. Verify production content mutation count is `0` and staging credentials
+19. Run credential-free and authenticated read-only production smoke only.
+20. Verify production content mutation count is `0` and staging credentials
     were absent from production jobs.
-23. Commit the Phase 12 completion report only after every Definition of Done
+21. Commit the Phase 12 completion report only after every Definition of Done
     item above has evidence.
-24. Create and push the annotated completion tag only after the report,
+22. Create and push the annotated completion tag only after the report,
     production evidence, final-main CI, clean worktree, and remote SHA all
     agree.
 

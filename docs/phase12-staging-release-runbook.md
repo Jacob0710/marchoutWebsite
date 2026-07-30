@@ -41,21 +41,43 @@ Secrets:
 - `PHASE12_NON_ADMIN_EMAIL`
 - `PHASE12_NON_ADMIN_PASSWORD`
 
-The service role is injected only into the seed and cleanup jobs. It is prohibited in the deployment verification and browser jobs. Limit deployment branches to protected `main`; configure at least one required reviewer when the repository plan supports it.
+The service role is injected only into the seed and cleanup jobs. It is
+prohibited in deployment verification and browser jobs. Deployment branch
+policies permit only protected `main` and the exact Phase 12 PR branch. A
+required reviewer must not block the pre-merge matrix because owner approval
+occurs after `90/90`, cleanup, residual-zero, and artifact evidence.
 
 Create the dedicated staging active-admin row through the trusted administrator bootstrap procedure. Create the non-admin Auth user without an active `admin_users` authorization row. Neither email may equal a production identity.
 
 Apply all tracked migrations to staging in filename order, create the three private buckets, run the SQL verification set, and add the exact staging invitation/auth callback URLs. Do not restore production personal content merely to satisfy a browser assertion; Phase 12 browser fixtures are deterministic.
 
-## Staging execution
+## Pre-merge Draft PR staging execution
+
+Dispatch **Phase 12 isolated staging E2E** from
+`codex/phase12-e2e-staging-release-hardening` with:
+
+- `release_sha`: the exact 40-character Draft PR head;
+- `pull_request`: `12`;
+- `approval_issue`: empty.
+
+The verifier requires PR `#12` to remain open and Draft, target `main`, match the
+exact release SHA, and have successful `quality`, `phase12-quality`, and
+`Vercel` checks. Pre-merge staging deliberately does not accept or require
+owner approval before the matrix.
+
+## Protected-main staging execution
 
 Before dispatch, create or reuse an issue with label `phase12-staging-approved`; the repository owner must post the exact marker `PHASE12-STAGING-APPROVED <40-character-release-sha>`. This is the repository-verifiable substitute when the GitHub plan does not provide environment required reviewers.
 
-Dispatch **Phase 12 isolated staging E2E** from protected `main` with the exact current `main` commit SHA and that approval issue number. A scheduled run discovers a labeled issue for the current SHA and fails closed when no matching owner marker exists.
+Dispatch **Phase 12 isolated staging E2E** from protected `main` with the exact
+current `main` commit SHA, an empty `pull_request`, and that approval issue
+number. A scheduled run discovers a labeled issue for the current SHA and fails
+closed when no matching owner marker exists.
 
 The workflow must complete, in order:
 
-1. exact SHA, protected-main, required-check and owner-approval verification;
+1. exact SHA and required-check verification, plus Draft PR identity for
+   pre-merge or protected-main owner approval after merge;
 2. frozen install and repository/application gates;
 3. isolated Vercel staging deployment and alias;
 4. origin, environment, release SHA, readiness and Supabase isolation checks;
@@ -87,4 +109,10 @@ Production receives only its own Vercel/public Supabase values and dedicated rea
 
 ## Rollback
 
-Application rollback redeploys the last known-good production commit through a separately approved release. This Phase introduces no database migration and no automatic destructive down migration. If a release check fails, stop promotion, retain run/deployment IDs, keep production mutation count at zero, and follow `docs/phase10-rollback-runbook.md`.
+Application rollback redeploys the last known-good production commit through a
+separately approved release. Phase 12 adds a tracked Phase 4 baseline migration
+for clean-project reconstruction, but this runbook does not authorize applying,
+repairing, or resetting production migrations and provides no automatic
+destructive down migration. If a release check fails, stop promotion, retain
+run/deployment IDs, keep production mutation count at zero, and follow
+`docs/phase10-rollback-runbook.md`.

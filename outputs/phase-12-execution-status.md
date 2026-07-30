@@ -1,200 +1,212 @@
 # Phase 12 Execution Status
 
-更新時間：2026-07-30（Asia/Taipei）
+更新時間：2026-07-31（Asia/Taipei）
 
-## Baseline
+## 狀態
 
-- repository: `C:\Users\Admin\Documents\BuildWeb\marchoutWebsite`
-- baseline branch: `main`
-- baseline HEAD: `c3995e4b6dd02ef24c4b93cc6770dae662a09099`
-- origin/main: `c3995e4b6dd02ef24c4b93cc6770dae662a09099`
-- phase-11 tag target: `c3995e4b6dd02ef24c4b93cc6770dae662a09099`
-- baseline identity match: `YES`
-- baseline clean worktree: `YES`（Phase 11 報告完成正式提交後再次確認）
-- working branch: `codex/phase12-e2e-staging-release-hardening`
-- Phase 11 records commit: `2a4ede7bcb21ff0692d89592e1e0d35aa0eb2e2f`
+- Phase 12：`INCOMPLETE`
+- Repository：`C:\Users\Admin\Documents\BuildWeb\marchoutWebsite`
+- Branch：`codex/phase12-e2e-staging-release-hardening`
+- 文件更新前的 pushed HEAD：`80e4bca5118dc092d407276dade518cd7f2893dc`
+- PR：`#12`（OPEN／DRAFT）
+- Phase 11 baseline、`origin/main` 與既有 Phase 11 tag：
+  `c3995e4b6dd02ef24c4b93cc6770dae662a09099`
+- Phase 11 歷史未被 rebase、reset、force-push、重寫或移動。
+- Phase 12 completion report：`NOT CREATED`
+- Phase 12 completion tag：`NOT CREATED`
 
-### Phase 11 未追蹤報告處理
+## Phase 11 報告處理紀錄
 
-| 完整路徑 | 檔名 | 大小 | SHA-256 | 判定 |
-| --- | --- | ---: | --- | --- |
-| `C:\Users\Admin\Documents\BuildWeb\marchoutWebsite\outputs\phase-11-complete-report.md` | `phase-11-complete-report.md` | 24,602 bytes | `8B8D8D3F9128B829A08F3E2BEA236121A5C34974F78E222362ED381296006B3A` | Phase 11 最終完成報告，包含完整驗證、合併、部署與 tag 證據 |
-| `C:\Users\Admin\Documents\BuildWeb\marchoutWebsite\outputs\phase-11-completion-handoff.md` | `phase-11-completion-handoff.md` | 10,667 bytes | `12E5058473C5C433C82BC0E692026145D4EFA2B3E1631A625E46C1900493DB5E` | 合併前 handoff，包含人工動作與 stop conditions 的歷程證據 |
+| 完整路徑 | 大小 | SHA-256 | 判定 |
+| --- | ---: | --- | --- |
+| `C:\Users\Admin\Documents\BuildWeb\marchoutWebsite\outputs\phase-11-complete-report.md` | 24,602 bytes | `8B8D8D3F9128B829A08F3E2BEA236121A5C34974F78E222362ED381296006B3A` | Phase 11 正式完成報告 |
+| `C:\Users\Admin\Documents\BuildWeb\marchoutWebsite\outputs\phase-11-completion-handoff.md` | 10,667 bytes | `12E5058473C5C433C82BC0E692026145D4EFA2B3E1631A625E46C1900493DB5E` | 合併前 handoff 與 stop-condition 歷程 |
 
-- 內容差異：`276 additions / 720 deletions`，不是內容完全重複或單純格式轉換。
-- 處理依據：兩份文件處於專案既有 `outputs/` 報告目錄，時間點、用途與證據互補，因此均保留並納入 Git。
-- 未刪除、覆寫、忽略、reset、rebase、force push 或移動 Phase 11 tag。
+兩份內容差異為 `276 additions / 720 deletions`，不是重複報告或單純格式
+版本；用途與時間點互補，因此都保留在既有 `outputs/` 目錄並納入 Git。
 
-## Current State
+## 本次已完成的前置基礎設施
 
-- status: `BLOCKED — LOCAL IMPLEMENTATION VERIFIED / EXTERNAL STAGING NOT AVAILABLE`
-- verified implementation commit: `b9d8bc0c070b7c51d854cc4d77ffc6a36360b602`
-- current pushed HEAD at access-checklist audit: `d950f18617eaf425303ec7e0c657511fef8bed8c`
-- current branch: `codex/phase12-e2e-staging-release-hardening`
-- draft PR: `#12` — `https://github.com/Jacob0710/marchoutWebsite/pull/12`
-- PR state: `OPEN / DRAFT / CLEAN`
-- blockers:
-  - 尚無與 production 分離、可供 CI 使用的 Vercel staging project／canonical origin／token。
-  - 尚無與 production 分離的 Supabase staging project、Auth identities、Storage 與 service-role secret。
-  - 現有 GitHub `staging` variables 指向 production origin 與 production Supabase，禁止拿來執行 mutation E2E。
-  - Vercel CLI device authorization 未取得核准；Supabase dashboard 無登入 session。這兩項需要第三方帳號權限。
-- hard restrictions:
-  - 不得以 production Vercel project、canonical origin、deployment token 或 preview 代替 staging。
-  - 不得以 production Supabase project、schema、dataset、Auth identity、Storage 或 credential 代替 staging。
-  - 不得透過 mock authenticated success、降低 isolation 規則、移除 staging-only guard 或接受 skipped case 繞過阻塞。
-- completion claim: `NOT ALLOWED`
-- completion report: `NOT CREATED`
-- completion tag: `NOT CREATED`
+### Baseline migration
 
-## Completed
+`supabase/schema.sql` 已完成逐項稽核。它建立 Phase 4 public schema 所需的
+七個基礎資料表，不含 `admin_users`／`is_admin`、production content、seed
+data、實際使用者、個資或秘密；沒有 `INSERT`、`UPDATE`、`DELETE`、
+`TRUNCATE`，也沒有破壞性 table drop。Phase 4 的舊 policy 由後續 migration
+按既有設計收斂，沒有為測試降低最終權限。
 
-- 完整閱讀 Phase 12 規格、README、Phase 10／11 規格與報告、架構、部署、安全、rollback 與 incident 文件。
-- 驗證 Phase 11 唯一基準，建立 baseline 與 gap inventory。
-- 將 Phase 12 規格保存為 `codexSteps/phase12.md`。
-- 整合 Playwright、Chromium／Firefox／WebKit／mobile projects、built-app web server、JSON／HTML 報告與失敗 artifacts。
-- 建立 public、anonymous、non-admin、active-admin read-only、admin CRUD、private asset、same-origin、session cookie、headers、404、console、hydration、keyboard 與 accessibility journeys。
-- 建立 staging origin／Supabase isolation fail-closed verifier、deterministic seed、run-scoped cleanup、fixture/storage residual verification與 artifact secret scanner。
-- 建立無 environment secrets 的 PR／main quality workflow。
-- 建立 protected-main SHA、required checks、owner approval、isolated deployment、seed、browser、always cleanup 與 machine-readable result 的 staging workflow。
-- 建立 staging result、owner approval、exact SHA、required checks、production deployment 與 credential-free／authenticated read-only smoke 的 production workflow。
-- 退休 Phase 11 舊的 production-origin authenticated protected gate。
-- 新增獨立 application integration coverage；沒有宣稱 whole-application coverage。
-- 遷移 deprecated `lucide-vue-next` 至 `@lucide/vue`，並以本地 SVG 元件保留社群圖示。
-- 修正第一方色彩對比、YouTube privacy embed、CSP reporting endpoint、health environment／release marker。
-- 升級所有 GitHub Actions 至固定 40-character immutable SHA 與 Node 24 runtime。
-- 完成 Nuxt peer、Nitro deprecation、icon、Actions runtime 與 transitive dependency warning 分類及 runbook。
+正式 baseline：
 
-## In Progress
+`supabase/migrations/20260713000100_phase4_public_schema_baseline.sql`
 
-- 取得獨立 staging 外部資源與帳號權限。
-- 保持 draft PR，不在 staging DoD 完成前 merge。
+來源交叉驗證：
 
-## Pending
+- `supabase/schema.sql`
+- application types、queries、mappers 與 server APIs
+- Phase 4／5 文件與 `supabase/README.md`
+- 後續十個 migration 的 table、column、policy、function 依賴
+- repository static verifier 與 SQL verification fixtures
+- production 僅作唯讀 schema 參考；未執行 production mutation
 
-- 建立／取得獨立 Vercel staging 與 Supabase staging 權限。
-- 套用既有 migrations 至 staging，建立 private buckets、active admin、non-admin 與 callback URL。
-- 設定 GitHub `staging`／`production` 的 Phase 12 variables、secrets、deployment policy 與 approval artifact。
-- 實際部署 staging 並完成 90/90 無 skip 的 authenticated cross-browser matrix。
-- 驗證 seed／cleanup 重複性與 remote residual count `0`。
-- owner acceptance、merge、final main CI、production release、production smoke。
-- Phase 12 complete report、annotated completion tag 與 remote tag verification。
+完整 migration chain：
 
-## Validation
+1. `20260713000100_phase4_public_schema_baseline.sql`
+2. `20260714000100_admin_users.sql`
+3. `20260714000200_admin_activity_read_policy.sql`
+4. `20260715000100_phase6_activity_crud_assets.sql`
+5. `20260716000100_phase7_admin_access_governance.sql`
+6. `20260720000100_phase8_core_content_platform.sql`
+7. `20260721000100_phase9_content_migration_provenance.sql`
+8. `20260721000200_phase9_publish_timestamp_consistency.sql`
+9. `20260722000100_phase10_editorial_review_queue.sql`
+10. `20260722000200_phase10_release_batches.sql`
+11. `20260722000300_phase10_redirect_review_hotfix.sql`
 
-| Gate | Result | Evidence |
-| --- | --- | --- |
-| Node / pnpm | PASS | Node `v24.18.0`; pnpm `11.9.0` |
-| `pnpm install --frozen-lockfile` | PASS | lockfile unchanged |
-| `pnpm run phase11:verify` | PASS | tracked 393; workflows 4; immutable action refs 33; tests 17; secret 0; forbidden 0 |
-| `pnpm run phase12:verify` | PASS | candidates 393; required files 25; Phase 12 action refs 29; secret 0; forbidden 0; production mutation scripts 0 |
-| `pnpm run lint` | PASS | 0 warnings / 0 errors |
-| `pnpm run phase11:audit` | PASS | no known high／critical production vulnerabilities |
-| `pnpm run test:coverage` | PASS | 29/29; statements 92.61%; branches 89.72%; functions 100%; lines 96.66% |
-| `pnpm run test:application` | PASS | 10/10; statements 94.68%; branches 91.58%; functions 97.67%; lines 96.57% |
-| `pnpm run test:phase10` | PASS | 70 drafts; 122 reviews; 83 redirects; privacy fixtures 7; secret 0; banned 0 |
-| `pnpm run typecheck` | PASS | Nuxt typecheck |
-| `pnpm run build` | PASS WITH GOVERNED WARNING | production Nitro build complete; upstream DEP0155 remains documented |
-| `pnpm run test:integration` | PASS | 11/11 built SSR loopback endpoints |
-| `pnpm run test:e2e` | PASS LOCAL SCOPE | 78 passed; 12 staging-only skipped; 0 failed; 0 flaky |
-| `pnpm run phase12:scan-artifacts` | PASS | 3 files; 706,946 bytes; secret findings 0 |
-| `pnpm dlx yaml-lint@1.7.0 .github/workflows/*.yml` | PASS | all workflow YAML valid |
-| `git diff --check` | PASS | no whitespace errors |
-| `pnpm peers check` | UPSTREAM BLOCKED | Nuxt 3.21.10 pins `@nuxt/schema` 3.21.10 while `@nuxt/cli` 3.37 declares `^4.4.6`; not suppressed |
-| PR Phase 11 quality, implementation head | PASS | run `30475592163`; head `b9d8bc0c070b7c51d854cc4d77ffc6a36360b602`; `quality` and `dependency-review` successful |
-| PR Phase 12 quality, implementation head | PASS | run `30475597349`; head `b9d8bc0c070b7c51d854cc4d77ffc6a36360b602`; `phase12-quality` and `dependency-review` successful |
-| PR Phase 11 quality, pushed documentation head | PASS | run `30475857180`; head `d950f18617eaf425303ec7e0c657511fef8bed8c`; `quality` and `dependency-review` successful |
-| PR Phase 12 quality, pushed documentation head | PASS | run `30475861565`; head `d950f18617eaf425303ec7e0c657511fef8bed8c`; `phase12-quality` and `dependency-review` successful |
-| Vercel preview checks | PASS, NOT STAGING EVIDENCE | check IDs `7NRtPqQ2TLBg4UdJutdngYMSHfHF` and `DStMiLqkmUuzJ8Mf2Bk7WxSZiyYH`; both succeeded but belong to the existing production-linked integration |
+### Staging 部分套用狀態修復
 
-### PR CI run inventory
+- 已重新證明 linked Supabase project 是專用 staging，名稱、project
+  identity、URL 與 database host 均不同於 production。
+- reset 前確認 staging 只有第一個 Phase 11 migration，沒有使用者內容或不可
+  丟失資料；記錄了 object inventory 與 remote migration history。
+- 只重建 staging，沒有對 production 執行 reset、repair、push、seed 或
+  migration-history mutation。
+- staging 從空白狀態按上述 11 個 tracked migrations 重建；沒有只刪 history、
+  手工補 table、從殘缺 staging `db pull`，也沒有載入 production data。
+- `migration list --linked` 已確認 LOCAL／REMOTE 11 筆逐筆一致，沒有
+  local-only 或 remote-only migration。
 
-| Run ID | Workflow | Head SHA | Overall result | Job results |
-| ---: | --- | --- | --- | --- |
-| `30475592163` | Phase 11 quality and security gates | `b9d8bc0c070b7c51d854cc4d77ffc6a36360b602` | SUCCESS | `quality`: SUCCESS; `dependency-review`: SUCCESS; PR-inapplicable `production-synthetic`: SKIPPED |
-| `30475597349` | Phase 12 pull request quality | `b9d8bc0c070b7c51d854cc4d77ffc6a36360b602` | SUCCESS | `phase12-quality`: SUCCESS; `dependency-review`: SUCCESS |
-| `30475857180` | Phase 11 quality and security gates | `d950f18617eaf425303ec7e0c657511fef8bed8c` | SUCCESS | `quality`: SUCCESS; `dependency-review`: SUCCESS; PR-inapplicable `production-synthetic`: SKIPPED |
-| `30475861565` | Phase 12 pull request quality | `d950f18617eaf425303ec7e0c657511fef8bed8c` | SUCCESS | `phase12-quality`: SUCCESS; `dependency-review`: SUCCESS |
+### Database 驗證
 
-The `production-synthetic` skips are workflow event routing, not skipped Phase
-12 acceptance cases. No staging workflow or production-release workflow has
-been dispatched.
+- public tables：25；RLS enabled：25
+- indexes：69
+- constraints：226
+- triggers：24
+- functions：53
+- SECURITY DEFINER functions：46
+- SECURITY DEFINER unsafe `search_path`：0
+- broad `ALL` policies：0
+- application role `BYPASSRLS`：0
+- admin auth verification：8/8
+- admin CRUD verification：5/5
+- admin access verification：2/2
+- Phase 8 verification：7/7
+- Phase 9 verification：2/2
+- public activities verification：5/5
 
-## Staging
+Phase 10 real-data reconciliation SQL 需要歷史 production corpus
+（70 drafts／122 reviews／83 redirects），不會把 production data 複製到乾淨
+staging 來偽造證據；其 repository/static fixture verification 已通過。
 
-- origin: `NOT AVAILABLE`
-- current invalid GitHub variable `PHASE10_BASE_URL`: `https://marchout-website.vercel.app`; rejected for Phase 12 staging
-- current invalid GitHub variable `NUXT_PUBLIC_SUPABASE_URL`: `https://wgdrvzdwxppgfpyqbgus.supabase.co`; equals production and is rejected
-- minimum-permission checklist: `docs/phase12-staging-access-checklist.md`
-- deployment id: `N/A`
-- commit: `N/A`
-- data isolation: `FAIL — current staging Supabase URL equals production`
-- identity isolation: `UNVERIFIED`
-- fixture residual: `N/A — no staging mutation was allowed`
+### Storage 與 Auth
 
-## Browser E2E
+- private buckets：`activity-assets`、`content-assets`、`downloads`
+- 三個 bucket 的 public flag、tracked policies、anonymous／authenticated／
+  active-admin／non-admin 邊界已驗證。
+- service-role credential 只提供給 server-side seed／cleanup jobs；browser
+  job 與 browser bundle 都沒有 service-role key。
+- staging-only identities：一名 active admin、一名 non-admin。
+- active admin 正確映射到一筆 active `admin_users`；non-admin 沒有 active
+  admin mapping。
+- identity 密碼與 UUID 未寫入 Git、文件、PR 或 artifacts。
 
-本表是 local built application + deterministic mock boundary；不是 staging completion evidence。
+### Vercel staging 與 Supabase Auth
 
-| Project | Passed | Skipped (staging-only) | Failed | Flaky |
-| --- | ---: | ---: | ---: | ---: |
-| Chromium desktop | 21 | 6 | 0 | 0 |
-| Firefox desktop | 19 | 2 | 0 | 0 |
-| WebKit desktop | 19 | 2 | 0 | 0 |
-| Mobile Chromium | 19 | 2 | 0 | 0 |
-| Total | 78 | 12 | 0 | 0 |
+- 獨立 Vercel project：`marchout-staging`
+- canonical URL：`https://marchout-staging.vercel.app`
+- project identity、deployment identity、canonical origin 與 production 分離。
+- runtime 使用 staging Supabase public URL／public key；未放入 service-role
+  key、database password 或 production credentials。
+- `/api/health` 回報 `environment=staging`，且 `X-App-Environment=staging`。
+- staging Supabase Site URL、redirect allowlist、login callback 與 logout
+  redirect 已設定到獨立 staging canonical URL；production URL 不是 staging
+  canonical。
 
-尚未執行且不得跳過的 isolated-staging matrix：
+### GitHub `staging` environment
 
-| Project | Required passes | Allowed skips | Current staging evidence |
+- 所有 Phase 12 variables／secrets 使用
+  `docs/phase12-staging-access-checklist.md` 的精確名稱。
+- production URL 只作 isolation comparison；production token、password、
+  service-role 或 mutation credential 不在 staging environment。
+- deployment branch policy：`main` 與
+  `codex/phase12-e2e-staging-release-hardening`。
+- pre-merge staging 不設 required reviewer；owner approval 依規格在
+  90/90、cleanup 與 residual 0 後才取得。
+- `deploy-staging` 取得 Vercel token與 staging public key；`browser-e2e`
+  只取得 staging public key與測試 identities；`seed`／`cleanup` 才取得
+  staging service-role。
+
+## Repository 與 PR CI
+
+文件更新前 exact-head `80e4bca5118dc092d407276dade518cd7f2893dc`：
+
+| Run ID | Workflow | 結果 |
+| ---: | --- | --- |
+| `30587325461` | Phase 11 quality and security gates | SUCCESS；`quality` SUCCESS、`dependency-review` SUCCESS；PR 不適用的 `production-synthetic` 為 event-routing SKIPPED |
+| `30587325350` | Phase 12 pull request quality | SUCCESS；`phase12-quality` SUCCESS、`dependency-review` SUCCESS |
+
+同一 exact head 的 `Vercel – marchout-staging`、
+`Vercel – marchout-website` 與 `Vercel Preview Comments` contexts 均為
+SUCCESS。Preview check 本身不視為完整 staging acceptance evidence。
+
+目前 repository verification：
+
+| Gate | 結果 |
+| --- | --- |
+| `node --check scripts/phase12/verify-staging-approval.mjs` | PASS |
+| `pnpm run phase12:verify` | PASS；11 migrations、7 baseline tables、0 baseline content rows、0 secret findings、0 production mutation scripts |
+| `pnpm run lint` | PASS；0 warnings／0 errors |
+| `pnpm run typecheck` | PASS |
+| `pnpm dlx yaml-lint@1.7.0 .github/workflows/phase12-staging-e2e.yml` | PASS |
+| `git diff --check` | PASS |
+
+## 尚未執行的 staging matrix
+
+以下不能以 local mock、preview deployment、production Supabase 或較低 isolation
+規則取代：
+
+| Project | Required passes | Allowed skips | Current evidence |
 | --- | ---: | ---: | --- |
-| Chromium desktop full journey | 27 | 0 | NOT RUN |
-| Firefox desktop smoke | 21 | 0 | NOT RUN |
-| WebKit desktop smoke | 21 | 0 | NOT RUN |
-| Mobile Chromium smoke | 21 | 0 | NOT RUN |
-| Total | 90 | 0 | NOT RUN |
+| Chromium desktop | 27 | 0 | NOT RUN |
+| Firefox desktop | 21 | 0 | NOT RUN |
+| WebKit desktop | 21 | 0 | NOT RUN |
+| Mobile Chromium | 21 | 0 | NOT RUN |
+| **Total** | **90** | **0** | **NOT RUN** |
 
-其中包含 active-admin read-only／CRUD、non-admin denial、session cookie、
-same-origin mutation、draft/private asset、seeded asset、cleanup 與 remote
-residual 驗證。Local mock 結果不能取代這 90 項 staging evidence。
+因此尚無 90/90、artifact recursive scan、final cleanup、database residual 0
+與三個 Storage bucket residual 0 的完整同一 workflow-run 證據。
 
-- Accessibility blocker: `0` in first-party DOM.
-- Third-party iframe boundary: every iframe must have a non-empty title；axe 不把無法控制的 YouTube 內部 DOM 算成第一方結果。
-- Console error: `0`。
-- Hydration warning: `0`。
-- Unresolved flaky tests: `0`。
+## 不可跨越的限制
 
-## Security
+- 禁止使用 production Vercel 或 production Supabase 代替 staging。
+- 禁止 production migration、reset、repair、seed、Auth／Storage 測試或內容
+  mutation。
+- 禁止 mock auth、假 success、skip staging-only cases、降低 isolation verifier。
+- 禁止將 service-role 放入 browser job、browser bundle、Vercel runtime、Git、
+  log 或 artifact。
+- 禁止在 pre-merge staging 通過前將 PR 轉為 Ready 或合併。
+- 禁止在全部 DoD 通過前建立 Phase 12 completion report 或 completion tag。
 
-- repository secret findings: `0`
-- forbidden tracked artifacts: `0`
-- tracked Playwright auth states: `0`
-- artifact secret findings: `0`
-- staging-origin mismatch: `1` in existing external configuration; workflow verifier fails closed
-- cross-environment data reuse: `1` in existing external configuration; mutation authority rejects it
-- service role in browser job: `0`
-- production-origin mutation attempts: `0`
-- production content mutations: `0`
-- Phase 10 privacy／redirect regression: `PASS`
+## 解除目前測試缺口的精確順序
 
-## Database / Migration / Configuration
-
-- application database migration: `NONE`
-- production database／Storage mutation: `NONE`
-- staging database migration: `PENDING EXTERNAL STAGING`
-- application runtime config: added non-sensitive `phase12ReleaseSha`, environment health response and `X-App-Environment`
-- GitHub environment names and secret/variable contracts are documented; values are not stored in Git
-
-## Risks
-
-- 在獨立 staging 建立前，authenticated CRUD、identity boundary、private asset 與 cleanup DoD 不能以本機 mock 替代。
-- 現有 `staging` environment 仍保存舊 Phase 10 production-mapped variables／secret names；在新的獨立資源與 Phase 12 secrets 驗證前不得執行 mutation gate。
-- Nitro DEP0155、Nuxt peer metadata 與五個 transitive deprecation 由 upstream dependency graph 造成；均已重現、分類且未用 suppress 或不安全 override 偽裝修復。
-- PR head 的無 secrets quality gates 已全綠；尚無 final main、staging 或 production run，因此不得宣告 Phase 12 完成。
-
-## Next Action
-
-1. Vercel 操作者建立獨立 staging project、HTTPS canonical alias 與 staging-only deployment identity，提供 staging `orgId`、`projectId`、URL 與 token 的 GitHub environment 授權。
-2. Supabase 操作者建立獨立 staging project，提供 project URL、anon/publishable key、service-role key的 GitHub environment 授權及 database-owner migration path。
-3. 依 `docs/phase12-staging-access-checklist.md` 逐值驗證 Vercel project、web origin、Supabase project ref、credentials 與 identities 均不屬於 production。
-4. 依 checklist 的 ordered execution：isolation → checkpoint → migrations → SQL verification → identities → private Storage/policies → PR-head seed/matrix/cleanup/residual 0 → owner PR acceptance → Ready → protected merge → final-main checks → exact-final-SHA staging workflow → release approval → production promotion/read-only smoke/mutation 0。
-5. 只有全部 DoD 證據成功後，才建立 Phase 12 completion report 與 annotated completion tag。
+1. 再次驗證 Vercel project／domain、Supabase project／database host 與
+   production 全部不同。
+2. 在 Draft PR exact head 執行 frozen install、repository gates 與 isolated
+   Vercel deployment。
+3. 確認 staging migrations 已對齊，並重跑 SQL／RLS／policy／grant／function
+   verification。
+4. 確認 staging identities、private buckets 與 Storage policies。
+5. 執行 deterministic namespaced seed。
+6. 執行完整 Playwright matrix，要求 90 passed、0 skipped、0 failed、0 flaky。
+7. 不論 browser 結果都執行 cleanup。
+8. 要求 database fixture／asset residual 與三個 bucket Storage residual 全為 0；
+   再次 cleanup 證明 idempotent。
+9. recursive 掃描所有 artifacts（包含 trace ZIP），要求 secret findings 0、
+   production mutation attempts 0、production content mutations 0。
+10. 取得 repository owner 對 tested exact SHA 的 approval。
+11. PR 轉為 Ready，透過 protected `main` 合併。
+12. 驗證 final-main required checks。
+13. 對 exact final-main SHA 再跑一次完整 staging workflow。
+14. 取得 production release approval後才執行 production promotion。
+15. 執行 production read-only smoke，確認 production mutation 0。
+16. 所有 DoD 都通過後才建立 Phase 12 完成報告。
+17. 最後建立並推送 annotated completion tag。
