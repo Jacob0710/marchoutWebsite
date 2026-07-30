@@ -13,9 +13,10 @@ test.describe('administrator login page', () => {
     await expect(password).toHaveAttribute('type', 'password')
     await expect(password).toHaveAttribute('autocomplete', 'current-password')
     await expect(page.getByRole('button', { name: '登入', exact: true })).toBeVisible()
-    const unexpectedProblems = isStaging
-      ? problems
-      : problems.filter(problem => !/\/api\/admin\/session.*503|Failed to load resource.*503/i.test(problem))
+    const expectedUnauthenticatedProbe = isStaging
+      ? /\/api\/admin\/session.*401|Failed to load resource.*401/i
+      : /\/api\/admin\/session.*503|Failed to load resource.*503/i
+    const unexpectedProblems = problems.filter(problem => !expectedUnauthenticatedProbe.test(problem))
     await expectNoBrowserProblems(unexpectedProblems)
   })
 

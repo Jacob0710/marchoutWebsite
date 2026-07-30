@@ -9,7 +9,9 @@ const sensitivePatterns = [
 ]
 
 export const expectNoSensitiveText = async (response: APIResponse) => {
-  const body = await response.text()
+  const publicAnonKey = process.env.PHASE12_STAGING_SUPABASE_ANON_KEY || process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY || ''
+  const responseBody = await response.text()
+  const body = publicAnonKey ? responseBody.replaceAll(publicAnonKey, '[PUBLIC_SUPABASE_ANON_KEY]') : responseBody
   for (const pattern of sensitivePatterns) expect(body).not.toMatch(pattern)
 }
 

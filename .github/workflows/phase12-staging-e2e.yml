@@ -205,6 +205,7 @@ jobs:
       PHASE12_ADMIN_PASSWORD: ${{ secrets.PHASE12_ADMIN_PASSWORD }}
       PHASE12_NON_ADMIN_EMAIL: ${{ secrets.PHASE12_NON_ADMIN_EMAIL }}
       PHASE12_NON_ADMIN_PASSWORD: ${{ secrets.PHASE12_NON_ADMIN_PASSWORD }}
+      PHASE12_STAGING_SUPABASE_ANON_KEY: ${{ secrets.PHASE12_STAGING_SUPABASE_ANON_KEY }}
       PHASE12_E2E_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
       PHASE12_SEEDED_ASSET_ID: ${{ needs.seed.outputs.asset-id }}
     steps:
