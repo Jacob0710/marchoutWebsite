@@ -3,7 +3,7 @@
 This document is preparation only. It does not authorize a deployment, migration,
 identity change, secret change, merge, or production operation.
 
-## Frozen state while access is unavailable
+## Required state until full staging evidence exists
 
 - Keep PR `#12` in Draft.
 - Keep `codex/phase12-e2e-staging-release-hardening` pushed and clean.
@@ -15,21 +15,18 @@ identity change, secret change, merge, or production operation.
   skipped tests.
 - Do not create a Phase 12 completion report or completion tag.
 
-## Current GitHub `staging` environment is not valid for Phase 12
+## Current GitHub `staging` environment
 
-Read-only inventory on 2026-07-30:
+Verified inventory on 2026-07-31:
 
-- `PHASE10_BASE_URL` points to `https://marchout-website.vercel.app`.
-- `NUXT_PUBLIC_SUPABASE_URL` points to
-  `https://wgdrvzdwxppgfpyqbgus.supabase.co`.
-- Five legacy Phase 10 secret names are present.
-- The environment has a custom deployment branch policy but no required
-  reviewer.
-
-Those values describe the production-backed Phase 10 gate. They must not be
-renamed, copied, or treated as Phase 12 staging values. Retire the legacy names
-only in a separately reviewed GitHub environment change after the independent
-resources below exist and the replacement values have been verified.
+- The legacy Phase 10 variable and secret names have been removed.
+- The staging/production Supabase comparison variables, staging public key,
+  staging-only service-role key, and both staging identity pairs are present
+  under the exact Phase 12 names below.
+- One owner required reviewer is configured.
+- The only deployment branch policy is `main`.
+- Vercel staging URL/project/token values remain unset until the independent
+  Vercel project is created and verified.
 
 ## GitHub `staging` environment contract
 
@@ -110,7 +107,7 @@ The authorized Supabase operator must:
 2. Record the staging project URL, anon/publishable credential, and
    service-role credential without placing their values in chat, Git, logs, or
    reports.
-3. Provide a trusted database-owner path for applying the ten ordered files in
+3. Provide a trusted database-owner path for applying the eleven ordered files in
    `supabase/migrations/`.
 4. Confirm these buckets exist and remain private:
    `activity-assets`, `content-assets`, and `downloads`.
@@ -137,7 +134,7 @@ project, identity, check, cleanup, or SHA mismatch.
    the exact candidate SHA, and readiness `200`.
 3. Take the staging-only database/Storage checkpoint required by the migration
    runbook.
-4. Apply the ten tracked staging migrations in the exact order documented in
+4. Apply the eleven tracked staging migrations in the exact order documented in
    `supabase/README.md`; record operator, project ref, filename, commit,
    timestamp, and result.
 5. Run the six read-only SQL verification files in documented order. Do not

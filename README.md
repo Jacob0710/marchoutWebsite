@@ -74,17 +74,19 @@ When both public Supabase variables are absent, public routes use the local fixt
 
 Files in `supabase/migrations/` are the canonical schema. Apply them in filename order:
 
-1. `20260714000100_admin_users.sql`
-2. `20260714000200_admin_activity_read_policy.sql`
-3. `20260715000100_phase6_activity_crud_assets.sql`
-4. `20260716000100_phase7_admin_access_governance.sql`
-5. `20260720000100_phase8_core_content_platform.sql`
-6. `20260721000100_phase9_content_migration_provenance.sql`
-7. `20260721000200_phase9_publish_timestamp_consistency.sql`
-8. `20260722000100_phase10_editorial_review_queue.sql`
-9. `20260722000200_phase10_release_batches.sql`
+1. `20260713000100_phase4_public_schema_baseline.sql`
+2. `20260714000100_admin_users.sql`
+3. `20260714000200_admin_activity_read_policy.sql`
+4. `20260715000100_phase6_activity_crud_assets.sql`
+5. `20260716000100_phase7_admin_access_governance.sql`
+6. `20260720000100_phase8_core_content_platform.sql`
+7. `20260721000100_phase9_content_migration_provenance.sql`
+8. `20260721000200_phase9_publish_timestamp_consistency.sql`
+9. `20260722000100_phase10_editorial_review_queue.sql`
+10. `20260722000200_phase10_release_batches.sql`
+11. `20260722000300_phase10_redirect_review_hotfix.sql`
 
-`supabase/schema.sql` is a deliberately non-executable legacy notice, not a bootstrap script. For a fresh project, apply all migrations and then run the verification files described in `supabase/README.md`.
+`supabase/schema.sql` is a deliberately non-executable legacy notice, not a bootstrap script. The first migration is the audited Phase 4 baseline recovered from the immutable Phase 4–7 tags; it contains no content seed. For a fresh project, apply all migrations and then run the verification files described in `supabase/README.md`.
 
 The private buckets are:
 

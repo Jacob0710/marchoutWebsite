@@ -1,4 +1,6 @@
--- Run this file in the Supabase SQL Editor after supabase/schema.sql.
+-- Optional Phase 4 demo fixture only. Do not run this file in staging,
+-- production, or a release migration path. Apply the ordered tracked migrations
+-- instead; deterministic Phase 12 staging data is created by its dedicated seed.
 -- It is idempotent: re-running it updates these records by slug.
 
 insert into activities (

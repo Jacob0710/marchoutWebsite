@@ -2,20 +2,23 @@
 
 ## Source of truth
 
-Ordered SQL files in `migrations/` are the only authoritative schema source. `schema.sql` is intentionally a non-executable deprecation notice: its historic Phase 1–4 snapshot contained public buckets and broad authenticated write assumptions that must not be revived.
+Ordered SQL files in `migrations/` are the only authoritative schema source. `schema.sql` remains an intentionally non-executable deprecation notice. Its verified Phase 4 snapshot was recovered from the immutable Phase 4–7 tags into the first tracked baseline migration; the later migrations replace its legacy broad authenticated policies and make its legacy buckets private.
 
 For a fresh Supabase project, apply these files in order:
 
-1. `20260714000100_admin_users.sql`
-2. `20260714000200_admin_activity_read_policy.sql`
-3. `20260715000100_phase6_activity_crud_assets.sql`
-4. `20260716000100_phase7_admin_access_governance.sql`
-5. `20260720000100_phase8_core_content_platform.sql`
-6. `20260721000100_phase9_content_migration_provenance.sql`
-7. `20260721000200_phase9_publish_timestamp_consistency.sql`
-8. `20260722000100_phase10_editorial_review_queue.sql`
-9. `20260722000200_phase10_release_batches.sql`
-10. `20260722000300_phase10_redirect_review_hotfix.sql`
+1. `20260713000100_phase4_public_schema_baseline.sql`
+2. `20260714000100_admin_users.sql`
+3. `20260714000200_admin_activity_read_policy.sql`
+4. `20260715000100_phase6_activity_crud_assets.sql`
+5. `20260716000100_phase7_admin_access_governance.sql`
+6. `20260720000100_phase8_core_content_platform.sql`
+7. `20260721000100_phase9_content_migration_provenance.sql`
+8. `20260721000200_phase9_publish_timestamp_consistency.sql`
+9. `20260722000100_phase10_editorial_review_queue.sql`
+10. `20260722000200_phase10_release_batches.sql`
+11. `20260722000300_phase10_redirect_review_hotfix.sql`
+
+The baseline is the statement-level exact Phase 4 schema stored by the `phase-4-supabase-public-frontend-complete` through `phase-7-admin-access-governance-complete` tags. It creates the seven prerequisite public tables, their initial indexes and RLS policies, plus the two legacy Storage bucket records. It contains no application content, Auth users, administrator mappings, personal data, or credentials. `seed.sql` is a separate optional Phase 4 demo fixture and is not part of a staging or release migration run.
 
 Use a trusted database owner through the Supabase SQL Editor or an approved migration runner. Record project, migration filename, commit, operator, timestamp, and result in the environment's operations log. SQL Editor history is not exported into Git and cannot replace migration records.
 

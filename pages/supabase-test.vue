@@ -53,7 +53,7 @@ const { data: activities, error, pending } = await useAsyncData<ActivityDiagnost
           <p class="mt-1 text-sm text-muted">{{ activity.event_date }} | {{ activity.location }}</p>
         </article>
       </div>
-      <p v-else class="mt-6 text-muted">No published activities found. Run supabase/seed.sql in the Supabase SQL Editor.</p>
+      <p v-else class="mt-6 text-muted">No published activities found. Add content through the administrator workflow.</p>
     </template>
   </main>
 </template>

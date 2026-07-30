@@ -34,6 +34,41 @@ for (const file of required) {
   if (!fs.existsSync(path.join(root, file))) throw new Error(`Missing required Phase 12 file: ${file}`)
 }
 
+const expectedMigrations = [
+  '20260713000100_phase4_public_schema_baseline.sql',
+  '20260714000100_admin_users.sql',
+  '20260714000200_admin_activity_read_policy.sql',
+  '20260715000100_phase6_activity_crud_assets.sql',
+  '20260716000100_phase7_admin_access_governance.sql',
+  '20260720000100_phase8_core_content_platform.sql',
+  '20260721000100_phase9_content_migration_provenance.sql',
+  '20260721000200_phase9_publish_timestamp_consistency.sql',
+  '20260722000100_phase10_editorial_review_queue.sql',
+  '20260722000200_phase10_release_batches.sql',
+  '20260722000300_phase10_redirect_review_hotfix.sql'
+]
+const actualMigrations = fs.readdirSync(path.join(root, 'supabase/migrations'))
+  .filter(file => file.endsWith('.sql'))
+  .sort()
+if (JSON.stringify(actualMigrations) !== JSON.stringify(expectedMigrations)) {
+  throw new Error(`Unexpected Supabase migration chain: ${actualMigrations.join(', ')}`)
+}
+const versions = actualMigrations.map(file => file.slice(0, 14))
+if (new Set(versions).size !== versions.length || versions.some(version => !/^\d{14}$/.test(version))) {
+  throw new Error('Supabase migration versions must be unique 14-digit timestamps.')
+}
+const baseline = fs.readFileSync(path.join(root, 'supabase/migrations', expectedMigrations[0]), 'utf8')
+for (const table of ['activities', 'activity_images', 'posts', 'files', 'categories', 'faq', 'site_settings']) {
+  if (!new RegExp(`create table if not exists (?:public\\.)?${table}\\b`, 'i').test(baseline)) {
+    throw new Error(`Phase 4 baseline is missing table: ${table}`)
+  }
+}
+if (/^\s*(?:update|delete|truncate)\b/im.test(baseline)
+  || /^\s*insert\s+into\s+(?!storage\.buckets\b)/im.test(baseline)
+  || /\b(?:service[_-]?role|postgres(?:ql)?:\/\/)\b/i.test(baseline)) {
+  throw new Error('Phase 4 baseline contains content mutation or credential material.')
+}
+
 const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'))
 if (packageJson.packageManager !== 'pnpm@11.9.0') throw new Error('pnpm package-manager contract changed.')
 for (const script of ['test:e2e', 'test:e2e:chromium', 'test:e2e:staging', 'phase12:verify', 'phase12:verify-staging-approval', 'phase12:verify-staging', 'phase12:seed', 'phase12:cleanup', 'phase12:staging-result', 'phase12:verify-release', 'phase12:production-smoke', 'phase12:production-auth-smoke']) {
@@ -98,6 +133,10 @@ console.log(JSON.stringify({
   status: 'ok',
   candidates: candidates.length,
   requiredFiles: required.length,
+  migrations: actualMigrations.length,
+  migrationVersionsUnique: true,
+  baselineTables: 7,
+  baselineContentRows: 0,
   actionReferences,
   trackedPlaywrightAuthStates: 0,
   forbiddenTrackedArtifacts: 0,
