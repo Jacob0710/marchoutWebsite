@@ -62,6 +62,7 @@ test.describe('staging administrator CRUD journey', () => {
       expect((await updateResponse).status()).toBe(200)
       await page.reload()
       await expect(page.getByLabel('活動成果摘要')).toHaveValue('Phase 12 edited isolated staging result.')
+      await expect(page.getByLabel('Slug')).toHaveValue(slug)
 
       await page.getByRole('button', { name: '發布', exact: true }).click()
       const publishDialog = page.getByRole('dialog', { name: '發布活動' })
@@ -70,7 +71,14 @@ test.describe('staging administrator CRUD journey', () => {
         response.request().method() === 'POST'
         && new URL(response.url()).pathname === `/api/admin/activities/${activityId}/publish`)
       await publishDialog.getByRole('button', { name: '確認發布' }).click()
-      expect((await publishResponse).status()).toBe(200)
+      const published = await publishResponse
+      expect(published.status()).toBe(200)
+      const publishedBody = await published.json()
+      expect(publishedBody.activity).toMatchObject({ status: 'published', slug })
+      await expect.poll(
+        async () => (await page.context().request.get(`/activities/${slug}`)).status(),
+        { timeout: 30_000, intervals: [500, 1_000, 2_000] }
+      ).toBe(200)
 
       const publicPage = await page.context().newPage()
       await publicPage.goto(`/activities/${slug}`)
@@ -85,7 +93,10 @@ test.describe('staging administrator CRUD journey', () => {
         && new URL(response.url()).pathname === `/api/admin/activities/${activityId}/unpublish`)
       await withdrawDialog.getByRole('button', { name: '確認撤回' }).click()
       expect((await withdrawResponse).status()).toBe(200)
-      expect((await page.context().request.get(`/activities/${slug}`)).status()).toBe(404)
+      await expect.poll(
+        async () => (await page.context().request.get(`/activities/${slug}`)).status(),
+        { timeout: 30_000, intervals: [500, 1_000, 2_000] }
+      ).toBe(404)
 
       await page.getByTestId('delete-activity').click()
       const deleteDialog = page.getByRole('dialog', { name: '刪除活動' })
