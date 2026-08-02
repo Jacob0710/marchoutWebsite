@@ -156,6 +156,22 @@ if (/test\.info\(\)\.project\.name\s*!==/.test(crossBrowserSecurity)) {
 const productionWorkflow = fs.readFileSync(path.join(root, '.github/workflows/phase12-production-release.yml'), 'utf8')
 if (!/environment:\s*production/.test(productionWorkflow)) throw new Error('Production workflow lacks its protected environment.')
 if (/PHASE12_(?:ADMIN|NON_ADMIN)_(?:EMAIL|PASSWORD)/.test(productionWorkflow)) throw new Error('Production workflow references staging identities.')
+const verifyReleaseJob = productionWorkflow.match(/\n {2}verify-release:[\s\S]*?(?=\n {2}[a-z][a-z0-9-]+:|\s*$)/)?.[0] || ''
+if (!/\n {6}statuses:\s*read\b/.test(verifyReleaseJob)) {
+  throw new Error('Production release verification cannot read external commit statuses.')
+}
+if (!/PHASE12_REQUIRED_CHECKS:\s*quality,phase12-quality,dependency-review,Vercel – marchout-website/.test(verifyReleaseJob)) {
+  throw new Error('Production release verification does not require the exact production Vercel status.')
+}
+const releaseEvidenceVerifier = fs.readFileSync(path.join(root, 'scripts/phase12/verify-release-evidence.mjs'), 'utf8')
+if (!/check-runs\?filter=latest&per_page=100/.test(releaseEvidenceVerifier)
+  || !/\/status\?per_page=100/.test(releaseEvidenceVerifier)
+  || !/check\?\.conclusion === 'success' \|\| status\?\.state === 'success'/.test(releaseEvidenceVerifier)) {
+  throw new Error('Production release evidence must fail closed across Check Runs and commit statuses.')
+}
+if (!/quality,phase12-quality,dependency-review,Vercel – marchout-website/.test(releaseEvidenceVerifier)) {
+  throw new Error('Production release evidence default checks do not name the exact production Vercel status.')
+}
 if (!/vercel@\$VERCEL_CLI_VERSION" pull[\s\S]*?phase12:normalize-vercel[\s\S]*?NITRO_PRESET=vercel[\s\S]*?pnpm run build[\s\S]*?vercel@\$VERCEL_CLI_VERSION" deploy --prebuilt --prod/.test(productionWorkflow)) {
   throw new Error('Production deployment does not create a Vercel Nitro artifact from normalized settings before deploy.')
 }

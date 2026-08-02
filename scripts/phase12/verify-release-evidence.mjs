@@ -38,14 +38,19 @@ const approval = [issue, ...comments].find(item =>
 )
 assert(approval, 'Repository owner approval marker is missing.')
 
-const checks = await api(`/commits/${releaseSha}/check-runs?per_page=100`)
-const required = String(process.env.PHASE12_REQUIRED_CHECKS || 'quality,phase12-quality,Vercel')
+const checks = await api(`/commits/${releaseSha}/check-runs?filter=latest&per_page=100`)
+const statuses = await api(`/commits/${releaseSha}/status?per_page=100`)
+const required = String(process.env.PHASE12_REQUIRED_CHECKS || 'quality,phase12-quality,dependency-review,Vercel – marchout-website')
   .split(',')
   .map(value => value.trim())
   .filter(Boolean)
 for (const name of required) {
   const check = checks.check_runs.find(item => item.name === name)
-  assert(check?.conclusion === 'success', `Required check ${name} is not successful.`)
+  const status = statuses.statuses.find(item => item.context === name)
+  assert(
+    check?.conclusion === 'success' || status?.state === 'success',
+    `Required check or status ${name} is not successful.`
+  )
 }
 
 console.log(JSON.stringify({

@@ -36,6 +36,7 @@ jobs:
       checks: read
       contents: read
       issues: read
+      statuses: read
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -58,7 +59,7 @@ jobs:
       - name: Verify staging run, required checks, and owner approval
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          PHASE12_REQUIRED_CHECKS: quality,phase12-quality,Vercel
+          PHASE12_REQUIRED_CHECKS: quality,phase12-quality,dependency-review,Vercel – marchout-website
         run: pnpm run phase12:verify-release
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
