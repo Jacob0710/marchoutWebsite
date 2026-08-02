@@ -22,6 +22,7 @@ const required = [
   'scripts/phase12/cleanup-e2e-fixtures.mjs',
   'scripts/phase12/verify-staging-approval.mjs',
   'scripts/phase12/verify-staging-origin.mjs',
+  'scripts/phase12/normalize-vercel-project-settings.mjs',
   'scripts/phase12/staging-browser-smoke.mjs',
   'scripts/phase12/scan-e2e-artifacts.mjs',
   'scripts/phase12/verify-release-evidence.mjs',
@@ -72,7 +73,7 @@ if (/^\s*(?:update|delete|truncate)\b/im.test(baseline)
 
 const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'))
 if (packageJson.packageManager !== 'pnpm@11.9.0') throw new Error('pnpm package-manager contract changed.')
-for (const script of ['test:e2e', 'test:e2e:chromium', 'test:e2e:staging', 'phase12:verify', 'phase12:verify-staging-approval', 'phase12:verify-staging', 'phase12:seed', 'phase12:cleanup', 'phase12:staging-result', 'phase12:verify-release', 'phase12:production-smoke', 'phase12:production-auth-smoke']) {
+for (const script of ['test:e2e', 'test:e2e:chromium', 'test:e2e:staging', 'phase12:verify', 'phase12:verify-staging-approval', 'phase12:verify-staging', 'phase12:normalize-vercel', 'phase12:seed', 'phase12:cleanup', 'phase12:staging-result', 'phase12:verify-release', 'phase12:production-smoke', 'phase12:production-auth-smoke']) {
   if (!packageJson.scripts?.[script]) throw new Error(`Missing Phase 12 script: ${script}`)
 }
 
@@ -113,6 +114,9 @@ if (!/workflow_call:[\s\S]*?release_sha:[\s\S]*?required:\s*true/.test(stagingWo
 if (/PRODUCTION_ADMIN_(?:EMAIL|PASSWORD)/.test(stagingWorkflow)) throw new Error('Staging workflow has cross-environment credentials.')
 if (!/verify-staging-approval\.mjs/.test(stagingWorkflow)) throw new Error('Staging workflow lacks verifiable owner approval.')
 if (!/needs\.seed\.result != 'skipped'/.test(stagingWorkflow)) throw new Error('Staging cleanup is not fail-safe after a partial seed.')
+if (!/vercel@\$VERCEL_CLI_VERSION" pull[\s\S]*?phase12:normalize-vercel[\s\S]*?vercel@\$VERCEL_CLI_VERSION" build/.test(stagingWorkflow)) {
+  throw new Error('Staging deployment does not normalize pulled Vercel build settings before build.')
+}
 const validateJob = stagingWorkflow.match(/\n {2}validate-commit:[\s\S]*?(?=\n {2}[a-z][a-z0-9-]+:|\s*$)/)?.[0] || ''
 if (!/\n {6}statuses:\s*read\b/.test(validateJob)) {
   throw new Error('Staging commit validation cannot read external commit statuses.')
@@ -146,6 +150,9 @@ if (/test\.info\(\)\.project\.name\s*!==/.test(crossBrowserSecurity)) {
 const productionWorkflow = fs.readFileSync(path.join(root, '.github/workflows/phase12-production-release.yml'), 'utf8')
 if (!/environment:\s*production/.test(productionWorkflow)) throw new Error('Production workflow lacks its protected environment.')
 if (/PHASE12_(?:ADMIN|NON_ADMIN)_(?:EMAIL|PASSWORD)/.test(productionWorkflow)) throw new Error('Production workflow references staging identities.')
+if (!/vercel@\$VERCEL_CLI_VERSION" pull[\s\S]*?phase12:normalize-vercel[\s\S]*?vercel@\$VERCEL_CLI_VERSION" build/.test(productionWorkflow)) {
+  throw new Error('Production deployment does not normalize pulled Vercel build settings before build.')
+}
 const legacyWorkflow = fs.readFileSync(path.join(root, '.github/workflows/phase11-quality.yml'), 'utf8')
 if (/protected-release-gate|PHASE10_ADMIN_(?:EMAIL|PASSWORD)/.test(legacyWorkflow)) {
   throw new Error('Legacy production-origin authenticated release gate was not retired.')

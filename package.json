@@ -31,6 +31,7 @@
     "phase12:verify": "node scripts/phase12/verify-phase12-repository.mjs",
     "phase12:verify-staging-approval": "node scripts/phase12/verify-staging-approval.mjs",
     "phase12:verify-staging": "node scripts/phase12/verify-staging-origin.mjs",
+    "phase12:normalize-vercel": "node scripts/phase12/normalize-vercel-project-settings.mjs",
     "phase12:seed": "node --env-file-if-exists=.env.phase12.local scripts/phase12/seed-e2e-fixtures.mjs",
     "phase12:cleanup": "node --env-file-if-exists=.env.phase12.local scripts/phase12/cleanup-e2e-fixtures.mjs",
     "phase12:scan-artifacts": "node scripts/phase12/scan-e2e-artifacts.mjs",

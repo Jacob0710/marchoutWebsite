@@ -108,6 +108,7 @@ jobs:
           test -n "$NUXT_PUBLIC_SUPABASE_URL"
           test -n "$NUXT_PUBLIC_SUPABASE_ANON_KEY"
           pnpm dlx "vercel@$VERCEL_CLI_VERSION" pull --yes --environment=production --token="$VERCEL_TOKEN"
+          pnpm run phase12:normalize-vercel
           NUXT_PHASE10_ENVIRONMENT=production \
           NUXT_PHASE10_HSTS_ENABLED=true \
           NUXT_PHASE12_RELEASE_SHA="$PHASE12_RELEASE_SHA" \
