@@ -6,6 +6,7 @@ const root = process.cwd()
 const required = [
   'codexSteps/phase12.md',
   'outputs/phase-12-execution-status.md',
+  'vercel.json',
   'playwright.config.ts',
   'tests/e2e/public-navigation.spec.ts',
   'tests/e2e/public-activities.spec.ts',
@@ -73,6 +74,11 @@ const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 
 if (packageJson.packageManager !== 'pnpm@11.9.0') throw new Error('pnpm package-manager contract changed.')
 for (const script of ['test:e2e', 'test:e2e:chromium', 'test:e2e:staging', 'phase12:verify', 'phase12:verify-staging-approval', 'phase12:verify-staging', 'phase12:seed', 'phase12:cleanup', 'phase12:staging-result', 'phase12:verify-release', 'phase12:production-smoke', 'phase12:production-auth-smoke']) {
   if (!packageJson.scripts?.[script]) throw new Error(`Missing Phase 12 script: ${script}`)
+}
+
+const vercelConfig = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'))
+if (vercelConfig.framework !== 'nuxtjs' || vercelConfig.outputDirectory !== null) {
+  throw new Error('Vercel must use Nuxt framework detection without a legacy output-directory override.')
 }
 
 const candidates = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard'], { encoding: 'utf8' })
