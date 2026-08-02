@@ -101,6 +101,9 @@ if (/\$\{\{\s*secrets\./.test(qualityWorkflow)) throw new Error('Phase 12 PR qua
 if (!/push:\s*\r?\n\s+branches:\s*\[main\]/.test(qualityWorkflow)) throw new Error('Phase 12 quality workflow must validate final main commits.')
 const stagingWorkflow = fs.readFileSync(path.join(root, '.github/workflows/phase12-staging-e2e.yml'), 'utf8')
 if (!/environment:\s*staging/.test(stagingWorkflow)) throw new Error('Staging workflow lacks its protected environment.')
+if (!/workflow_call:[\s\S]*?release_sha:[\s\S]*?required:\s*true/.test(stagingWorkflow)) {
+  throw new Error('Staging workflow cannot be called through a default-branch registered workflow.')
+}
 if (/PRODUCTION_ADMIN_(?:EMAIL|PASSWORD)/.test(stagingWorkflow)) throw new Error('Staging workflow has cross-environment credentials.')
 if (!/verify-staging-approval\.mjs/.test(stagingWorkflow)) throw new Error('Staging workflow lacks verifiable owner approval.')
 if (!/needs\.seed\.result != 'skipped'/.test(stagingWorkflow)) throw new Error('Staging cleanup is not fail-safe after a partial seed.')
@@ -140,6 +143,13 @@ if (/PHASE12_(?:ADMIN|NON_ADMIN)_(?:EMAIL|PASSWORD)/.test(productionWorkflow)) t
 const legacyWorkflow = fs.readFileSync(path.join(root, '.github/workflows/phase11-quality.yml'), 'utf8')
 if (/protected-release-gate|PHASE10_ADMIN_(?:EMAIL|PASSWORD)/.test(legacyWorkflow)) {
   throw new Error('Legacy production-origin authenticated release gate was not retired.')
+}
+if (!/phase12_release_sha:[\s\S]*?uses:\s*\.\/\.github\/workflows\/phase12-staging-e2e\.yml/.test(legacyWorkflow)) {
+  throw new Error('The default-branch registered workflow cannot dispatch the Phase 12 staging workflow.')
+}
+const phase12Caller = legacyWorkflow.match(/\n {2}phase12-staging:[\s\S]*?(?=\n {2}[a-z][a-z0-9-]+:|\s*$)/)?.[0] || ''
+if (!/needs:\s*quality/.test(phase12Caller) || !/statuses:\s*read/.test(phase12Caller)) {
+  throw new Error('The Phase 12 staging caller must wait for quality and pass commit-status read permission.')
 }
 
 const secretPatterns = [

@@ -7,6 +7,19 @@ on:
   schedule:
     - cron: '17 * * * *'
   workflow_dispatch:
+    inputs:
+      phase12_release_sha:
+        description: Optional exact Phase 12 Draft PR head to validate in isolated staging
+        required: false
+        type: string
+      phase12_pull_request:
+        description: Draft Phase 12 pull request number
+        required: false
+        type: string
+      phase12_approval_issue:
+        description: Owner approval issue for a protected-main Phase 12 staging run
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -72,3 +85,19 @@ jobs:
         env:
           PHASE10_SYNTHETIC_ORIGIN: https://marchout-website.vercel.app
         run: node scripts/phase10/synthetic-check.mjs
+
+  phase12-staging:
+    if: github.event_name == 'workflow_dispatch' && inputs.phase12_release_sha != ''
+    needs: quality
+    permissions:
+      checks: read
+      contents: read
+      issues: read
+      pull-requests: read
+      statuses: read
+    uses: ./.github/workflows/phase12-staging-e2e.yml
+    with:
+      release_sha: ${{ inputs.phase12_release_sha }}
+      pull_request: ${{ inputs.phase12_pull_request }}
+      approval_issue: ${{ inputs.phase12_approval_issue }}
+    secrets: inherit

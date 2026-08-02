@@ -1,6 +1,17 @@
 name: Phase 12 isolated staging E2E
 
 on:
+  workflow_call:
+    inputs:
+      release_sha:
+        required: true
+        type: string
+      pull_request:
+        required: false
+        type: string
+      approval_issue:
+        required: false
+        type: string
   workflow_dispatch:
     inputs:
       release_sha:
