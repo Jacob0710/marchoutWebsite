@@ -142,11 +142,12 @@ jobs:
           test -n "$NUXT_PUBLIC_SUPABASE_ANON_KEY"
           pnpm dlx "vercel@$VERCEL_CLI_VERSION" pull --yes --environment=preview --token="$VERCEL_TOKEN"
           pnpm run phase12:normalize-vercel
+          NITRO_PRESET=vercel \
           NUXT_PHASE10_ENVIRONMENT=staging \
           NUXT_PHASE10_HSTS_ENABLED=true \
           NUXT_PHASE12_RELEASE_SHA="$PHASE12_RELEASE_SHA" \
           NUXT_PUBLIC_SITE_URL="$PHASE12_STAGING_BASE_URL" \
-          pnpm dlx "vercel@$VERCEL_CLI_VERSION" build
+          pnpm run build
           deployment_url="$(pnpm dlx "vercel@$VERCEL_CLI_VERSION" deploy --prebuilt --token="$VERCEL_TOKEN" \
             --env "NUXT_PHASE10_ENVIRONMENT=staging" \
             --env "NUXT_PHASE10_HSTS_ENABLED=true" \

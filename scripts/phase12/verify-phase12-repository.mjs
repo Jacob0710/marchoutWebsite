@@ -114,11 +114,11 @@ if (!/workflow_call:[\s\S]*?release_sha:[\s\S]*?required:\s*true/.test(stagingWo
 if (/PRODUCTION_ADMIN_(?:EMAIL|PASSWORD)/.test(stagingWorkflow)) throw new Error('Staging workflow has cross-environment credentials.')
 if (!/verify-staging-approval\.mjs/.test(stagingWorkflow)) throw new Error('Staging workflow lacks verifiable owner approval.')
 if (!/needs\.seed\.result != 'skipped'/.test(stagingWorkflow)) throw new Error('Staging cleanup is not fail-safe after a partial seed.')
-if (!/vercel@\$VERCEL_CLI_VERSION" pull[\s\S]*?phase12:normalize-vercel[\s\S]*?vercel@\$VERCEL_CLI_VERSION" build/.test(stagingWorkflow)) {
-  throw new Error('Staging deployment does not normalize pulled Vercel build settings before build.')
+if (!/vercel@\$VERCEL_CLI_VERSION" pull[\s\S]*?phase12:normalize-vercel[\s\S]*?NITRO_PRESET=vercel[\s\S]*?pnpm run build[\s\S]*?vercel@\$VERCEL_CLI_VERSION" deploy --prebuilt/.test(stagingWorkflow)) {
+  throw new Error('Staging deployment does not create a Vercel Nitro artifact from normalized settings before deploy.')
 }
-if (/vercel@\$VERCEL_CLI_VERSION" build[^\r\n]*--token/.test(stagingWorkflow)) {
-  throw new Error('Staging build must use normalized local settings rather than reloading remote settings with a token.')
+if (/vercel@\$VERCEL_CLI_VERSION" build/.test(stagingWorkflow)) {
+  throw new Error('Staging build must not delegate to remote output-directory settings.')
 }
 const validateJob = stagingWorkflow.match(/\n {2}validate-commit:[\s\S]*?(?=\n {2}[a-z][a-z0-9-]+:|\s*$)/)?.[0] || ''
 if (!/\n {6}statuses:\s*read\b/.test(validateJob)) {
@@ -153,11 +153,11 @@ if (/test\.info\(\)\.project\.name\s*!==/.test(crossBrowserSecurity)) {
 const productionWorkflow = fs.readFileSync(path.join(root, '.github/workflows/phase12-production-release.yml'), 'utf8')
 if (!/environment:\s*production/.test(productionWorkflow)) throw new Error('Production workflow lacks its protected environment.')
 if (/PHASE12_(?:ADMIN|NON_ADMIN)_(?:EMAIL|PASSWORD)/.test(productionWorkflow)) throw new Error('Production workflow references staging identities.')
-if (!/vercel@\$VERCEL_CLI_VERSION" pull[\s\S]*?phase12:normalize-vercel[\s\S]*?vercel@\$VERCEL_CLI_VERSION" build/.test(productionWorkflow)) {
-  throw new Error('Production deployment does not normalize pulled Vercel build settings before build.')
+if (!/vercel@\$VERCEL_CLI_VERSION" pull[\s\S]*?phase12:normalize-vercel[\s\S]*?NITRO_PRESET=vercel[\s\S]*?pnpm run build[\s\S]*?vercel@\$VERCEL_CLI_VERSION" deploy --prebuilt --prod/.test(productionWorkflow)) {
+  throw new Error('Production deployment does not create a Vercel Nitro artifact from normalized settings before deploy.')
 }
-if (/vercel@\$VERCEL_CLI_VERSION" build[^\r\n]*--token/.test(productionWorkflow)) {
-  throw new Error('Production build must use normalized local settings rather than reloading remote settings with a token.')
+if (/vercel@\$VERCEL_CLI_VERSION" build/.test(productionWorkflow)) {
+  throw new Error('Production build must not delegate to remote output-directory settings.')
 }
 const legacyWorkflow = fs.readFileSync(path.join(root, '.github/workflows/phase11-quality.yml'), 'utf8')
 if (/protected-release-gate|PHASE10_ADMIN_(?:EMAIL|PASSWORD)/.test(legacyWorkflow)) {
