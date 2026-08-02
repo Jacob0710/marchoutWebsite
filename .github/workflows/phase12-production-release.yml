@@ -113,7 +113,7 @@ jobs:
           NUXT_PHASE10_HSTS_ENABLED=true \
           NUXT_PHASE12_RELEASE_SHA="$PHASE12_RELEASE_SHA" \
           NUXT_PUBLIC_SITE_URL="$PHASE12_PRODUCTION_BASE_URL" \
-          pnpm dlx "vercel@$VERCEL_CLI_VERSION" build --prod --token="$VERCEL_TOKEN"
+          pnpm dlx "vercel@$VERCEL_CLI_VERSION" build --prod
           deployment_url="$(pnpm dlx "vercel@$VERCEL_CLI_VERSION" deploy --prebuilt --prod --token="$VERCEL_TOKEN" \
             --env "NUXT_PHASE10_ENVIRONMENT=production" \
             --env "NUXT_PHASE10_HSTS_ENABLED=true" \
