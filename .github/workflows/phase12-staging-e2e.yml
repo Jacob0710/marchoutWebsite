@@ -38,6 +38,7 @@ jobs:
       contents: read
       issues: read
       pull-requests: read
+      statuses: read
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -63,7 +64,7 @@ jobs:
       - name: Verify required checks and traceable owner staging approval
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          PHASE12_REQUIRED_CHECKS: quality,phase12-quality,Vercel
+          PHASE12_REQUIRED_CHECKS: quality,phase12-quality,Vercel – marchout-staging
         run: node scripts/phase12/verify-staging-approval.mjs
 
   staging-quality:
@@ -229,10 +230,18 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium firefox webkit
-      - run: pnpm run test:e2e:staging
-      - run: pnpm run phase12:staging-result
-      - run: pnpm run phase12:scan-artifacts
+      - name: Run the complete staging browser matrix
+        continue-on-error: true
+        run: pnpm run test:e2e:staging
+      - name: Require 90 clean staging journeys
+        if: always()
+        run: pnpm run phase12:staging-result
+      - name: Recursively scan browser evidence
+        id: artifact_scan
+        if: always()
+        run: pnpm run phase12:scan-artifacts
       - name: Upload sanitized browser evidence
+        if: always() && steps.artifact_scan.outcome == 'success'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: phase12-staging-browser-${{ env.PHASE12_RELEASE_SHA }}
@@ -269,7 +278,10 @@ jobs:
           node-version: 24
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run phase12:cleanup
+      - name: Clean the exact run namespace and require zero residual
+        run: pnpm run phase12:cleanup
+      - name: Prove cleanup is idempotent
+        run: pnpm run phase12:cleanup
 
   staging-result:
     if: always()

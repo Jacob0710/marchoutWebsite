@@ -12,6 +12,7 @@ const listResponse = await session.request(`/api/admin/activities?q=${encodeURIC
 const list = await responseJson(listResponse, 200, 'Fixture cleanup query')
 const fixtures = list.activities.filter(activity => activity.title.startsWith(`${fixturePrefix}-`))
 const service = createStagingServiceClient()
+const requiredBuckets = ['activity-assets', 'content-assets', 'downloads']
 const fixtureIds = fixtures.map(fixture => fixture.id)
 const storageRows = fixtureIds.length
   ? await service.from('activity_assets').select('activity_id,storage_bucket,storage_path').in('activity_id', fixtureIds)
@@ -46,6 +47,36 @@ for (const row of storageRows.data || []) {
 }
 if (residualStoragePaths.length) throw new Error(`Fixture cleanup left ${residualStoragePaths.length} Storage objects.`)
 
+const listBucketObjects = async (bucket, directory = '', inventory = []) => {
+  for (let offset = 0; ; offset += 100) {
+    const { data, error } = await service.storage.from(bucket).list(directory, {
+      limit: 100,
+      offset,
+      sortBy: { column: 'name', order: 'asc' }
+    })
+    if (error) throw new Error(`Cleanup could not inventory the ${bucket} bucket.`)
+    for (const entry of data || []) {
+      const objectPath = directory ? `${directory}/${entry.name}` : entry.name
+      if (entry.id) inventory.push(objectPath)
+      else await listBucketObjects(bucket, objectPath, inventory)
+      if (inventory.length > 10_000) throw new Error(`Cleanup refused an oversized ${bucket} inventory.`)
+    }
+    if ((data || []).length < 100) break
+  }
+  return inventory
+}
+
+const storageResidualByBucket = {}
+for (const bucket of requiredBuckets) {
+  const objects = await listBucketObjects(bucket)
+  storageResidualByBucket[bucket] = objects.filter(objectPath => objectPath.includes(fixturePrefix)).length
+}
+const remainingNamespacedStorageObjectCount = Object.values(storageResidualByBucket)
+  .reduce((total, count) => total + count, 0)
+if (remainingNamespacedStorageObjectCount) {
+  throw new Error(`Fixture cleanup left ${remainingNamespacedStorageObjectCount} namespaced objects across required buckets.`)
+}
+
 const evidence = {
   status: 'clean',
   runId,
@@ -56,6 +87,7 @@ const evidence = {
   remainingFixtureCount: 0,
   remainingAssetRowCount: 0,
   remainingStorageObjectCount: 0,
+  storageResidualByBucket,
   cleanedAt: new Date().toISOString()
 }
 await writePrivateEvidence('cleanup-result.json', evidence)
@@ -68,5 +100,6 @@ console.log(JSON.stringify({
   deletedStorageObjectCount: evidence.deletedStorageObjects,
   remainingFixtureCount: 0,
   remainingAssetRowCount: 0,
-  remainingStorageObjectCount: 0
+  remainingStorageObjectCount: 0,
+  storageResidualByBucket
 }, null, 2))

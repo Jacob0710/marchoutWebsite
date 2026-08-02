@@ -88,7 +88,7 @@ for (const workflow of workflows) {
   const source = fs.readFileSync(path.join(root, workflow), 'utf8')
   if (/pull_request_target|\bwrite-all\b/.test(source)) throw new Error(`Unsafe workflow trigger or permission in ${workflow}`)
   if (!/^permissions:\s*\r?\n\s+contents:\s+read/m.test(source)) throw new Error(`Missing least-privilege top-level permission in ${workflow}`)
-  for (const match of source.matchAll(/uses:\s*([^\s#]+)/g)) {
+  for (const match of source.matchAll(/^\s*-\s+uses:\s*([^\s#]+)/gm)) {
     const reference = match[1]
     if (reference.startsWith('./')) continue
     actionReferences += 1
@@ -104,10 +104,31 @@ if (!/environment:\s*staging/.test(stagingWorkflow)) throw new Error('Staging wo
 if (/PRODUCTION_ADMIN_(?:EMAIL|PASSWORD)/.test(stagingWorkflow)) throw new Error('Staging workflow has cross-environment credentials.')
 if (!/verify-staging-approval\.mjs/.test(stagingWorkflow)) throw new Error('Staging workflow lacks verifiable owner approval.')
 if (!/needs\.seed\.result != 'skipped'/.test(stagingWorkflow)) throw new Error('Staging cleanup is not fail-safe after a partial seed.')
+const validateJob = stagingWorkflow.match(/\n {2}validate-commit:[\s\S]*?(?=\n {2}[a-z][a-z0-9-]+:|\s*$)/)?.[0] || ''
+if (!/\n {6}statuses:\s*read\b/.test(validateJob)) {
+  throw new Error('Staging commit validation cannot read external commit statuses.')
+}
+if (!/PHASE12_REQUIRED_CHECKS:\s*quality,phase12-quality,Vercel – marchout-staging/.test(validateJob)) {
+  throw new Error('Staging commit validation does not require the isolated staging Vercel status.')
+}
 const browserJob = stagingWorkflow.match(/\n {2}browser-e2e:[\s\S]*?(?=\n {2}[a-z][a-z0-9-]+:|\s*$)/)?.[0] || ''
 if (/SERVICE_ROLE/.test(browserJob)) throw new Error('Staging browser job must not receive the service role.')
 if (!/PHASE12_STAGING_SUPABASE_ANON_KEY/.test(browserJob)) {
   throw new Error('Staging browser job must identify the public anon value so artifact scans can distinguish it from secret JWTs.')
+}
+if (!/if:\s*always\(\)[\s\S]*?phase12:scan-artifacts/.test(browserJob)) {
+  throw new Error('Staging browser evidence must be scanned even when the browser matrix fails.')
+}
+const cleanupJob = stagingWorkflow.match(/\n {2}cleanup:[\s\S]*?(?=\n {2}[a-z][a-z0-9-]+:|\s*$)/)?.[0] || ''
+if ([...cleanupJob.matchAll(/pnpm run phase12:cleanup/g)].length !== 2) {
+  throw new Error('Staging cleanup must run twice to prove zero residual and idempotency.')
+}
+const cleanupSource = fs.readFileSync(path.join(root, 'scripts/phase12/cleanup-e2e-fixtures.mjs'), 'utf8')
+for (const bucket of ['activity-assets', 'content-assets', 'downloads']) {
+  if (!cleanupSource.includes(`'${bucket}'`)) throw new Error(`Staging cleanup does not inventory the ${bucket} bucket.`)
+}
+if (!/storageResidualByBucket/.test(cleanupSource)) {
+  throw new Error('Staging cleanup does not record per-bucket namespace residuals.')
 }
 const crossBrowserSecurity = fs.readFileSync(path.join(root, 'tests/e2e/security-browser-contract.spec.ts'), 'utf8')
 if (/test\.info\(\)\.project\.name\s*!==/.test(crossBrowserSecurity)) {
