@@ -76,6 +76,9 @@ if (packageJson.packageManager !== 'pnpm@11.9.0') throw new Error('pnpm package-
 for (const script of ['test:e2e', 'test:e2e:chromium', 'test:e2e:staging', 'phase12:verify', 'phase12:verify-staging-approval', 'phase12:verify-staging', 'phase12:normalize-vercel', 'phase12:seed', 'phase12:cleanup', 'phase12:staging-result', 'phase12:verify-release', 'phase12:production-smoke', 'phase12:production-auth-smoke']) {
   if (!packageJson.scripts?.[script]) throw new Error(`Missing Phase 12 script: ${script}`)
 }
+if (!/\bnuxi prepare\b[\s\S]*\bplaywright test\b/.test(packageJson.scripts['test:e2e:staging'])) {
+  throw new Error('Staging browser tests must prepare Nuxt types on a clean runner before Playwright loads tsconfig.')
+}
 
 const vercelConfig = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'))
 if (vercelConfig.framework !== 'nuxtjs' || vercelConfig.outputDirectory !== null) {

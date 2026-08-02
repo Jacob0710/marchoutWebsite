@@ -23,7 +23,7 @@
     "test:integration": "node scripts/phase11/local-ssr-smoke.mjs",
     "test:e2e": "playwright test",
     "test:e2e:chromium": "playwright test --project=chromium",
-    "test:e2e:staging": "playwright test",
+    "test:e2e:staging": "nuxi prepare && playwright test",
     "test:e2e:report": "playwright show-report",
     "phase11:verify": "node scripts/phase11/verify-repository.mjs",
     "phase11:audit": "pnpm audit --prod --audit-level=high",
