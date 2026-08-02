@@ -159,9 +159,9 @@ onBeforeRouteLeave(() => {
         <CommonBaseButton to="/admin/activities" variant="secondary">返回列表</CommonBaseButton>
         <CommonBaseButton type="submit" :disabled="!isHydrated || Boolean(action)"><Loader2 v-if="action === 'save'" class="size-4 animate-spin" />儲存草稿</CommonBaseButton>
         <template v-if="activity">
-          <CommonBaseButton v-if="activity.status === 'draft'" type="button" :disabled="Boolean(action)" @click="confirmAction = 'publish'">發布</CommonBaseButton>
-          <CommonBaseButton v-else type="button" variant="secondary" :disabled="Boolean(action)" @click="confirmAction = 'unpublish'">撤回</CommonBaseButton>
-          <button data-testid="delete-activity" type="button" class="focus-ring rounded-md px-5 py-3 text-sm font-bold text-red-700" :disabled="Boolean(action)" @click="confirmAction = 'delete'">刪除</button>
+          <CommonBaseButton v-if="activity.status === 'draft'" type="button" :disabled="!isHydrated || Boolean(action)" @click="confirmAction = 'publish'">發布</CommonBaseButton>
+          <CommonBaseButton v-else type="button" variant="secondary" :disabled="!isHydrated || Boolean(action)" @click="confirmAction = 'unpublish'">撤回</CommonBaseButton>
+          <button data-testid="delete-activity" type="button" class="focus-ring rounded-md px-5 py-3 text-sm font-bold text-red-700" :disabled="!isHydrated || Boolean(action)" @click="confirmAction = 'delete'">刪除</button>
         </template>
       </div>
     </form>
