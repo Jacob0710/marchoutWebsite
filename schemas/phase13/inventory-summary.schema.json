@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://marchout.invalid/schemas/phase13/inventory-summary.schema.json",
+  "title": "Phase 13 offline inventory summary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "generatedFrom", "historicalBaselines", "countDomains", "unresolvedRelationships", "acceptedOutOfScope", "warnings", "comparisonRecords"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "generatedFrom": { "$ref": "#/$defs/evidenceList" },
+    "historicalBaselines": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidenceAsOf", "currentProductionStateClaimed", "sourceSnapshotSha256"],
+      "properties": {
+        "evidenceAsOf": { "const": "2026-07-22" },
+        "currentProductionStateClaimed": { "const": false },
+        "sourceSnapshotSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "countDomains": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_inventory_items_total", "source_inventory_items_by_historical_disposition", "source_inventory_skip_items",
+        "imported_target_records_total", "imported_target_records_by_module", "imported_target_records_draft", "source_assets",
+        "source_unique_assets_total", "storage_assignments_total", "migrated_storage_objects", "owner_references_total",
+        "publication_reviews_total", "redirects_accepted_out_of_scope_total", "unresolved_relationships_total", "missing_evidence_total"
+      ],
+      "properties": {
+        "source_inventory_items_total": { "$ref": "#/$defs/count" },
+        "source_inventory_items_by_historical_disposition": { "$ref": "#/$defs/countMap" },
+        "source_inventory_skip_items": { "$ref": "#/$defs/count" },
+        "imported_target_records_total": { "$ref": "#/$defs/count" },
+        "imported_target_records_by_module": { "$ref": "#/$defs/countMap" },
+        "imported_target_records_draft": { "$ref": "#/$defs/count" },
+        "source_assets": { "$ref": "#/$defs/count" },
+        "source_unique_assets_total": { "$ref": "#/$defs/count" },
+        "storage_assignments_total": { "$ref": "#/$defs/count" },
+        "migrated_storage_objects": { "$ref": "#/$defs/count" },
+        "owner_references_total": { "$ref": "#/$defs/count" },
+        "publication_reviews_total": { "$ref": "#/$defs/count" },
+        "redirects_accepted_out_of_scope_total": { "$ref": "#/$defs/count" },
+        "unresolved_relationships_total": { "$ref": "#/$defs/count" },
+        "missing_evidence_total": { "$ref": "#/$defs/count" }
+      }
+    },
+    "unresolvedRelationships": { "type": "array", "items": { "$ref": "#/$defs/relationship" } },
+    "acceptedOutOfScope": { "type": "array", "items": { "$ref": "#/$defs/decision" } },
+    "warnings": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "comparisonRecords": { "type": "array", "items": { "$ref": "#/$defs/comparisonRecord" } }
+  },
+  "$defs": {
+    "evidenceList": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": { "path": { "type": "string" }, "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" } } } },
+    "count": { "type": "object", "additionalProperties": false, "required": ["value", "domain", "evidence", "historicalOnly"], "properties": { "value": { "type": "integer", "minimum": 0 }, "domain": { "type": "string" }, "evidence": { "type": "string" }, "historicalOnly": { "const": true } } },
+    "countMap": { "type": "object", "additionalProperties": false, "required": ["values", "domain", "evidence", "historicalOnly"], "properties": { "values": { "type": "object" }, "domain": { "type": "string" }, "evidence": { "type": "string" }, "historicalOnly": { "const": true } } },
+    "relationship": { "type": "object", "additionalProperties": false, "required": ["relationship", "count", "status", "reason", "phase14Checkpoint"], "properties": { "relationship": { "type": "string" }, "count": { "type": "integer", "minimum": 0 }, "status": { "const": "unresolved" }, "reason": { "type": "string" }, "phase14Checkpoint": { "type": "string" } } },
+    "decision": { "type": "object", "additionalProperties": false, "required": ["decision", "count", "status", "reason"], "properties": { "decision": { "type": "string" }, "count": { "type": "integer", "minimum": 0 }, "status": { "const": "accepted_out_of_scope" }, "reason": { "type": "string" } } },
+    "comparisonRecord": { "type": "object", "additionalProperties": false, "required": ["recordKind", "key", "fingerprint"], "properties": { "recordKind": { "enum": ["target-record", "storage-assignment"] }, "key": { "type": "string" }, "fingerprint": { "type": "string", "pattern": "^[0-9a-f]{64}$" } } }
+  }
+}

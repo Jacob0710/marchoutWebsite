@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "generatedFrom": [{ "path": "synthetic.json", "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" }],
+  "historicalBaselines": { "evidenceAsOf": "2026-07-22", "currentProductionStateClaimed": false, "sourceSnapshotSha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" },
+  "countDomains": {
+    "source_inventory_items_total": { "value": 0, "domain": "source inventory", "evidence": "synthetic", "historicalOnly": true },
+    "source_inventory_items_by_historical_disposition": { "values": {}, "domain": "source disposition", "evidence": "synthetic", "historicalOnly": true },
+    "source_inventory_skip_items": { "value": 0, "domain": "source skip", "evidence": "synthetic", "historicalOnly": true },
+    "imported_target_records_total": { "value": 0, "domain": "target records", "evidence": "synthetic", "historicalOnly": true },
+    "imported_target_records_by_module": { "values": {}, "domain": "target module", "evidence": "synthetic", "historicalOnly": true },
+    "imported_target_records_draft": { "value": 0, "domain": "target draft", "evidence": "synthetic", "historicalOnly": true },
+    "source_assets": { "value": 0, "domain": "source assets", "evidence": "synthetic", "historicalOnly": true },
+    "source_unique_assets_total": { "value": 0, "domain": "source unique assets", "evidence": "synthetic", "historicalOnly": true },
+    "storage_assignments_total": { "value": 0, "domain": "storage assignments", "evidence": "synthetic", "historicalOnly": true },
+    "migrated_storage_objects": { "value": 0, "domain": "migrated objects", "evidence": "synthetic", "historicalOnly": true },
+    "owner_references_total": { "value": 0, "domain": "owner references", "evidence": "synthetic", "historicalOnly": true },
+    "publication_reviews_total": { "value": 0, "domain": "reviews", "evidence": "synthetic", "historicalOnly": true },
+    "redirects_accepted_out_of_scope_total": { "value": 0, "domain": "redirect decisions", "evidence": "synthetic", "historicalOnly": true },
+    "unresolved_relationships_total": { "value": 0, "domain": "unresolved", "evidence": "synthetic", "historicalOnly": true },
+    "missing_evidence_total": { "value": 0, "domain": "missing evidence", "evidence": "synthetic", "historicalOnly": true }
+  },
+  "unresolvedRelationships": [],
+  "acceptedOutOfScope": [],
+  "warnings": ["Synthetic fixture only."],
+  "comparisonRecords": []
+}

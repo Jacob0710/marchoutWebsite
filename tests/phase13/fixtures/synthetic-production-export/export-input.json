@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "exportKind": "sanitized-production-content-asset-inventory",
+  "releaseSha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "records": [
+    {
+      "recordKind": "target-record",
+      "key": "synthetic:target:matched",
+      "fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status": "draft",
+      "ownerKind": "activity",
+      "targetBucket": null,
+      "targetStoragePath": null,
+      "databaseReferenceKey": "synthetic:target:matched",
+      "privacyStatus": "private-draft"
+    },
+    {
+      "recordKind": "target-record",
+      "key": "synthetic:target:changed",
+      "fingerprint": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "status": "draft",
+      "ownerKind": "activity",
+      "targetBucket": null,
+      "targetStoragePath": null,
+      "databaseReferenceKey": "synthetic:target:changed",
+      "privacyStatus": "private-draft"
+    },
+    {
+      "recordKind": "storage-assignment",
+      "key": "synthetic:asset:extra",
+      "fingerprint": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "status": "private",
+      "ownerKind": "file",
+      "targetBucket": "downloads",
+      "targetStoragePath": "files/synthetic.pdf?token=synthetic-only",
+      "databaseReferenceKey": "synthetic:file:extra",
+      "privacyStatus": "private-draft"
+    }
+  ]
+}

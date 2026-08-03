@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://marchout.invalid/schemas/phase13/source-item.schema.json",
+  "title": "Phase 13 canonical source item",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "sourceItemKey", "sourceKind", "sourceUrl", "sourcePageUrl", "sourceTitle",
+    "sourceSnapshotSha256", "historicalDisposition", "normalizedDisposition", "targetOwnerKind",
+    "targetOwnerMigrationKey", "targetStatus", "reviewStatus", "privacyStatus", "evidenceFiles", "notes"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "sourceItemKey": { "type": "string", "minLength": 1 },
+    "sourceKind": { "enum": ["page", "activity", "post", "file", "faq", "year-summary", "site-setting", "static-page", "image", "attachment", "video-link", "unknown"] },
+    "sourceUrl": { "type": ["string", "null"], "pattern": "^https://" },
+    "sourcePageUrl": { "type": ["string", "null"], "pattern": "^https://" },
+    "sourceTitle": { "type": ["string", "null"] },
+    "sourceSnapshotSha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+    "historicalDisposition": { "enum": ["migrate", "merge", "redirect-only", "archive", "duplicate", "manual-review", "skip"] },
+    "normalizedDisposition": { "enum": ["migrated", "merged", "archived", "kept-draft", "reused", "duplicate", "accepted-skip", "requires-owner-review", "missing-evidence"] },
+    "targetOwnerKind": { "enum": ["activity", "post", "file", "year-summary", "site-settings", "static-page", "shared", "unresolved"] },
+    "targetOwnerMigrationKey": { "type": ["string", "null"] },
+    "targetStatus": { "enum": ["draft", "published", "not-applicable", "unresolved"] },
+    "reviewStatus": { "enum": ["requires-owner-review", "not-required", "accepted-out-of-scope", "unresolved"] },
+    "privacyStatus": { "enum": ["public-source", "private-draft", "restricted", "unknown"] },
+    "evidenceFiles": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+    "notes": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+  }
+}

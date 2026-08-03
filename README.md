@@ -203,6 +203,25 @@ Local browser tests use the built mock-mode application and require no productio
 
 This application requires a Nitro-capable SSR deployment; static-only hosting is insufficient for secure cookies, administrator APIs, and private asset proxies. Configure the public site URL and Supabase redirect allow-list for each environment, run every migration and verification query, and execute the Phase 5–9 suites against staging before production promotion.
 
+## Phase 13 offline content and asset reconciliation
+
+Phase 13 derives a deterministic, repository-only reconciliation baseline from the committed Phase 9–12 evidence. Its counts are historical evidence domains, not claims about current production state. In particular, `source_inventory_skip_items = 70` and `imported_target_records_draft = 70` are unrelated domains; `source_assets = 398` and `migrated_storage_objects = 378` are also distinct domains.
+
+```bash
+pnpm phase13:discover
+pnpm phase13:normalize
+pnpm phase13:validate
+pnpm phase13:test
+pnpm phase13:verify
+```
+
+The future export adapter accepts local files only and rejects URL input. Do not run a production inventory during Phase 13. A later owner-authorized, sanitized export belongs under the ignored `.private/phase14-production-export/` directory and is handled during Phase 14:
+
+```bash
+pnpm phase13:normalize-production-export -- --input <LOCAL_EXPORT_PATH> --output <SANITIZED_OUTPUT_PATH>
+pnpm phase13:compare-production-export -- --baseline outputs/phase-13-offline-baseline.json --production <SANITIZED_EXPORT_PATH> --output <LOCAL_COMPARISON_PATH>
+```
+
 Phase 10 includes implementation and runbooks for these gates. The production deployment is the independent Vercel site at `https://marchout-website.vercel.app`; Wix has no DNS, redirect, hosting, or runtime role. Platform credentials, database restore authority, monitoring ownership, and production HTTP/Browser evidence remain controlled operational inputs. See `docs/deployment-readiness.md`.
 
 ## Known limitations and next phase
