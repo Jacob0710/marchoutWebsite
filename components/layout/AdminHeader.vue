@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LogOut, Menu, Monitor, UserRound, X } from 'lucide-vue-next'
+import { LogOut, Menu, Monitor, UserRound, X } from '@lucide/vue'
 
 const { user, logout } = useAdminAuth()
 const route = useRoute()

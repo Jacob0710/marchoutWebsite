@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Loader2, Paperclip, Star, Trash2, Upload } from 'lucide-vue-next'
+import { Loader2, Paperclip, Star, Trash2, Upload } from '@lucide/vue'
 import type { AdminActivity, AdminActivityAsset, ActivityAssetKind } from '~/types/adminActivity'
 
 const props = defineProps<{ activity: AdminActivity }>()

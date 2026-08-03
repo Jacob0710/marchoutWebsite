@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { KeyRound, RefreshCw } from 'lucide-vue-next'
+import { KeyRound, RefreshCw } from '@lucide/vue'
 import type { AdminAccount, AdminInvitation, CreateAdminInvitationInput, CreateAdminInvitationResponse } from '~/types/adminAccess'
 
 definePageMeta({ layout: 'admin' })

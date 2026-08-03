@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowUpRight } from 'lucide-vue-next'
+import { ArrowUpRight } from '@lucide/vue'
 import type { Activity } from '~/types/content'
 import { activityTypeLabels } from '~/utils/mockData'
 

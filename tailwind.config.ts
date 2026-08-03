@@ -13,13 +13,13 @@ export default <Partial<Config>>{
     extend: {
       colors: {
         ink: '#23303f',
-        muted: '#697381',
+        muted: '#626d7a',
         paper: '#fffaf3',
         cloud: '#f5f7fb',
-        coral: '#ef6f61',
-        coralDark: '#c84c40',
+        coral: '#b84237',
+        coralDark: '#93352d',
         honey: '#f4b14a',
-        teal: '#1e8a83',
+        teal: '#126f6a',
         sage: '#8fbf9f'
       },
       boxShadow: {

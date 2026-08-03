@@ -1,4 +1,4 @@
--- Run after supabase/schema.sql and supabase/seed.sql in the Supabase SQL Editor.
+-- Run after the full ordered migration chain. Seed data is not required.
 -- These queries are read-only.
 
 select

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowDown, ArrowUp, Loader2, Pencil, Plus, Trash2 } from 'lucide-vue-next'
+import { ArrowDown, ArrowUp, Loader2, Pencil, Plus, Trash2 } from '@lucide/vue'
 import type { CoreFaqItem } from '~/types/coreContent'
 
 definePageMeta({ layout: 'admin' })

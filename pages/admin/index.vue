@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowRight, CalendarDays, ShieldCheck } from 'lucide-vue-next'
+import { ArrowRight, CalendarDays, ShieldCheck } from '@lucide/vue'
 
 definePageMeta({ layout: 'admin' })
 

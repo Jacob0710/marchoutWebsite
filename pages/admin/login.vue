@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { HeartHandshake, Loader2, LockKeyhole } from 'lucide-vue-next'
+import { HeartHandshake, Loader2, LockKeyhole } from '@lucide/vue'
 
 definePageMeta({ layout: false })
 
@@ -12,6 +12,11 @@ const form = reactive({
 })
 const isSubmitting = ref(false)
 const submitError = ref('')
+const isHydrated = ref(false)
+
+onMounted(() => {
+  isHydrated.value = true
+})
 
 const { errors, validate, clearError } = useFormValidation<typeof form>({
   email: {
@@ -128,8 +133,8 @@ const handleSubmit = async () => {
           </label>
           <button
             type="submit"
-            class="focus-ring inline-flex items-center justify-center gap-2 rounded-md bg-ink px-5 py-3 text-sm font-bold text-white transition hover:bg-teal disabled:cursor-not-allowed disabled:opacity-60"
-            :disabled="isSubmitting"
+            class="focus-ring inline-flex items-center justify-center gap-2 rounded-md bg-ink px-5 py-3 text-sm font-bold text-white transition hover:bg-teal disabled:cursor-not-allowed disabled:opacity-75"
+            :disabled="!isHydrated || isSubmitting"
           >
             <Loader2 v-if="isSubmitting" class="size-4 animate-spin" aria-hidden="true" />
             <LockKeyhole v-else class="size-4" aria-hidden="true" />

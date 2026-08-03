@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Loader2, TriangleAlert, X } from 'lucide-vue-next'
+import { Loader2, TriangleAlert, X } from '@lucide/vue'
 
 const props = withDefaults(
   defineProps<{

@@ -1,4 +1,4 @@
--- Run in the Supabase SQL Editor after 20260715_001_phase6_activity_crud_assets.sql.
+-- Run in the Supabase SQL Editor after 20260715000100_phase6_activity_crud_assets.sql.
 -- This file is read-only. Runtime anon/non-admin/admin behavior is verified by
 -- scripts/phase6-admin-crud-smoke.mjs with real JWT sessions.
 

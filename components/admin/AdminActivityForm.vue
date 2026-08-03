@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Loader2 } from 'lucide-vue-next'
+import { Loader2 } from '@lucide/vue'
 import type { AdminActivity, AdminActivityInput } from '~/types/adminActivity'
 import { activityTypeLabels, toActivitySlug } from '~/shared/activityRules'
 
@@ -17,6 +17,7 @@ const errorMessage = ref('')
 const action = ref<'save' | 'publish' | 'unpublish' | 'delete' | null>(null)
 const confirmAction = ref<'publish' | 'unpublish' | 'delete' | null>(null)
 const dirty = ref(false)
+const isHydrated = ref(false)
 let hydrating = true
 
 const fill = (activity?: AdminActivity | null) => {
@@ -31,8 +32,18 @@ const fill = (activity?: AdminActivity | null) => {
 }
 fill(props.activity)
 watch(() => props.activity, fill)
+watch(
+  () => form.title,
+  title => {
+    if (!form.slug) form.slug = toActivitySlug(title)
+  },
+  { flush: 'sync' }
+)
 watch(form, () => { if (!hydrating) dirty.value = true }, { deep: true })
-onMounted(() => { hydrating = false })
+onMounted(() => {
+  hydrating = false
+  isHydrated.value = true
+})
 
 const payload = (): AdminActivityInput => ({
   ...form,
@@ -91,8 +102,6 @@ const tagsText = computed({
   get: () => form.tags?.join(', ') ?? '',
   set: (value: string) => { form.tags = value.split(',').map((tag) => tag.trim()).filter(Boolean) }
 })
-const suggestSlug = () => { if (!form.slug) form.slug = toActivitySlug(form.title) }
-
 onBeforeRouteLeave(() => {
   if (!dirty.value || !import.meta.client) return true
   return window.confirm('尚有未儲存的變更，確定要離開嗎？')
@@ -106,7 +115,7 @@ onBeforeRouteLeave(() => {
     <form class="grid gap-5" novalidate @submit.prevent="save">
       <div class="grid gap-4 md:grid-cols-2">
         <label class="grid gap-2 text-sm font-semibold">活動標題
-          <input v-model="form.title" class="focus-ring h-11 rounded-md border border-slate-200 px-3" @blur="suggestSlug" />
+          <input v-model="form.title" class="focus-ring h-11 rounded-md border border-slate-200 px-3" />
           <span v-if="fieldErrors.title" class="text-xs text-red-600">{{ fieldErrors.title[0] }}</span>
         </label>
         <label class="grid gap-2 text-sm font-semibold">Slug
@@ -148,11 +157,11 @@ onBeforeRouteLeave(() => {
       <label class="inline-flex items-center gap-2 text-sm font-semibold"><input v-model="form.isFeatured" type="checkbox" class="size-4" />首頁精選</label>
       <div class="flex flex-wrap justify-end gap-3">
         <CommonBaseButton to="/admin/activities" variant="secondary">返回列表</CommonBaseButton>
-        <CommonBaseButton type="submit" :disabled="Boolean(action)"><Loader2 v-if="action === 'save'" class="size-4 animate-spin" />儲存草稿</CommonBaseButton>
+        <CommonBaseButton type="submit" :disabled="!isHydrated || Boolean(action)"><Loader2 v-if="action === 'save'" class="size-4 animate-spin" />儲存草稿</CommonBaseButton>
         <template v-if="activity">
-          <CommonBaseButton v-if="activity.status === 'draft'" type="button" :disabled="Boolean(action)" @click="confirmAction = 'publish'">發布</CommonBaseButton>
-          <CommonBaseButton v-else type="button" variant="secondary" :disabled="Boolean(action)" @click="confirmAction = 'unpublish'">撤回</CommonBaseButton>
-          <button type="button" class="focus-ring rounded-md px-5 py-3 text-sm font-bold text-red-700" :disabled="Boolean(action)" @click="confirmAction = 'delete'">刪除</button>
+          <CommonBaseButton v-if="activity.status === 'draft'" type="button" :disabled="!isHydrated || Boolean(action)" @click="confirmAction = 'publish'">發布</CommonBaseButton>
+          <CommonBaseButton v-else type="button" variant="secondary" :disabled="!isHydrated || Boolean(action)" @click="confirmAction = 'unpublish'">撤回</CommonBaseButton>
+          <button data-testid="delete-activity" type="button" class="focus-ring rounded-md px-5 py-3 text-sm font-bold text-red-700" :disabled="!isHydrated || Boolean(action)" @click="confirmAction = 'delete'">刪除</button>
         </template>
       </div>
     </form>

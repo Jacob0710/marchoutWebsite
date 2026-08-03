@@ -91,7 +91,7 @@ export const mockActivities: Activity[] = [
       '我們在每週三早晨抵達合作學校，與孩子一起用餐、整理一天的心情，也用短短二十分鐘閱讀故事。這個計畫讓陪伴變成可預期的日常，孩子知道有人會準時出現，志工也學會把服務做得細而長。',
     coverImageUrl:
       'https://images.unsplash.com/photo-1514986888952-8cd320577b68?auto=format&fit=crop&w=1400&q=80',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    videoUrl: 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ',
     status: 'published',
     isFeatured: true,
     tags: ['早餐', '兒少陪伴', '長期服務'],

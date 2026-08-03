@@ -109,7 +109,7 @@ Supabase errors do not cause a mock fallback. Administrator APIs are unavailable
 
 ## Migration source of truth
 
-Ordered files in `supabase/migrations` are canonical. `supabase/schema.sql` is intentionally deprecated and non-executable because the historic snapshot contained unsafe policies and public bucket assumptions. A fresh environment applies all migrations in filename order, followed by the read-only verification scripts in `supabase/README.md`.
+Ordered files in `supabase/migrations` are canonical. `supabase/schema.sql` is intentionally deprecated and non-executable. The audited Phase 4 snapshot is tracked as `20260713000100_phase4_public_schema_baseline.sql`; later ordered migrations remove its historic broad policies and make its legacy buckets private. A fresh environment applies all migrations in filename order, without `seed.sql`, followed by the read-only verification scripts in `supabase/README.md`.
 
 The Phase 8 migration evolves existing rows in place. It retains legacy URL columns as nullable compatibility data for a later controlled migration; formal Phase 8 APIs use only private Storage metadata. SQL Editor execution history is external state, so the repository records the exact migration and a repeatable invariant verification file.
 

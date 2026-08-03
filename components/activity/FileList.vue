@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Download } from 'lucide-vue-next'
+import { Download } from '@lucide/vue'
 import type { ActivityFile } from '~/types/content'
 
 defineProps<{

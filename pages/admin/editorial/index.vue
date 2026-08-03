@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ClipboardCheck, RefreshCw, Search } from 'lucide-vue-next'
+import { ClipboardCheck, RefreshCw, Search } from '@lucide/vue'
 
 definePageMeta({ layout: 'admin' })
 useSeo({ title: 'Editorial review queue', description: 'Phase 10 內容、隱私與 redirect 審核佇列。' })

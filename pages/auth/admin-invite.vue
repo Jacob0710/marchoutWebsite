@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { HeartHandshake, KeyRound, Loader2 } from 'lucide-vue-next'
+import { HeartHandshake, KeyRound, Loader2 } from '@lucide/vue'
 
 definePageMeta({ layout: false })
 useSeo({ title: '接受管理員邀請', description: '使用既有帳號接受愛潮關懷社管理員邀請。' })

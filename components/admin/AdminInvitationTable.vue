@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Ban, Loader2 } from 'lucide-vue-next'
+import { Ban, Loader2 } from '@lucide/vue'
 import type { AdminInvitation } from '~/types/adminAccess'
 
 defineProps<{ invitations: AdminInvitation[]; busyInvitationId?: string }>()

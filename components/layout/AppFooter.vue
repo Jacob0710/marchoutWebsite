@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { Facebook, Instagram, Mail, MapPin } from 'lucide-vue-next'
+import { Mail, MapPin } from '@lucide/vue'
+import Facebook from '~/components/icons/FacebookIcon.vue'
+import Instagram from '~/components/icons/InstagramIcon.vue'
 const { data, error } = await usePublicSettings()
 const settings = computed(() => data.value?.item)
 </script>

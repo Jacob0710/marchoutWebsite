@@ -14,7 +14,7 @@ useHead({ meta: [{ name: 'robots', content: 'noindex, nofollow' }] })
       <p class="text-sm font-bold text-muted">{{ statusCode }}</p>
       <h1 id="error-title" class="mt-3 text-3xl font-bold">{{ title }}</h1>
       <p class="mt-4 text-muted">{{ message }}</p>
-      <button class="mt-8 rounded bg-primary px-5 py-3 font-bold text-white" type="button" @click="clearError({ redirect: '/' })">
+      <button class="mt-8 rounded bg-ink px-5 py-3 font-bold text-white" type="button" @click="clearError({ redirect: '/' })">
         回到首頁
       </button>
     </section>

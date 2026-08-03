@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Download } from 'lucide-vue-next'
+import { Download } from '@lucide/vue'
 const { data, pending, error } = await usePublicFiles()
 const search = ref('')
 const year = ref<number | 'all'>('all')

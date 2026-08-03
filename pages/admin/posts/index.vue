@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Plus, Search, Trash2 } from 'lucide-vue-next'
+import { Plus, Search, Trash2 } from '@lucide/vue'
 import type { AdminPost, PaginatedAdminResponse } from '~/types/coreContent'
 definePageMeta({ layout: 'admin' })
 const status = ref('all')

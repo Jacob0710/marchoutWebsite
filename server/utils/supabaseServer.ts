@@ -1,6 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { createClient } from '@supabase/supabase-js'
-import { createError, parseCookies, setCookie, setResponseHeader, type H3Event } from 'h3'
+import { createError, getRequestProtocol, parseCookies, setCookie, setResponseHeader, type H3Event } from 'h3'
 
 export const createSupabaseServerClient = (event: H3Event) => {
   const config = useRuntimeConfig(event)
@@ -25,7 +25,7 @@ export const createSupabaseServerClient = (event: H3Event) => {
             httpOnly: true,
             path: '/',
             sameSite: 'lax',
-            secure: import.meta.env.PROD
+            secure: getRequestProtocol(event) === 'https'
           })
         }
 

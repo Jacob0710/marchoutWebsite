@@ -11,7 +11,7 @@ import {
   Settings,
   Tags,
   Trophy
-} from 'lucide-vue-next'
+} from '@lucide/vue'
 
 const route = useRoute()
 

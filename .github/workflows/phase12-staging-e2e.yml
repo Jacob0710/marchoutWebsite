@@ -1,0 +1,324 @@
+name: Phase 12 isolated staging E2E
+
+on:
+  workflow_call:
+    inputs:
+      release_sha:
+        required: true
+        type: string
+      pull_request:
+        required: false
+        type: string
+      approval_issue:
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      release_sha:
+        description: Exact protected main or Draft PR head commit to deploy and test
+        required: true
+        type: string
+      pull_request:
+        description: Draft PR number for pre-merge staging; leave empty for protected main
+        required: false
+        type: string
+      approval_issue:
+        description: Owner approval issue for protected-main runs; leave empty for pre-merge staging
+        required: false
+        type: string
+  schedule:
+    - cron: '23 3 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: phase12-staging
+  cancel-in-progress: false
+
+env:
+  VERCEL_CLI_VERSION: 58.3.0
+  PHASE12_RELEASE_SHA: ${{ inputs.release_sha || github.sha }}
+  PHASE12_PR_NUMBER: ${{ inputs.pull_request }}
+  PHASE12_STAGING_APPROVAL_ISSUE: ${{ inputs.approval_issue }}
+
+jobs:
+  validate-commit:
+    permissions:
+      checks: read
+      contents: read
+      issues: read
+      pull-requests: read
+      statuses: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.PHASE12_RELEASE_SHA }}
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+      - name: Require the exact protected-main or Draft PR commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$PHASE12_RELEASE_SHA"
+          git fetch origin main
+          if [[ -z "$PHASE12_PR_NUMBER" ]]; then
+            test "$(git rev-parse origin/main)" = "$PHASE12_RELEASE_SHA"
+          else
+            [[ "$PHASE12_PR_NUMBER" =~ ^[0-9]+$ ]]
+            test "$(git rev-parse origin/main)" != "$PHASE12_RELEASE_SHA"
+          fi
+      - name: Verify required checks and traceable owner staging approval
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PHASE12_REQUIRED_CHECKS: quality,phase12-quality,Vercel – marchout-staging
+        run: node scripts/phase12/verify-staging-approval.mjs
+
+  staging-quality:
+    needs: validate-commit
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.PHASE12_RELEASE_SHA }}
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run phase11:verify
+      - run: pnpm run phase12:verify
+      - run: pnpm run lint
+      - run: pnpm run phase11:audit
+      - run: pnpm run test:coverage
+      - run: pnpm run test:application
+      - run: pnpm run test:phase10
+      - run: pnpm run typecheck
+      - run: pnpm run build
+      - run: pnpm run test:integration
+      - run: git diff --check
+
+  deploy-staging:
+    needs: staging-quality
+    environment:
+      name: staging
+      url: ${{ steps.deploy.outputs.url }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    outputs:
+      url: ${{ steps.deploy.outputs.url }}
+    env:
+      VERCEL_TOKEN: ${{ secrets.PHASE12_VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ vars.PHASE12_VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ vars.PHASE12_VERCEL_PROJECT_ID }}
+      PHASE12_STAGING_BASE_URL: ${{ vars.PHASE12_STAGING_BASE_URL }}
+      NUXT_PUBLIC_SUPABASE_URL: ${{ vars.PHASE12_STAGING_SUPABASE_URL }}
+      NUXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PHASE12_STAGING_SUPABASE_ANON_KEY }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.PHASE12_RELEASE_SHA }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Build, deploy, and alias the isolated staging application
+        id: deploy
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$VERCEL_TOKEN"
+          test -n "$VERCEL_ORG_ID"
+          test -n "$VERCEL_PROJECT_ID"
+          test -n "$PHASE12_STAGING_BASE_URL"
+          test -n "$NUXT_PUBLIC_SUPABASE_URL"
+          test -n "$NUXT_PUBLIC_SUPABASE_ANON_KEY"
+          pnpm dlx "vercel@$VERCEL_CLI_VERSION" pull --yes --environment=preview --token="$VERCEL_TOKEN"
+          pnpm run phase12:normalize-vercel
+          NITRO_PRESET=vercel \
+          NUXT_PHASE10_ENVIRONMENT=staging \
+          NUXT_PHASE10_HSTS_ENABLED=true \
+          NUXT_PHASE12_RELEASE_SHA="$PHASE12_RELEASE_SHA" \
+          NUXT_PUBLIC_SITE_URL="$PHASE12_STAGING_BASE_URL" \
+          pnpm run build
+          deployment_url="$(pnpm dlx "vercel@$VERCEL_CLI_VERSION" deploy --prebuilt --token="$VERCEL_TOKEN" \
+            --env "NUXT_PHASE10_ENVIRONMENT=staging" \
+            --env "NUXT_PHASE10_HSTS_ENABLED=true" \
+            --env "NUXT_PHASE12_RELEASE_SHA=$PHASE12_RELEASE_SHA" \
+            --env "NUXT_PUBLIC_SITE_URL=$PHASE12_STAGING_BASE_URL" \
+            --env "NUXT_PUBLIC_SUPABASE_URL=$NUXT_PUBLIC_SUPABASE_URL" \
+            --env "NUXT_PUBLIC_SUPABASE_ANON_KEY=$NUXT_PUBLIC_SUPABASE_ANON_KEY")"
+          staging_host="${PHASE12_STAGING_BASE_URL#https://}"
+          staging_host="${staging_host#http://}"
+          staging_host="${staging_host%/}"
+          pnpm dlx "vercel@$VERCEL_CLI_VERSION" alias set "$deployment_url" "$staging_host" --token="$VERCEL_TOKEN"
+          printf 'url=%s\n' "$PHASE12_STAGING_BASE_URL" >> "$GITHUB_OUTPUT"
+
+  verify-staging:
+    needs: deploy-staging
+    environment: staging
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PHASE12_STAGING_BASE_URL: ${{ vars.PHASE12_STAGING_BASE_URL }}
+      PHASE12_PRODUCTION_BASE_URL: ${{ vars.PHASE12_PRODUCTION_BASE_URL }}
+      PHASE12_STAGING_SUPABASE_URL: ${{ vars.PHASE12_STAGING_SUPABASE_URL }}
+      PHASE12_PRODUCTION_SUPABASE_URL: ${{ vars.PHASE12_PRODUCTION_SUPABASE_URL }}
+      NUXT_PUBLIC_SUPABASE_URL: ${{ vars.PHASE12_STAGING_SUPABASE_URL }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.PHASE12_RELEASE_SHA }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run phase12:verify-staging
+
+  seed:
+    needs: verify-staging
+    environment: staging
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      asset-id: ${{ steps.seed-output.outputs.asset-id }}
+    env:
+      PHASE12_STAGING_BASE_URL: ${{ vars.PHASE12_STAGING_BASE_URL }}
+      PHASE12_PRODUCTION_BASE_URL: ${{ vars.PHASE12_PRODUCTION_BASE_URL }}
+      PHASE12_STAGING_SUPABASE_URL: ${{ vars.PHASE12_STAGING_SUPABASE_URL }}
+      PHASE12_PRODUCTION_SUPABASE_URL: ${{ vars.PHASE12_PRODUCTION_SUPABASE_URL }}
+      NUXT_PUBLIC_SUPABASE_URL: ${{ vars.PHASE12_STAGING_SUPABASE_URL }}
+      PHASE12_STAGING_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.PHASE12_STAGING_SUPABASE_SERVICE_ROLE_KEY }}
+      PHASE12_ADMIN_EMAIL: ${{ secrets.PHASE12_ADMIN_EMAIL }}
+      PHASE12_ADMIN_PASSWORD: ${{ secrets.PHASE12_ADMIN_PASSWORD }}
+      PHASE12_E2E_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
+      PHASE12_MUTATION_TARGET: staging
+      PHASE12_STAGING_ISOLATION_CONFIRMED: 'true'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.PHASE12_RELEASE_SHA }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run phase12:seed
+      - name: Export only the non-secret seeded asset identifier
+        id: seed-output
+        shell: bash
+        run: |
+          set -euo pipefail
+          node -e "const f=require('fs');const j=JSON.parse(f.readFileSync('.phase12-cache/fixtures.json','utf8'));f.appendFileSync(process.env.GITHUB_OUTPUT,'asset-id='+j.createdAssetIds[0]+'\n')"
+
+  browser-e2e:
+    needs: seed
+    environment: staging
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      PHASE12_STAGING_BASE_URL: ${{ vars.PHASE12_STAGING_BASE_URL }}
+      PHASE12_ADMIN_EMAIL: ${{ secrets.PHASE12_ADMIN_EMAIL }}
+      PHASE12_ADMIN_PASSWORD: ${{ secrets.PHASE12_ADMIN_PASSWORD }}
+      PHASE12_NON_ADMIN_EMAIL: ${{ secrets.PHASE12_NON_ADMIN_EMAIL }}
+      PHASE12_NON_ADMIN_PASSWORD: ${{ secrets.PHASE12_NON_ADMIN_PASSWORD }}
+      PHASE12_STAGING_SUPABASE_ANON_KEY: ${{ secrets.PHASE12_STAGING_SUPABASE_ANON_KEY }}
+      PHASE12_E2E_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
+      PHASE12_SEEDED_ASSET_ID: ${{ needs.seed.outputs.asset-id }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.PHASE12_RELEASE_SHA }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium firefox webkit
+      - name: Run the complete staging browser matrix
+        continue-on-error: true
+        run: pnpm run test:e2e:staging
+      - name: Require 90 clean staging journeys
+        if: always()
+        run: pnpm run phase12:staging-result
+      - name: Recursively scan browser evidence
+        id: artifact_scan
+        if: always()
+        run: pnpm run phase12:scan-artifacts
+      - name: Upload sanitized browser evidence
+        if: always() && steps.artifact_scan.outcome == 'success'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: phase12-staging-browser-${{ env.PHASE12_RELEASE_SHA }}
+          path: |
+            playwright-report/
+            test-results/results.json
+          if-no-files-found: error
+          retention-days: 7
+
+  cleanup:
+    if: always() && needs.seed.result != 'skipped'
+    needs: [seed, browser-e2e]
+    environment: staging
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PHASE12_STAGING_BASE_URL: ${{ vars.PHASE12_STAGING_BASE_URL }}
+      PHASE12_PRODUCTION_BASE_URL: ${{ vars.PHASE12_PRODUCTION_BASE_URL }}
+      PHASE12_STAGING_SUPABASE_URL: ${{ vars.PHASE12_STAGING_SUPABASE_URL }}
+      PHASE12_PRODUCTION_SUPABASE_URL: ${{ vars.PHASE12_PRODUCTION_SUPABASE_URL }}
+      NUXT_PUBLIC_SUPABASE_URL: ${{ vars.PHASE12_STAGING_SUPABASE_URL }}
+      PHASE12_STAGING_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.PHASE12_STAGING_SUPABASE_SERVICE_ROLE_KEY }}
+      PHASE12_ADMIN_EMAIL: ${{ secrets.PHASE12_ADMIN_EMAIL }}
+      PHASE12_ADMIN_PASSWORD: ${{ secrets.PHASE12_ADMIN_PASSWORD }}
+      PHASE12_E2E_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
+      PHASE12_MUTATION_TARGET: staging
+      PHASE12_STAGING_ISOLATION_CONFIRMED: 'true'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.PHASE12_RELEASE_SHA }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Clean the exact run namespace and require zero residual
+        run: pnpm run phase12:cleanup
+      - name: Prove cleanup is idempotent
+        run: pnpm run phase12:cleanup
+
+  staging-result:
+    if: always()
+    needs: [validate-commit, staging-quality, deploy-staging, verify-staging, seed, browser-e2e, cleanup]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Write machine-readable promotion evidence
+        shell: bash
+        env:
+          VALIDATE_RESULT: ${{ needs.validate-commit.result }}
+          QUALITY_RESULT: ${{ needs.staging-quality.result }}
+          DEPLOY_RESULT: ${{ needs.deploy-staging.result }}
+          VERIFY_RESULT: ${{ needs.verify-staging.result }}
+          SEED_RESULT: ${{ needs.seed.result }}
+          BROWSER_RESULT: ${{ needs.browser-e2e.result }}
+          CLEANUP_RESULT: ${{ needs.cleanup.result }}
+        run: |
+          set -euo pipefail
+          node -e "const f=require('fs');const r={releaseSha:process.env.PHASE12_RELEASE_SHA,runId:process.env.GITHUB_RUN_ID,productionMutations:0,remainingFixtureCount:process.env.CLEANUP_RESULT==='success'?0:null,results:{validate:process.env.VALIDATE_RESULT,quality:process.env.QUALITY_RESULT,deploy:process.env.DEPLOY_RESULT,verify:process.env.VERIFY_RESULT,seed:process.env.SEED_RESULT,browser:process.env.BROWSER_RESULT,cleanup:process.env.CLEANUP_RESULT}};f.writeFileSync('phase12-staging-result.json',JSON.stringify(r,null,2)+'\n');if(Object.values(r.results).some(v=>v!=='success'))process.exitCode=1"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: phase12-staging-result-${{ env.PHASE12_RELEASE_SHA }}
+          path: phase12-staging-result.json
+          if-no-files-found: error
+          retention-days: 30
