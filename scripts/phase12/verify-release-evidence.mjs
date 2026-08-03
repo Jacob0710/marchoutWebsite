@@ -40,15 +40,16 @@ assert(approval, 'Repository owner approval marker is missing.')
 
 const checks = await api(`/commits/${releaseSha}/check-runs?filter=latest&per_page=100`)
 const statuses = await api(`/commits/${releaseSha}/status?per_page=100`)
+assert(Array.isArray(checks.check_runs) && Array.isArray(statuses.statuses), 'GitHub check or status evidence is malformed.')
 const required = String(process.env.PHASE12_REQUIRED_CHECKS || 'quality,phase12-quality,dependency-review,Vercel – marchout-website')
   .split(',')
   .map(value => value.trim())
   .filter(Boolean)
 for (const name of required) {
-  const check = checks.check_runs.find(item => item.name === name)
-  const status = statuses.statuses.find(item => item.context === name)
+  const successfulCheck = checks.check_runs.some(item => item.name === name && item.conclusion === 'success')
+  const successfulStatus = statuses.statuses.some(item => item.context === name && item.state === 'success')
   assert(
-    check?.conclusion === 'success' || status?.state === 'success',
+    successfulCheck || successfulStatus,
     `Required check or status ${name} is not successful.`
   )
 }
