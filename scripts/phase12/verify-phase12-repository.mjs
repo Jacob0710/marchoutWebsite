@@ -185,6 +185,13 @@ if (/protected-release-gate|PHASE10_ADMIN_(?:EMAIL|PASSWORD)/.test(legacyWorkflo
 if (!/phase12_release_sha:[\s\S]*?uses:\s*\.\/\.github\/workflows\/phase12-staging-e2e\.yml/.test(legacyWorkflow)) {
   throw new Error('The default-branch registered workflow cannot dispatch the Phase 12 staging workflow.')
 }
+const finalMainDependencyReview = legacyWorkflow.match(/\n {2}dependency-review:[\s\S]*?(?=\n {2}[a-z][a-z0-9-]+:|\s*$)/)?.[0] || ''
+if (!/if:\s*github\.event_name == 'pull_request' \|\| github\.event_name == 'push'/.test(finalMainDependencyReview)) {
+  throw new Error('Dependency review must run for pull requests and final-main pushes.')
+}
+if (!/if:\s*github\.event_name == 'push'[\s\S]*?base-ref:\s*\$\{\{ github\.event\.before \}\}[\s\S]*?head-ref:\s*\$\{\{ github\.sha \}\}/.test(finalMainDependencyReview)) {
+  throw new Error('Final-main dependency review must compare the exact push base and head commits.')
+}
 const phase12Caller = legacyWorkflow.match(/\n {2}phase12-staging:[\s\S]*?(?=\n {2}[a-z][a-z0-9-]+:|\s*$)/)?.[0] || ''
 if (!/needs:\s*quality/.test(phase12Caller) || !/statuses:\s*read/.test(phase12Caller)) {
   throw new Error('The Phase 12 staging caller must wait for quality and pass commit-status read permission.')
