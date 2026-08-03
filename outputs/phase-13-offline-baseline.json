@@ -1,0 +1,2418 @@
+{
+  "acceptedOutOfScope": [
+    {
+      "count": 52,
+      "decision": "legacy_redirect_activation",
+      "reason": "Repository owner decided the 52 draft-target legacy redirects will not be implemented.",
+      "status": "accepted_out_of_scope"
+    }
+  ],
+  "comparisonRecords": [
+    {
+      "fingerprint": "5ea8976284cbb9b326c901841d086127ce431d66100297332619e51755cf25ec",
+      "key": "wix:asset:wix:activity:acrjz:44572b4bc21b3551e2c7",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "dcd5aaa60960d990a6100270a99add31691f40c6a10d92c8a3d4a99276347512",
+      "key": "wix:asset:wix:activity:acrjz:55766c2f80abe7ad0d24",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "4ff4f79d04739f75ef9901754893caeaf61b4dcd8e65e6c7fd523f5a418c6949",
+      "key": "wix:asset:wix:activity:acrjz:f19598606313ea589533",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d73592a04031b05fd41b7d68c40befb02f07913cb5417825e12b39a02fdd616a",
+      "key": "wix:asset:wix:activity:ad87y:05e5c48b71a6c9daf791",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f753712c7ec8db547cd873fd8bb5df8d69145364e6a5d342b68478623134e593",
+      "key": "wix:asset:wix:activity:ad87y:31da97fc3685cc05dc1b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "637b31e53e4a0e573a9b7cd62f581af77f3515eee1f1ed97dbb20b28ccc1df1b",
+      "key": "wix:asset:wix:activity:ad87y:4cf2151f8b4f7c1a3abf",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "ba9752d3b22cc4143f518e9aa9fb3298f0a425ad1f5d0dd239abd79abc6ce1d4",
+      "key": "wix:asset:wix:activity:ad87y:529d219d493ce4d6dc03",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "e21d0b135dcff8f6c0e783fcb153a2254e11e2083338496c035afc86047cec01",
+      "key": "wix:asset:wix:activity:ad87y:b637c63f0bb01a795ec4",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "ab7dd15615dd84d1be3125129d97b257caae7539ce86eb516c1386376d9c846f",
+      "key": "wix:asset:wix:activity:ad87y:c1d4a2ea7f96a857a9af",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "bf613192e5c87a339d35a0d670eb3d01683b6381c842248ee7e55e3461cfac52",
+      "key": "wix:asset:wix:activity:ad87y:c8aa5029c126e7265cff",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "5ab02119797e78208befb2e61178dceb925698f3417da9806dad37b2d4045a77",
+      "key": "wix:asset:wix:activity:ay10r:42ea837edd5246b65adf",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "0b70b4dcb464787a0bfdaac937ed7f48d63b9ce18ffbf4cc20215543008a340a",
+      "key": "wix:asset:wix:activity:ay10r:66a8cdce100b751480ba",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "4d41d42af038735ee0f248121f6ca70b247f18c7761a02cb1a5a54a6d93ced0b",
+      "key": "wix:asset:wix:activity:ay10r:6dc681c867ed3d0ccf9d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "6068037a3a6df6d594ddd7c4f8c197f3353119801b094f49ecde3167549c32c2",
+      "key": "wix:asset:wix:activity:ay10r:82a1af59df7d85befb52",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f4bb2e17bc1f888c746fa89ebe6a56f799395a193908302dcbc8acbcc984810f",
+      "key": "wix:asset:wix:activity:ay10r:86c50d8e9734d3efb3db",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "5ddc46a5818a49ef6c2fc81ff29d56d50a94963d770f040fdb029984de8d0d63",
+      "key": "wix:asset:wix:activity:ay10r:9d6f8381a258b9eea82f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "8081f5ab3a6a650a4e4f09266ad3dfc746f51828114ecadca2ec4d4b29fbb43e",
+      "key": "wix:asset:wix:activity:ay10r:a6e0d46b5dfdc4e9631f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "33d8a03869a0a972bebf4b215dc3171e8f4da1843be339f6d1dac63a92cf5558",
+      "key": "wix:asset:wix:activity:ay10r:ca478597d8e773826c85",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "15a9da775c93d60a79cc5afd839a4b3ede5abf1ea84c749973ad31308d646cdd",
+      "key": "wix:asset:wix:activity:ay10r:e23cc3ee0b21e7e2d555",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f5933570eaacb7b7e9ff9569dce967a5eb60408197adec8e9f7559a25339b030",
+      "key": "wix:asset:wix:activity:ay10r:ed26a90210af11cd1af5",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "7b8e04d0be3047e7024359218f1e4724843f917efe89919a5e56af6a6f7cacc2",
+      "key": "wix:asset:wix:activity:eeuqi:2c01863552866b91631c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "7e54823c474cf02c25bec6fa4c0f02778b04be4f61636e87ae893406aa168bd6",
+      "key": "wix:asset:wix:activity:eeuqi:659bfe21950417ade42d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b48bd54be9f5b27d7bd5a7ff98dc7c8778d1499a30d424fbd8696211bb2d23d5",
+      "key": "wix:asset:wix:activity:eeuqi:81fc916797957695a536",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "24e0aa6d7fc1736d8a0232d1b94ba6656eb713718111271103ea826475379080",
+      "key": "wix:asset:wix:activity:eeuqi:8ac32ce381624805ac46",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a8166feedfa513dfc0f9e6b55a2d8a47bced91575518ddccc6c7ccd3b3cee574",
+      "key": "wix:asset:wix:activity:eeuqi:900f2df4f234ad575344",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "73c87bca71a8cf4e5550a9452ad61ef36735278b123d9363f255e38cac6c3803",
+      "key": "wix:asset:wix:activity:eeuqi:b54bc9e090f08a36c766",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "211c930fb7f655cc1c120217039a9ae2395d0cfad270ac9bc6308f1511edda91",
+      "key": "wix:asset:wix:activity:eeuqi:ba0e6e056b630affe111",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "8109160a931f34ca6e3e088aa21db677b03a3257975e78f7089131f47e83e9fd",
+      "key": "wix:asset:wix:activity:eeuqi:d3cf88fb721bea9d6354",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "6c585df1939641088ab1069bd0a461853a99c66919065eb41aeb87853194101f",
+      "key": "wix:asset:wix:activity:eove1:148be0eb1dcd8cff131a",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "e6f6ecfdd44d0a944b0b5c6244936a7a20aec33691f4749455a936dcaaa85a53",
+      "key": "wix:asset:wix:activity:eove1:164387e4890c92f2ed4e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "c55c5c915154dfd5d8c49dda54f58217673cd6eab24b1df7e28a88db2b90f834",
+      "key": "wix:asset:wix:activity:eove1:5dcbad331ec385a3ed23",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a6901f461e40f59b9ff32d87fa6a4b5594ce48d86f63f53d4374d7c1ecb7aadb",
+      "key": "wix:asset:wix:activity:eove1:701bd6c862e2ed08e72f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "41a0ced930f29594a7c951a3169bda5b5e45b14c424265ff5e04b40772606e0d",
+      "key": "wix:asset:wix:activity:eove1:99f7f473a23f93d2e964",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b05cf93c76de981420c6633411ea72421000c1c1836c7a0a4b7aaf2e5979ee29",
+      "key": "wix:asset:wix:activity:eove1:a0f7405a97b52bd7163c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d2be7365ad1cfe66158cc70bdb34f7573e6ab69d3ac1bff02482bec014b39652",
+      "key": "wix:asset:wix:activity:eove1:d32e0abf3357d30fa66f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "4dc57dc3c944adc004df6b7ea292836e03d8ed8521d0a7def14ae1bd7235a15f",
+      "key": "wix:asset:wix:activity:eove1:fdb2bca1f6548166e2d7",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "0a2a0bed998e5c80eccccab9c4cb6573ad843483f3297b77ef24407d8372a4ed",
+      "key": "wix:asset:wix:activity:euvvm:229414b2eede46915504",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3290e8586f3f6914b4e915f30f479fa07be859d1253968c5a2ccf4dce0ac253c",
+      "key": "wix:asset:wix:activity:euvvm:56f7733168f056df3193",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "64250a4d24c927111185bfddb7806b77562667a1db4fa98e8c3de7664c00f5ce",
+      "key": "wix:asset:wix:activity:euvvm:88b4f399d2b9acb0f029",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b8b095b3829478e13987af67cad0cc75335542bed43af5e2d280aebd995df7e0",
+      "key": "wix:asset:wix:activity:euvvm:89df7e7341e0dbb23692",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f583a9c04bbbb9f2aced4192d737ac472fccd7be2f9de62450d21b2bc0650d1e",
+      "key": "wix:asset:wix:activity:euvvm:9999dc6d36e95dbd1c07",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "1805290fc0187fe5926fc9a86565f7c4cb6990d40aed6f68ff70ef4acafd1a59",
+      "key": "wix:asset:wix:activity:euvvm:cc0214e5d9b31cffac14",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "7cbf9008b168e69034eae8a1f7b6dde513475d292f7e14c22ea0377ce5d48167",
+      "key": "wix:asset:wix:activity:euvvm:e9aae9b874d784d76e13",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "1ebcb7f95c33bc0b090da7c869afdccfb616c2175553c120324849d88e10dc89",
+      "key": "wix:asset:wix:activity:euvvm:fe8547cf06dbcdff68d2",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "2284befc192d91daccfc360deba8aa99996b52ee9523b785dfbb7fc077ab35d3",
+      "key": "wix:asset:wix:activity:finuh:1a82a57d5713e862c78d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "1fb1abea660935e454bd107f2d9afa0dde6f1700bb7e8de7d57c2e0a3115856a",
+      "key": "wix:asset:wix:activity:finuh:1b3933221bf237b1885c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "8565328f31b1f6c7782198aa9283c38c8b83fdd77895167f8316c25e9c13271a",
+      "key": "wix:asset:wix:activity:finuh:3b9d2a054e2517c7920f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "6af63307270850502aa8f5e3d5c68076daa7f7f1b488402fb081c307b33e8bdd",
+      "key": "wix:asset:wix:activity:finuh:67227882c48e18895dff",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "9ee2fcc4fbe1d48f04a1cfb2178d226bfc427457f57a4aff83c8087c4ff6960d",
+      "key": "wix:asset:wix:activity:finuh:8c394b1f878f446066a4",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "44745612e3ffd403545e5307090092b54fa6e3d852ca56e0e08037667fdfea5c",
+      "key": "wix:asset:wix:activity:finuh:b944870f1cbe18cab479",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "42a79c3bd6934164206eed48610bbe1ecd49da258f6829109bb9c80f0310b51a",
+      "key": "wix:asset:wix:activity:finuh:e3eef8c39a4a86e82dd9",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f60067c6f8db361f4a02177fa3e7d9fda321cb8cf08eeedb97bdf77432d65122",
+      "key": "wix:asset:wix:activity:fl2ot:0cd07d62cd0d414bed3e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "ddf6714c6b0a1e03d7194a5ff28ec214df15e82eae3fa55726e0642804728e73",
+      "key": "wix:asset:wix:activity:fl2ot:103adf52ee66479e415e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "64288beae67fa32588e1fb9c4bd43256cd930dafb95dab6333d313c4cb741c64",
+      "key": "wix:asset:wix:activity:fl2ot:32a9c2ed97f7c400fab7",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "4bd344686ef4e2513b8c32e0f38582faa296c87e08a970f084f58e2e3a7de056",
+      "key": "wix:asset:wix:activity:fl2ot:371d413918f1726f8c35",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f4a0c3d61a61488014359b6a4750822748f885d1b0b3bb4dc1dc5aa3da448820",
+      "key": "wix:asset:wix:activity:fl2ot:39140d44e51085c445d2",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "e190533d4d03e952dd1cfa1fb5368135bad73ffbae45b6fa9d9665878076098d",
+      "key": "wix:asset:wix:activity:fl2ot:492105ba64c894eac8bd",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3f5729f26fed9083e0149797ab68332d3cd4734d5ab86a307edf6c8206bba05d",
+      "key": "wix:asset:wix:activity:fl2ot:5750bf660f17a654a8f2",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "5da77096c7f27b7daaae97ad2b9a1975cad319afce90e1d6d7eed1cc45438c5a",
+      "key": "wix:asset:wix:activity:fl2ot:6513d38d2e891c7feafb",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "ce753ba3507a7f6286a92c6fe07e700aab3a7879feb7945a21ea245d84ab5c0f",
+      "key": "wix:asset:wix:activity:fl2ot:6b45cee4fe2663805bc7",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "74de844c83fca74464fe26604385e80033c95964312440f2484a061c3f4ab251",
+      "key": "wix:asset:wix:activity:fl2ot:c0753035148641230eeb",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a7f6e8a2cf3117475a04accaf5979db398751004747a81ad7041ac9d0065fbfd",
+      "key": "wix:asset:wix:activity:fpv52:08baa4ce8a18e9d728cf",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "87c127fb8f5b8f38b3323edbcbb698f4a6f2faa338a4a6856db741e83152a54d",
+      "key": "wix:asset:wix:activity:fpv52:177e3b283ff9a051c54c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "ec0fea64dcfad54b249d3275a10628afc9bcb5353bac18b8409a5ff9ea894403",
+      "key": "wix:asset:wix:activity:fpv52:63226155c9b2c8bb9317",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f152de282bde088548725ec6ed5097d342c46855919cb3d8cb92bcc7d8a125d2",
+      "key": "wix:asset:wix:activity:fpv52:7d270282964c470d494f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "90454ed82a4ce04e514f77f29c87611d99903b5f1c57393c72d1a2681b64404b",
+      "key": "wix:asset:wix:activity:fpv52:80815d056192a94f6997",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "09f15fe5afb698eb61cbbb408bf3938bf72386e6021a5826630a0e7264e6f92f",
+      "key": "wix:asset:wix:activity:fu3bz:01a8639b17eb3a040609",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "315d59a4a0d2ad04686c9b7bf2917aeee90d08f958d1e4e1f0b4a4087ca921fb",
+      "key": "wix:asset:wix:activity:fu3bz:01be76cb980ec3a2ceb6",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "c5941d9ca41e1f0dd1bf7c25e9dbd051e22bf1fece80bc10797c8d031e938cc4",
+      "key": "wix:asset:wix:activity:fu3bz:1bdab048654ad2190235",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "fa7071f58e4dec42c52e0f4ac54f4ba8a315f624dbca4d48bd968c57705f2d04",
+      "key": "wix:asset:wix:activity:fu3bz:1ed21ddd88831117b638",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "1ce27e18ad8519cecd3524f63e1757ee2786604f5cf6482b21aa6262dacf120f",
+      "key": "wix:asset:wix:activity:fu3bz:881fc91c4be62777a7d6",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "0993bae21c183fe852b66364000dd07a6d7e3c95b24581c63aea34957b7be5d3",
+      "key": "wix:asset:wix:activity:fu3bz:88aba750e2b19d06851e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "cc13095e43a800b39605936f81ee793d4dee61da3cb01c7c532ce3ca568b32b7",
+      "key": "wix:asset:wix:activity:fu3bz:d8d9025ce2e3622c12a6",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "26142aa7050616f1a3b5c093b619203f6e74a46254fa70391d4aae02067c3070",
+      "key": "wix:asset:wix:activity:fu3bz:e30396c5848f86942a35",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "76a055e0ed31cbcc5c08c73dfef238736978b37d5d26e6aee97b9a0adbb98b7e",
+      "key": "wix:asset:wix:activity:fu3bz:ee1f506b847e8c4bc4cb",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "525a45d59057bf396360ba928daae0e8cf0b14b3d3d6e53c90f40970e462ee0d",
+      "key": "wix:asset:wix:activity:fuug2:2a03ff3ef3635847ad20",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "2d558aa4231d2ffe2f3a8fc970529d00433ab479ae4ba9087d66a45f684f34c8",
+      "key": "wix:asset:wix:activity:fuug2:4f11c51d0a142ecbefb7",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b0e5a25528eabf279cb2e829a2b78ba67f2f86d8b373107b982953ff8c1e8bdd",
+      "key": "wix:asset:wix:activity:fuug2:5429e3bbb4702d3eb4ae",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a5351d1c172a715928083f7bd32b54959f48c5e4ed35f24420cf73ba2a69551c",
+      "key": "wix:asset:wix:activity:fuug2:59ef80c9f551263b3110",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "2fbd7f4a0cbd09fae5b7e65bd0c49169821ce3f010b452c183c1b1271d6317a0",
+      "key": "wix:asset:wix:activity:fuug2:93561e8ba021f36b0e23",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "6c0695c0f82bcac4c74144d603cf23e564e229713bb8f078cb2fc71ed93679cc",
+      "key": "wix:asset:wix:activity:fuug2:bf2cf40ee4fbbdca1951",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "2caa04033bbf24dfb0c9b3744dcae3f9bddefa58c7ee16f077c11e9ce92d638a",
+      "key": "wix:asset:wix:activity:fuug2:efb84ab5982115086645",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "1cce803794b66a1a74325933b379d95b6ba59c9287c3d6f68380924e9e98607a",
+      "key": "wix:asset:wix:activity:fuug2:f8f0bb185f51aa4a7333",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "c26703802fad3013480cef8603c1078764fd3b69e1082d9a43c783afc11ad386",
+      "key": "wix:asset:wix:activity:fuug2:ff6d76d6ebcff6103f41",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f4fd4490677a67e91cb9ddfe5f0c597aa8daaee14f12a9c4442f373bb6419fe8",
+      "key": "wix:asset:wix:activity:fxl97:107161829e0f70540153",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "8b7a450d77efb73babaf33a3778cc00c04a9b70d43065aee13bd77a73d6bca38",
+      "key": "wix:asset:wix:activity:fxl97:7b70706f7ee20c7e4aaa",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f2690173766320c025bd74fded22bfc80f9a2dc8f80fc95b4a7f99e60ffe8426",
+      "key": "wix:asset:wix:activity:fxl97:8930f65650d2b4c6b1d4",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d6497c50e8d2b3df3bbaa5ae648b24ded5d300bc10d45cfe17acffd80f39b78e",
+      "key": "wix:asset:wix:activity:fxl97:c4a13db85c54498e6db3",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "7d7ad3434dbd9e1960866d01fdd798683c4ad165268736d90ed84df85a34e0fa",
+      "key": "wix:asset:wix:activity:fxl97:ca6ddb326ce919e50b00",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "53c0571f743d3a59836bc122f4d3f03f08316c0115b937a1d04ea2f9fe6a7afc",
+      "key": "wix:asset:wix:activity:fxl97:d16b9e919d52c3483b11",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "8c4fe3b77a65e5e66aac4500fb901cf5d171c6e1c4d9d5553397e6cfc121f49f",
+      "key": "wix:asset:wix:activity:fxl97:d79913726af2b9b15243",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "2b210de6101f28e4c271cb5788f6f7082d81babeb578f49cf55a7492463cee2e",
+      "key": "wix:asset:wix:activity:fxl97:e3a82ed803b47793565d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b4a7d3f1308bcb3a121bce13d68638f29e29e5ab587bd8006904b84844d4956e",
+      "key": "wix:asset:wix:activity:g23od:2326380a906c51f8c0dc",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b85008918b8cd33688f35b7c6f3818cef3e6e1e726af8f27d044267c317f46b5",
+      "key": "wix:asset:wix:activity:g23od:58eaadecafb97951e077",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "936c39f84d9835318362e1281eed9eba655019cfe92e1c15583977ec200d8bae",
+      "key": "wix:asset:wix:activity:g23od:62e51349013fa3c74968",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b44d5c3b62928685bcee4688944ea11c83940b16c1f5e36085b2824fa9b512de",
+      "key": "wix:asset:wix:activity:g23od:6aec3a9c723d91a98c69",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b33355f6229546e0525bdf611da6177adb3af42a55d8ced5f7ee8247692334a4",
+      "key": "wix:asset:wix:activity:g23od:7f43c555ae523efdec56",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f733feb060b545ee8737b3a8f8026bc893852faa7c4cbb914a97cba5d0924628",
+      "key": "wix:asset:wix:activity:g23od:89e8412efdcfbad11dd6",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b1492ef3b0e9f2a455cff5be7436027fa43f7f9762fbf5ff04eb1220a00102de",
+      "key": "wix:asset:wix:activity:g23od:904303a523984a8d9375",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "c6586c98c195eae710de4b4b9d257d37728a72c5edba8063c27f5778666eca94",
+      "key": "wix:asset:wix:activity:g23od:9283de455741bef99da5",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a5c16f70696e49a6f90ee9b4c2fbe2167f2f6fd86a44a578ac054ce7383f20d6",
+      "key": "wix:asset:wix:activity:g23od:bae240f3cd644ba63bb6",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b66479859f347b290464344f58bba7e9d722801bacb9f4b09ca499aa6e298570",
+      "key": "wix:asset:wix:activity:gqhoh:16b0417638e8197eaecd",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d6ccd6ed0115aaaee60a7a08a2eb56c8452b5de28ef497f2df87634d237a3c2e",
+      "key": "wix:asset:wix:activity:gqhoh:29808f1614fde8b34f39",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "517d315744a7959c88be6ff924d4a15baedc32891ac54fad10206eb427cfe789",
+      "key": "wix:asset:wix:activity:gqhoh:79cd692ea49d6985e755",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "ec90aa6490ba8d5f5a819166b04a35c89006febfc3dfa6ae7ed26c047f531bb5",
+      "key": "wix:asset:wix:activity:gqhoh:82341c3bb315ccfc3782",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "10c5eaf5ebf7f14e31faf688a63d16803e39e133937bbaa456261a026a8d6d10",
+      "key": "wix:asset:wix:activity:gqhoh:87478b859ec47c2365d0",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "514ec2463e4eff4719da2c5591831d0b8b5b7bf12ec647a782fd2dc6d8abb636",
+      "key": "wix:asset:wix:activity:gqhoh:b5a079a1315f32891d2e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3bc01fcb3cece0faff9fcf52b31aabac97abaa7a7e2814bcf93e1228b7338330",
+      "key": "wix:asset:wix:activity:gqhoh:b6e30ac0d92619ab25c1",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "e442e354d0ed129ca5e45508607fcfab4a35f073e0883029cf7ff834c4fb29b4",
+      "key": "wix:asset:wix:activity:gqhoh:c24f567fdcea511e7080",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "af23935407c11cf9121493b55a07717d4b9f6fddd0d0cc517354e673b5aa58b3",
+      "key": "wix:asset:wix:activity:io4hd:010338d6cac1441679d1",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b280546f007f2d8c04e6f7c62c197a8d263ff5f923c0e7daac46c5bc14988edb",
+      "key": "wix:asset:wix:activity:io4hd:0e803d104b74c2afae63",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "8be8c95865852d3321c39138b785eb8627000d209007974585c1f50a4710c501",
+      "key": "wix:asset:wix:activity:io4hd:1031ebe2848eaf16088b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "ef3b8cf8c2a3281db7b79d986f07cf011f457492e0448d7b89919577695d3f64",
+      "key": "wix:asset:wix:activity:io4hd:4d82e1ee7b9c6f2eecad",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "28a31798ff9a8f7667830084d43307e051ce25b88bba34011ec77a595cc555cf",
+      "key": "wix:asset:wix:activity:io4hd:9dd6d82f6a758ed90b60",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "4771e842327889adc82787b960436cc9199c4d1544ff796633923bde027e7524",
+      "key": "wix:asset:wix:activity:io4hd:aefbb5527a4503b04f3b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "22263eb7f5ac35cf7dd8b0e7429981900b97a2fae1dae59892a8a63084ad7e01",
+      "key": "wix:asset:wix:activity:io4hd:de2a7f10b3a21893a189",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d510e11fe5ce2d8de5497a51201bb32bf6d5aea059f7cae7a7347bd85e874ef0",
+      "key": "wix:asset:wix:activity:io4hd:eaa02ddce646422124f5",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "e9032ed872b7bdd9bf7b2c1288b93de3e3bab79a9965fd1b0cc72a72f421b3ae",
+      "key": "wix:asset:wix:activity:io4hd:f98a4d71f5ec0796609a",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "30ff7015d628e21f99f3fc1abcc52fc50424285b8b16f3e6a4ef1d43f28e7533",
+      "key": "wix:asset:wix:activity:j881c:0e01ce592fb42793e0fe",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "5f0b3066c727d3411c6666fbdd7ce826bee508bb49e7587119c51702015cb513",
+      "key": "wix:asset:wix:activity:j881c:14304db629d06710b745",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "06325bd23bedbb1b458cf891317d612fb7bd67e47ad7c02a061130dc72b8ae68",
+      "key": "wix:asset:wix:activity:j881c:259bbfe5b60ca20894f1",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "0cdf8d6c93bd7c4d278dea65230dc03bdd5ed8b80047f943ed63e86ccbfd17e3",
+      "key": "wix:asset:wix:activity:j881c:66a6392c8ae42dc703dc",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3c446f0f30f682837d54b364988d8426c7897248f3d06ff7a3916e471713c5af",
+      "key": "wix:asset:wix:activity:j881c:95bfa540ad4a6ec703a6",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a3c2b4a5754a9c683a6c61ea69519da9c3a4bdc0095435a8949804ebf4a8913f",
+      "key": "wix:asset:wix:activity:j881c:b123ff8c74339bbb484b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "c18c3fcdb63448c92dbecb2670eac1160f61b7d2a1a491b34dd8d7e0c7c98959",
+      "key": "wix:asset:wix:activity:j881c:c98135cc56b28bd71e61",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "4340972fab6c079397e6f36c2d3defe8cac49bf8eccc1463bc447196ed31dcff",
+      "key": "wix:asset:wix:activity:jd4jc:30c14b11c24aab0a9b4c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f0299c5d1ee8ef37325a0188e61b2d9332daf5f1950a45ada841a0dacec9731f",
+      "key": "wix:asset:wix:activity:jd4jc:63c99da883c732abd61d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "6250bbbc2e7b1d097ad339b024f6dc9b9e93f4994baf9fd443403709f2063b81",
+      "key": "wix:asset:wix:activity:jd4jc:75c1bc496aefcce27382",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "31796a18de891cefe7d8109754d296c6f3f414ad648cd2edae06757f16a0a159",
+      "key": "wix:asset:wix:activity:jd4jc:897a7161fec492b39584",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "012fa49cc29aef2a4be9e9f4ee707f4258eea0fd508f4986398ce1a0643c7361",
+      "key": "wix:asset:wix:activity:jd4jc:8f83343d4cb4d5dd8e54",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "aa50af5d4af969f7fb3e40ef44fae33bd14cdabb5609f050b91580b7d126556f",
+      "key": "wix:asset:wix:activity:jd4jc:befeabc629281f5c34f5",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "cab25e289621d2eedc5f9942724745f784342944d095cd709fe23d642ec98b7f",
+      "key": "wix:asset:wix:activity:jd4jc:db26fae718f17c527073",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "1ddddcd0af4f35af477e5815c9c002e657c49e352139f1207f218c7afb07e812",
+      "key": "wix:asset:wix:activity:jd4jc:ecfef64e96b3ed5b8cb8",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "52521ba1d034abb55133ed447fcfa0f6cf855c9e1b4da6b73e03f4361f268306",
+      "key": "wix:asset:wix:activity:jd4jc:ff52e3b5c828db4c010e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "5866a7f8875fd398e3b03bc2c76489de19dc831c8b62457dee9d5f77624719a9",
+      "key": "wix:asset:wix:activity:jefj3:030c22436f0d384e5f7b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "15d13fa0b250222c2a4a48942be2c973a9b395440826e13ce8b4496ce51dae9f",
+      "key": "wix:asset:wix:activity:jefj3:07e3977d25a3b29c960d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "15e3313d380fafd3a6e589d86306de592e0dad5a39a5cf691e04c5cadb275f68",
+      "key": "wix:asset:wix:activity:jefj3:1463174150f6f25e5331",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a46424ed2301279c938c8dc77ff1279a83799188402ffde59bd17535454523fa",
+      "key": "wix:asset:wix:activity:jefj3:1bc3056f7717be9b525b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "6f1cc91c901933243cc03bed532e4cae41cc61453091302a0bb5ba58a559d684",
+      "key": "wix:asset:wix:activity:jefj3:61f0cae71ec79782f88f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "004786282a100229efca455fa9365630e0013d59d2310b9e435786d37edce88f",
+      "key": "wix:asset:wix:activity:jefj3:7b3dc5fc16166519680e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d6fc98ca940f9c13fcf8c0fabe221fddaba1c7b531a0a150a9b97f1db394d18f",
+      "key": "wix:asset:wix:activity:jefj3:a523ac5db3ba655c4bf9",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "35893627670c9bdf0e485d3b20ed19e2f87a2094a1eaea51f26dc63884895f4b",
+      "key": "wix:asset:wix:activity:jefj3:be6810379a0195d6ddff",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b6ecf3dffda0edfa680bc1070125ffbbcaacd3f3c0c0206a28856fd8ef7b6493",
+      "key": "wix:asset:wix:activity:jefj3:e2ff335a0db7de888fb9",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "81bfcf9a878eefa54a775b16fb8380ebf9c60e250844b47cdb4f1a82479b052e",
+      "key": "wix:asset:wix:activity:k9aiv:323ca518618ffb4f21fc",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3044586a001f26a637b0bd14bbc05a132646bf988263ac6b96b1f9093fb9fccd",
+      "key": "wix:asset:wix:activity:k9aiv:463fbcf583a9e4156a25",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "427467d2b05f890ac6ebe767af684a0c252fad63d98b36edaf196fed46513d87",
+      "key": "wix:asset:wix:activity:k9aiv:62b18cee97bc54a3b451",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "402697ed2e270e3b0796b21ff1e818055e760ceb964206f23adcd49af7f9f88f",
+      "key": "wix:asset:wix:activity:k9aiv:65663f3d7ed8be84db25",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3a98b46b6ef2e412788d7017bda0fa29bd46310aa262bfa46473a52f3e06a532",
+      "key": "wix:asset:wix:activity:k9aiv:7c03ea135e2826839379",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "9ffbf11e7c7df55b99f6562953610490bd841e30acb80f7774ad5aa2f3616c71",
+      "key": "wix:asset:wix:activity:k9aiv:97c104c22cb495e19422",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a5f4bce0615ed90c4d8799671ff6089caccfdc134a8ce436c9ec983fcde7a4c6",
+      "key": "wix:asset:wix:activity:k9aiv:caca51cf724290f59316",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "50f5f21c1842e83476af3093822d99cfbdd0d21c63729428b7f302bb024f2ef3",
+      "key": "wix:asset:wix:activity:lb7xk:1383c3498c28f579a669",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "897f8413963c149ff9ce35f774bb203f1494b5d89f6833b79e9d0f54d188877f",
+      "key": "wix:asset:wix:activity:lb7xk:1b7977a2d415ab91b918",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "df86fbb64e4b04dc8f0cb796b24cf5ef3e241697de3fc2634b841cf870457049",
+      "key": "wix:asset:wix:activity:lb7xk:3a9e88bb553c8db7cd61",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "74fa5109983cc4b09962bc497478fae71ab94341791a591f07170d0853be4fd4",
+      "key": "wix:asset:wix:activity:lb7xk:5459f00f496d06f9c780",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "1bc01a1860391257ae96212d8b2b50a276ca2acfadff310613bd57dd949201b4",
+      "key": "wix:asset:wix:activity:lb7xk:8cc53a2f64777c8c63e1",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "61546af1f94acbde3e4df3c2a49877138ce27d97be9c8a87ff723950cc5f7a51",
+      "key": "wix:asset:wix:activity:lb7xk:9deda171580f5a164b85",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "ccdb8d83a61d1482db921c9243625f4b4b15bb5dfb7cb06745798d0b92a613fc",
+      "key": "wix:asset:wix:activity:lb7xk:af380077be7d7c190882",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b59aaa14b65aa7bb42ab2c0657702afa8acc6ce4774c49f79ff51eba8182ff48",
+      "key": "wix:asset:wix:activity:lb7xk:cc0ac8641d2729d9128c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "18bfb0b8ab4021c72b4a37bae62dcb11aa3d52da59fd010879548902bc16f070",
+      "key": "wix:asset:wix:activity:lb7xk:db072f26fe62bbc05358",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "bcf0c3b81dc417ccdd4547a66bb3543243f27fdf7084f8659fdedc7775ad14d4",
+      "key": "wix:asset:wix:activity:lb7xk:ff4ad2aa2edacb8287d0",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b942bcb58b10d97a45d82bf43f21d3c4c95fa33874cbece0f02deb6dfa79d31a",
+      "key": "wix:asset:wix:activity:mh72i:240fd910c5b914753f51",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a6f3bd2d4b03c2ff1038fbcaef6946aa84aef7d3f9fa81721987510a7aef00af",
+      "key": "wix:asset:wix:activity:mh72i:3f0f6069b2667db0442d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "2a35ff91a8845931eb3490e1dacf950d9818a90a187595a777e6f88e0016e467",
+      "key": "wix:asset:wix:activity:mh72i:432a0954cdc787ddf415",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "1dc1ca3441c314d4621ace235ac8ada90defea8e8a73d0f80039e3990634644b",
+      "key": "wix:asset:wix:activity:mh72i:859c553273896a66564f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "56a649921d97d66a2a27d31201bab8926755826c46f686083e547191dd6df0b4",
+      "key": "wix:asset:wix:activity:mh72i:c8cc5eec786fce0cbf90",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "785ba61df8b54ea58a0c4eb2f614e1e6ee25a9ff7523ca33131eebdc384a7260",
+      "key": "wix:asset:wix:activity:mqpxs:193624b0061d093c9755",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f47200f21ca9db263f763fbac289db7ffeea213aed19d04eb5d1faeb1a456279",
+      "key": "wix:asset:wix:activity:mqpxs:35e7e528ca6f491fa0d4",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "653c50f8605c6bef212bb972b8c3c35c62255ee5262a1fb5499c220ccddd9ae1",
+      "key": "wix:asset:wix:activity:mqpxs:51d9525cd1ef501f7b37",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "6ac7b7c548da42598257cf07e164406834db3551be96212fec3e9c1ec830013a",
+      "key": "wix:asset:wix:activity:mqpxs:5b963901a5a66a4a6dab",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d7c02349c242358770d2e367384029748a65c581bb84a5a63377c42c9b074d36",
+      "key": "wix:asset:wix:activity:mqpxs:8d2a5d0a684e58d725b3",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "0855b9020e2815c60076a180a1a828e9b29a906b954802d64330295e2dce48f3",
+      "key": "wix:asset:wix:activity:mqpxs:a09e87527fea60eaebdc",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b3c90500ad5a63fbbf4b84bed6cb102f857ef20692158a26d19f69349ec605d6",
+      "key": "wix:asset:wix:activity:mqpxs:c21621e5c54ed5e40166",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "6ade07d610de1490a498894b237c06427d87bbf2a7def9c5f9bce5b0c0e4a360",
+      "key": "wix:asset:wix:activity:mqpxs:d4cab5342d8375e03700",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "5d38205cb69818cfbf967a3d9e84e94efc9116218c7beecc1f4a4a5df59c2649",
+      "key": "wix:asset:wix:activity:mqpxs:ed37c9cecb6d93cdc1c2",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "dbc52fd5118d843f4cd6ef7e4cbe8209d7b892aa66349152522c5ef18b3bcffb",
+      "key": "wix:asset:wix:activity:mwqi8:1ce1c00d836f1ca10608",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "387176b5e5d95ac9767b9bf9bf98b6803e80496b582c30529a3895214276c946",
+      "key": "wix:asset:wix:activity:mwqi8:399efd44b09c5b7c96c7",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "9c72bd43ad84bc67020d2f07bd347324272a7aa25b61c4820771e2c6a9386942",
+      "key": "wix:asset:wix:activity:mwqi8:42a27cb96f36765c4ae1",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "018deb16dbc5e7fa9e6a7795204f57069237917deaa40ac4b446d2357e52cf02",
+      "key": "wix:asset:wix:activity:mwqi8:48efa5c2bf74fd2fec90",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "ef58d7fb1e369dbbb233cc373b8b357f7e04713c2b5a3791282353f268dee1f3",
+      "key": "wix:asset:wix:activity:mwqi8:642944ddd9a197e9e8f2",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "bc270fc1b12a5ba9649757ca29798a08aa4a4ed75d2665b5e4145f8c159e3249",
+      "key": "wix:asset:wix:activity:mwqi8:75dd1882ecea08b98e75",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f1acb41effb8e1f428b129d2222b22ba6c45ff68683bfca2d9939ea319b28e3c",
+      "key": "wix:asset:wix:activity:mwqi8:e5066247ba2f0e99a935",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3beb08b7c2045b501eb602e9b0c95e486bf5b5482a5090f2849a39364f5ead18",
+      "key": "wix:asset:wix:activity:mwqi8:f362aeca452cc3b604f6",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "192a6edcc97aad5aeff1d5fd792a45cbbbbcd03e300e477ceb03cc79909643f7",
+      "key": "wix:asset:wix:activity:ncu3n:04c92dc82d60fdfdbe72",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b1925552a565cdde9fdece248de8319b7a25d068effff95efdb858c430c98209",
+      "key": "wix:asset:wix:activity:ncu3n:61cca57de5197f9e5999",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "9e1525768e1f9e86d31c28a3336fee22190d0c9b64d7adb1ba17ad31227d5770",
+      "key": "wix:asset:wix:activity:ncu3n:722b1b963a7a8360a2a2",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3f82dbf5ca31e2bc0b6fe6b03382cdfb8451ad00a40aa9adac40256f71c28135",
+      "key": "wix:asset:wix:activity:ncu3n:9b1071ae9c5f07760172",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "999ea57f6782c45cb2f52eb67a125f58583310dd258887917797040ed772ade0",
+      "key": "wix:asset:wix:activity:ncu3n:ad2df4394f98b6ceb2d7",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "bb6847db91d1f4a360975ee655f0ad50bad3e2d2a19f542ee6b8c5fae156583a",
+      "key": "wix:asset:wix:activity:ncu3n:e36c04349c58cf0b9aa0",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "c920026623afdec73081e66d67966d5dfa9ae7cabb045d237c1c2ef46d43ad85",
+      "key": "wix:asset:wix:activity:ncu3n:eceb6aff20ed2292c3ac",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "66ca60f64853f57a0d1e7b4651b10f3ce5b481f0e14c6f3b3ac5736fd4a7572b",
+      "key": "wix:asset:wix:activity:ncu3n:f4e043d849696b663be8",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "fc1e4d35646a6ac56ddf6ec84fb89075a8b478247c03a753264767868a254229",
+      "key": "wix:asset:wix:activity:ncu3n:f9075ab8a3310a3ee6eb",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "4bb6c6f5bec43766b50ec7ce2b6cd60a72c586b24e1c39e2e89291c47471cecb",
+      "key": "wix:asset:wix:activity:nz8m8:00d3cb354a87d13a17b4",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "973bfb8ffe004d8e5baf8bf2f50eafc3f7319d58429d37f09133d3903528bf63",
+      "key": "wix:asset:wix:activity:nz8m8:0a83be912f84aa9a6880",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "659edb640d4950235ab0e6857fd40fc82ff8a0d7b785ed23323d19f47018fca6",
+      "key": "wix:asset:wix:activity:nz8m8:185f0308e9609347fb15",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "459dc1ba5f460af236ae407a79c0c697efd1f2fa4bcde409c587611a2fdee7a8",
+      "key": "wix:asset:wix:activity:nz8m8:3f8c1ea593861e5ee357",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "2756c2775527936cac4e7514287478cb2dd167f276de01777d2467d69bdaa6c2",
+      "key": "wix:asset:wix:activity:nz8m8:4e25caee74906a7f3f51",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "5e10bb76195a49e92d38c6dc47969f1c029908e13ad61f5c9896f9b036b11b8b",
+      "key": "wix:asset:wix:activity:nz8m8:6a0bd4b6fa480a9bb06a",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f7b13a9587c6960323382f55dcad42acc9af9b3121692dcf9cdb9a6d683f95b2",
+      "key": "wix:asset:wix:activity:nz8m8:8acc4d75c2ae13a9cf24",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "56a809f8d177670a98ec410914c6865a11db2316358028e24707d9dae92d3fbd",
+      "key": "wix:asset:wix:activity:nz8m8:a7a7df2d65bc7386a26b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "5039e2d14d8ccd32050121c02fc1d96f0385bb319d9e6b7b41e9fe8eb8887a5c",
+      "key": "wix:asset:wix:activity:nz8m8:f2bd7b3011ee7bb673c5",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "0b4e1822dd6a452b7cb1a29b15003ca8299bd8919741837249c91fa78ea22d9c",
+      "key": "wix:asset:wix:activity:o2emp:0999df67f388862e15c8",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "6ebf09a02a0a3204d0902f2807d55069abac3761562127169d92c6723a47f6e0",
+      "key": "wix:asset:wix:activity:o2emp:26926bfbc05fd3735dc1",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "933b5cc9eb2506c77ed0a93ce38676b650bdfe1c5da2f94f747e2f80b0bfa22e",
+      "key": "wix:asset:wix:activity:o2emp:a11bd9d80b85b6a74ddb",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "05294d843f3e2012ce10f57c67abdc9e536158533e0950ef4c7493db795e8bb4",
+      "key": "wix:asset:wix:activity:o2emp:b8d247a5b65714677b63",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "daa111675b5d3699cf37bc90ac456c2524f570f4e9863e917eea34a61f1b945f",
+      "key": "wix:asset:wix:activity:o2emp:bb4353cdf690bfc5d594",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "13a99518e6773b256f3927cd2521357c6a53b3e90446e14f18b46e5a47aaece9",
+      "key": "wix:asset:wix:activity:o3j0h:06115a9f11d98e235c2d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a5aefb5dc455e91aa3e0c5ec25653e3aef466d78a0d6993bff83620f6ca85d72",
+      "key": "wix:asset:wix:activity:o3j0h:18c3ac26280ecd393526",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "89644a37967fb43ad6764d1ff657a1630ced05da14bb2d8fdbfe03d881ad740e",
+      "key": "wix:asset:wix:activity:o3j0h:24a6a9bd2a609bd55e4c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "6506eba98d8dfe384f45f06f061368604cced0e19fe967dad37e401af35bc7aa",
+      "key": "wix:asset:wix:activity:o3j0h:4aa4c716d39c7920c23e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "53f392a1341d1e9541d75774a2eb45c796e2b277d1ecb5c3c667f194a7b8e950",
+      "key": "wix:asset:wix:activity:o3j0h:80930a090d9619c9dc3c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "e9e370b4188c2990222eaeec983da154dde8f427dad7ccd5bc5714e4fa44b0ba",
+      "key": "wix:asset:wix:activity:o3j0h:8a38f01e5bed791a846c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "610dcec571ce9e9cd894722c9b3f3bc5339e5035342e288fe6594ae46115fbc1",
+      "key": "wix:asset:wix:activity:o3j0h:8d843a9982e8c08ca209",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "fe7d7ea884de516d43556ac38820d7f6521eb8e475c49222dcf6649ed8ce36c3",
+      "key": "wix:asset:wix:activity:o3j0h:b440aea77383ac8c01aa",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "afa5c4c6227ceeea464357bac9ca1cf281d102a1a21ee17a43e3a1b497a82936",
+      "key": "wix:asset:wix:activity:o3j0h:bfaa8c01583c253e7f9f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "4d8210333fbb38c526fe6346232f2cc3d9d9e53c73cf9874b5c7825613720e8b",
+      "key": "wix:asset:wix:activity:o3j0h:e839b7bec45593649d97",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a95d35fd08dba8a0a364837cd0c9043f0aa5067188793c2f730c4794d5a60841",
+      "key": "wix:asset:wix:activity:o6h8s:1e249613658ed7127f8d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f196144cb7118155745bf4204c3dcadb758832bcaa3d230160a6445c9b306025",
+      "key": "wix:asset:wix:activity:o6h8s:2bc6203d789f0f69f672",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "c822dcaa2b32a55648671a3e490b33252c02239179ba19e01a1f533e6b50f376",
+      "key": "wix:asset:wix:activity:o6h8s:525ae5efec5082f028c1",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "2e221fe17ad57e4613fa995dc450fee5e3d6e1a13f54e15940892db09bc6c962",
+      "key": "wix:asset:wix:activity:o6h8s:863aab10265415d639c9",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "eb89fb476c0c2e07a14f48cc29f12a414d0a5a48e7384f432d5942fac046aedc",
+      "key": "wix:asset:wix:activity:o6h8s:9c8678960904890e41d7",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "76c6a2e418e547a784830c767f9ae429d08a05138ec30eb4a65c8ca5586955f6",
+      "key": "wix:asset:wix:activity:o6h8s:b05b47dc4ad7c6abeb67",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "e2d0247fc2d81704b0c74f187551a54a90d1559e94ea5fe085cc75033127f93f",
+      "key": "wix:asset:wix:activity:on53s:148be0eb1dcd8cff131a",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "272064eca178c278be4ed07c1eda96939541de5767cfa1282f94156947b5f032",
+      "key": "wix:asset:wix:activity:on53s:1eae792f423fb534628b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "734549b7f884f41499354ada1b55049f2dd688d5f6faeb6f37e1825f2da79812",
+      "key": "wix:asset:wix:activity:on53s:2bda63ce91f8ff86b8a6",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "4e66e4cda897c9aaed6a41889589fb5dcc81348677999b8f4d9f8f078572999f",
+      "key": "wix:asset:wix:activity:on53s:63c5813e350ad318e10f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "1c1f624e8e4ba4e932e2757d9879137d1d4bd37097858f65dfd2dfa63262c68a",
+      "key": "wix:asset:wix:activity:on53s:73d02f58d5a04f9f4740",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "646eaebd58d705fc4e7e513335e0f95bda61f205366abdd78a21dfffd81224c6",
+      "key": "wix:asset:wix:activity:on53s:7b70706f7ee20c7e4aaa",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "379f90b08b22c6eff17ac8cad54eefef82df63ed53870107d6b8af972889e586",
+      "key": "wix:asset:wix:activity:on53s:8314e70c9df8d39c97c7",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "21439c003ff6c23f12f98f4d34f9a6d174a899aec03e171114505c6835e99649",
+      "key": "wix:asset:wix:activity:on53s:cefdabbb148c31f92721",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "9189ad702d35b1285cb8cffc53e15e14032030642de9cf01fa3787fe55080b6a",
+      "key": "wix:asset:wix:activity:r9q61:39b6c9f20fcff0051b5a",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "585becf0b8a0357ea513c35b2b36526ab1affbbdad7bf2c2cde77087404f786c",
+      "key": "wix:asset:wix:activity:r9q61:4d77ae33b75deab2b7a2",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d573363963059e477b326e5d7b5dee4f1f72d70519f3f5cf88a91fc98cf807c0",
+      "key": "wix:asset:wix:activity:r9q61:55273953d6094a6f917d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d829563a6c6987b998fe87f172253dddbcedd0bf374125b31af637ae5d10b359",
+      "key": "wix:asset:wix:activity:r9q61:6119496dcdb6d658e0a4",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "41de031ca540f6025408a7849b732dfb12163d8e54165339ff3354fc47e33dfb",
+      "key": "wix:asset:wix:activity:r9q61:6166c4e00314d43173d4",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "de3fac1ec40f63b41b46b79422368192d1bb721e70754ae0697ab9e0b1e00fad",
+      "key": "wix:asset:wix:activity:r9q61:88d65a7beac1b6db1f3f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "9af3cf00357a3a0f75cde47619465d785defba3691092b3c4f76a5c0877d2b56",
+      "key": "wix:asset:wix:activity:r9q61:f1cd7e1b39696b8f8c78",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f376ccfeb6a9299e65627c64966b5ca4d7bd85a94dcd688dc254827becbb527e",
+      "key": "wix:asset:wix:activity:r9q61:f92baa38b49190419620",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "c8c0d5302c3d3684bd773a04ca93b01fab4ac8151dbfea63902458dfaa459169",
+      "key": "wix:asset:wix:activity:ra9kd:527a0ad22dcbbda7db60",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "87ccce38932269cbc1e2a3afa97021e2d98f60188bf894acddaec26240178a6b",
+      "key": "wix:asset:wix:activity:ra9kd:52c145cb042144079df0",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "7a31986ededbbe90ec621d6cd2473c99f5228d00b0c4bc915962f603b488a9c5",
+      "key": "wix:asset:wix:activity:ra9kd:9c24878941f99d90e01f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "eec2aa5401a35f7e140120dafa6b3da1cef928ec8e3e6f74e6330f29e52eeb36",
+      "key": "wix:asset:wix:activity:ra9kd:c0dabc77e4832a5a400c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "cd8ef0b5ce68fbc453eb312feb5a79f8f249ecfc934d21297ca589ac627eb77e",
+      "key": "wix:asset:wix:activity:ra9kd:e06970e3dab51309824d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "8dc82d8652fab3ccd1306ad9c6ced3a3218f01d78b8d0b867d6ade8da082e612",
+      "key": "wix:asset:wix:activity:rndc1:1c95bfd4af6847616d3e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f9442e61bf773b03dc2c9c8adf0737176896fd7e5fe68b79264e60ab558e446f",
+      "key": "wix:asset:wix:activity:rndc1:e58b0944aab1110851f8",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "e6b713888dd7399ddac3dba80a0c95fed6072a0e1f152c1b5037e00516d1f695",
+      "key": "wix:asset:wix:activity:shxze:3bc76c7ad445aeab6d5a",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "ddd74458eeca26f0b1c683bb2378bf5c108231f43ce58f2fa9ef7af5464f4e65",
+      "key": "wix:asset:wix:activity:shxze:5350089eb97f4247b19e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "bc68bb5ff5239c860bf62cd53dcb3c56ca9f2557538261f8a08c22cca5a9b313",
+      "key": "wix:asset:wix:activity:shxze:542c1883f17ae523789b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "5d9c383006dfd8b20ca288bd125546af91003829e982dee75c4e1cf08d44413d",
+      "key": "wix:asset:wix:activity:shxze:5b87eea3bb92caecce0c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "7de56ffb04d6352f0e595e03f13f2aec9ba215c262dfab7fb8fcf23c239059aa",
+      "key": "wix:asset:wix:activity:shxze:6de7b143f52e85d49d38",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f8c934cc34bd1626a64cbf01132723b17e9f9ff7a6ab1a1c28a45c62e1666124",
+      "key": "wix:asset:wix:activity:shxze:71a36203a209dcd9ade4",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "5e0e86fb3d2a8add11c5c72b6927f351a6bd67f1919734a64ac8addc46b9cdc7",
+      "key": "wix:asset:wix:activity:shxze:c0a0f94b2b49c8709e50",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "51e9ef6846ba39e44fbd05a50882cdcb31f06a07ac1ce5afc5dacdb256b94dc0",
+      "key": "wix:asset:wix:activity:shxze:ce76dc64260dcfd85036",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b6e4ce04253fefbe8db94a8ca3ad7dec27b8240a9e51d7ffdeb8179e3520ba81",
+      "key": "wix:asset:wix:activity:shxze:e6a7073482f84ce10d0d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "dd527ba27c93d04968bcdec9384bf84f3c065e3f22744c4eed8820444e04c67c",
+      "key": "wix:asset:wix:activity:sr7vx:30619e4f6ea233cd6ee4",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3f86166b3c53683df027c6d4762766ce125d48725bc5c8750ed47a3c53d3dbeb",
+      "key": "wix:asset:wix:activity:sr7vx:5ebb795fe1f1c4acdf85",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d1b1b4cd21a73634a11a6d48957a451bce4f37b97fabcce3ca3416131f35f66d",
+      "key": "wix:asset:wix:activity:sr7vx:a5948c5f7555a7122d69",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "c9e539b6d2174abb0517f6a262e925b89e5733d51b217af330197a80f630ce8e",
+      "key": "wix:asset:wix:activity:sr7vx:c218c32cc50bc9f5494b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3a094f4fb15e92ba60b9d33225d88241b0bc09644ba8674c0cf32e656bce9ee6",
+      "key": "wix:asset:wix:activity:sr7vx:c29eab2859775c0fab3b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "6a226592ec5d900b4269e720908f7c144832ae566887907157c9e39956e6d55d",
+      "key": "wix:asset:wix:activity:sr7vx:d0815064b74939b7fe1f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "fcf1119b34d31580b3edb5263d4677089a1fc0ca5c85a7205c4dd75a82dc56be",
+      "key": "wix:asset:wix:activity:sr7vx:f146484adcb20d1d44e3",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "ecbd4c4346a70507839f5a2c93de731a6be561d0db6d5d16a61740b0137eed9a",
+      "key": "wix:asset:wix:activity:sr7vx:f36d2385b845a35f5ebd",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f7ee95482df593ec082d06d20eaa95a3e54272c22bba3a66a835f50e6d21d7fd",
+      "key": "wix:asset:wix:activity:sr7vx:f588387d85ed526491c8",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b8705c53b2bd0514e7409a3234a264ec74c8074b2687b0345bc800cf56d7a63f",
+      "key": "wix:asset:wix:activity:syp73:00b49a1577257dfc6915",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b411e989bde19d7b07ccb40319256b2504c21ea162c700539c211a78fbfb1c34",
+      "key": "wix:asset:wix:activity:syp73:0de7014a3e93f0149dc6",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "e0fade3f9e7592ac2163a883c4ce939d4f63e5106c97b0e392adf0c4a342c6fc",
+      "key": "wix:asset:wix:activity:syp73:2432752f08050d81cb1a",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "81f7d33b8c95e8d162be3ea50f9f1fe1a0e7311a66d72f7c9716c827fb84a33f",
+      "key": "wix:asset:wix:activity:syp73:2d151d66a64c903b1a3c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f558c66b9d1d26f82930d7f5d436b5d14fb7aad4f505e64af1df7ab32aca9ad0",
+      "key": "wix:asset:wix:activity:syp73:5cc78d29053e3468188e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "9ebc62fd588e55e2e806b7d9721c239150a8fc92025fa05b53fdc9c01d47490a",
+      "key": "wix:asset:wix:activity:syp73:64ec98e548dc679847e5",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "9ce24399d8165e8c3f07870f9c697d2308d106ca99e8a58698d2d125f2f53f4b",
+      "key": "wix:asset:wix:activity:syp73:844d599edfd17ecd6bfd",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "aa7ec14d2ba387bb045f3aee127ad3891bffa73bc88e2623b8abc7d9715cfad5",
+      "key": "wix:asset:wix:activity:syp73:9ca519ab8d0c03ca65e0",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "4ae4b98bfa98336ac42cb81b7663d7592e8ff9622daabc748dc1ba8fbe7b09d1",
+      "key": "wix:asset:wix:activity:syp73:fede4d4c021b848e5c99",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "426717f07879529a491ebc73c34da77959813e25a64123017ebc8c9cef8fa513",
+      "key": "wix:asset:wix:activity:t4l6d:03df8380f0e6b6743d8e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "5f9f4d7a90bb29d409d15cc709d81d1e640cba257fc45a511873fdc5cdac353c",
+      "key": "wix:asset:wix:activity:t4l6d:4892de32014c0a378b4d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a23b5a8142c34a1c95d1b1f38997ec5c3ad66845877fe9bb24e8cc36d6dd3a27",
+      "key": "wix:asset:wix:activity:t4l6d:7c0225add92412e98811",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "adbd1ae167769c99b274ef12c1596a3eedbce70c29291ec2c82ab99071ed5b7c",
+      "key": "wix:asset:wix:activity:t4l6d:7c0d7eb75fd7adf0bd6f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "ba5c4e37293cee0fe9e19b8b15f066afcd9b375078d2b02cfd23924dc4d95dba",
+      "key": "wix:asset:wix:activity:t4l6d:bf0adee779b30b90f739",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "fc79a25f8d3f61ac145dcfaaccc53906731fdd35982896e3191697cb7612562d",
+      "key": "wix:asset:wix:activity:u61it:2e8b74040eea3bce99c7",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "bac37e3fc8743a212a725b8a32d723df15ba239158816a03917b22cb95cb80f8",
+      "key": "wix:asset:wix:activity:u61it:400cb761e0816e00c246",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "c9e1842a72d1ef93e700eddf41d9a7b5c8ef4a7c91ae178e83e4df43b0f17dcb",
+      "key": "wix:asset:wix:activity:u61it:4a4480a5de7e5068e224",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "92a30aab1aa62bca2d3d2462443dd81bbf719572212faf49ad5abdb787b7c2f1",
+      "key": "wix:asset:wix:activity:u61it:7214781d5c6d7fd4bc87",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "cfee07531e9d6c2b12a17d3c144d26073112cbc61b4de43f12cb98973fed414b",
+      "key": "wix:asset:wix:activity:u61it:89ef2216579af6212c46",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "870ad813528644b081c604fa0f6aa4505e5aecf72db97a77462a4bb9a28efcf0",
+      "key": "wix:asset:wix:activity:u61it:9643e73919cba7e412e8",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "7ee930f0001d16eaf673acd18ff47613263e7f77f6446abc5866dc78b6eff0dc",
+      "key": "wix:asset:wix:activity:u61it:ba7cb5e72b75c1172dc3",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "4b5acfde1b417ef05684be6f81836cc8119117d1a90b14416453c7148f3ccd62",
+      "key": "wix:asset:wix:activity:u61it:ce2b2855b78f5d529140",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "683e0b2b8e2bdc6cf1e854f3b5047f87378e7dc0f23832bf0c4d24b5128e1249",
+      "key": "wix:asset:wix:activity:u61it:ee9e9bc124a508c02f4f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d277c26b461da32b77c39c82a9401d6603f833c455a3b7f61e9cd5f6c7f3dadd",
+      "key": "wix:asset:wix:activity:vro4w:119f1b6d092da0874a29",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "151175db235f49774d632211accfd738321ea32740675e04095edc4b1e750104",
+      "key": "wix:asset:wix:activity:vro4w:150f89771f66a802c130",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "333bd2e439cc275053ca030c6856c3ca6d77ac9d3c2da5babe33c49b924876a1",
+      "key": "wix:asset:wix:activity:vro4w:26ff6d1a98c310192e1e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "dbf00ff97e6e7fb05720c9defb4bcebf004241c1ec9da6eb781219b80e6d8ddb",
+      "key": "wix:asset:wix:activity:vro4w:78f6c349564e10f80e97",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "240cb8b1df843ba8940511454cdc005b5c4cd858cef1c978bb47adfae1ab79c1",
+      "key": "wix:asset:wix:activity:vro4w:814c88229fc16bd9a03e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "19ad0a8b0c9a25cf716ac1f79e904c1abf73dd8af3437be167f34b09b9ec353a",
+      "key": "wix:asset:wix:activity:vro4w:cb7cf7529fb0ef3f9e5f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "6e0224750c537f6ca4c5aac5572b194ef7aa3f54f5928df55ba31dc1c4748e70",
+      "key": "wix:asset:wix:activity:vro4w:e27808548f218fe098b4",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "294bb3243002d56386f1f912d3133bd82253327f514354eee33a4b157be83f84",
+      "key": "wix:asset:wix:activity:vro4w:ee1f506b847e8c4bc4cb",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "4ebf65e08131656ee3be1178b254789b37dc4b1a412c86558ff8f0b07ff12fa0",
+      "key": "wix:asset:wix:activity:vro4w:ee937dba12486cfafe66",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "057d2e8609369ecdd7c60f581b6c298f9092db4387db8bcfe4e653753f12de82",
+      "key": "wix:asset:wix:activity:vzfv3:13bec2756ab39ac9e3e1",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "2fc53bbc6559e5ef410fb38b57e12391f3f135570f968cb4d846b4aec1df1170",
+      "key": "wix:asset:wix:activity:vzfv3:367212840c395955bec8",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "40bf0737f94a7d579bb5731b119fb6992f179bd5595b7f5c6d7824fd86cf7fa3",
+      "key": "wix:asset:wix:activity:vzfv3:38f95271f68b7e7264a8",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f8857d8f2cac5f53bbb0ee9b2d97d77bdc6f909a12f8638a61df437279f4fff9",
+      "key": "wix:asset:wix:activity:vzfv3:63596261cc990cf98900",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "2092ecb4fb4b844be47349979c235aa7a96334c59fee6ddc3f73357ed3039211",
+      "key": "wix:asset:wix:activity:vzfv3:8f20ccbfe43e523e0dcf",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "384e0b596c80b417d6e8690755e24e4acb9b499bc469d98df09bc7b572765b69",
+      "key": "wix:asset:wix:activity:vzfv3:c2dbb04ed597d5fe5841",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3abcbd2edd9ea625f24eb418360d46dcf0cadb4a09ff2ec56e68d6c49aa6c62c",
+      "key": "wix:asset:wix:activity:vzfv3:de76e05f5e87783acaa1",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "84bf68e38a7987721e02825812e2b3912d90038c3295904836e1dd0fba704a8f",
+      "key": "wix:asset:wix:activity:vzfv3:f036fa918c9a95be4d78",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "578da7f7d32677eab73f74e6b951d57b1afb38f6813fdac01e10d8192d583526",
+      "key": "wix:asset:wix:activity:wiy6e:3c361e3f521685998055",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b53eaa969e22f48599816817ed3647429786337c07549ac5305a33c081f5c185",
+      "key": "wix:asset:wix:activity:wiy6e:50d70067b07ca0f53e6d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "657a31504ddd3e79d2f4d15ee79225f789fad335fe27a796812f53db356d082f",
+      "key": "wix:asset:wix:activity:wiy6e:b8339667504fc6e45fe0",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "2a629dc0dd1d5a764aa910158231291f4a4f0cf7254a3c9802f78bcf72340bcc",
+      "key": "wix:asset:wix:activity:wiy6e:c9bd317af9d3bd14d14a",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "cadd2f4756378806271e1dd91f267b3f2e00c09c8d67e63e6ff41f6e3d1922fe",
+      "key": "wix:asset:wix:activity:wiy6e:db6639a8025f423381f5",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "9b0141c8202a545557311e656f9b42350b63d97702ee816d30b3ee848e0e3899",
+      "key": "wix:asset:wix:activity:wiy6e:db7be3ed34688ae7b002",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b12c4c52b5c427e07748d918ce801b17491af0644b30f21c647a6412d310ed8e",
+      "key": "wix:asset:wix:activity:wiy6e:df942dcc7ff126dd0e48",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "29ff172e69fa4b3bebba8a0408498758cd8b8b543b5da6b8eb92233909b5f13a",
+      "key": "wix:asset:wix:activity:wiy6e:e5912760b79b4a8edb00",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "fac77cb28e2095fab8554fabca9c1ccfac7dbea2b91858823cbe4a451998f45a",
+      "key": "wix:asset:wix:activity:wiy6e:f4850b325b50548cd8de",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "942b538bd1c32748b4f4b7feee91c430cf44f7d9c8bee9a70e52857a16406f51",
+      "key": "wix:asset:wix:activity:wnlfh:00eee81ec35defa9f5e0",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a028caf9a044defc0238271ce0aca070e50e3d68de950c2cd430ffc991baacb7",
+      "key": "wix:asset:wix:activity:wnlfh:21b0dd16877d0ec96baf",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "517087e57f258b97d81c809f1e74bc1103cc0d6b3a83308e2551443d40dbd1a5",
+      "key": "wix:asset:wix:activity:wnlfh:3c361e3f521685998055",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "e6c2fc84377d51775fabeb3b0821da6cfea81c5392ecec57e991b26b3685581d",
+      "key": "wix:asset:wix:activity:wnlfh:4a554f5f6402ac8a1d24",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "c9df474373627a9b28324716e5911bc4eb7010329f870d2014daff98dfe23628",
+      "key": "wix:asset:wix:activity:wnlfh:a434992de75a53f2400a",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "38f65964bc09859c9e9f34f2a6196c18dbcad53ff8bbbb1eeaf9b756e983474b",
+      "key": "wix:asset:wix:activity:wnlfh:ae99415fde180ac7147c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "c0e04f4a0c5d222065231fd90ae0ee83c64fecc07ee2322d36a75548e589d317",
+      "key": "wix:asset:wix:activity:wnlfh:b1c8cbeff501673f6ac0",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "6e941eb05a3bd42052fe5eff498a776b990d9dafb03bd01ec36ce19671a76d2c",
+      "key": "wix:asset:wix:activity:wnlfh:f92abc54f184c381fe8c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "980548a8fe54a1a26d296cee6e7c272bf8aa5592f78e2d8b2fb11026ef7b6269",
+      "key": "wix:asset:wix:activity:wquq1:06759be1d573cbc4bfde",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b7eb77107d6e9df6cbd01f8039ecafdb6a574e9966011b4182ab3c938987d8db",
+      "key": "wix:asset:wix:activity:wquq1:38c8f99f02bd7c2bfcf3",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3d36c119232f972ff91ba67fc35fb3decc167a962ece8bd29f1ebdd30f0d08b6",
+      "key": "wix:asset:wix:activity:wquq1:3c4d4b5fdf70475a7dd6",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "1075baad3d3b934e9540082f158a1c3bb997ea62a60fc54a56129a9c3525708d",
+      "key": "wix:asset:wix:activity:wquq1:5ad1eeb64c5272ce13f9",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d4ae849ed2693e085b3082d59110b5c4e5ac8948fe1768d777e479c274a5d2f7",
+      "key": "wix:asset:wix:activity:wquq1:6f0e304229e8ba9a18c6",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "8bfeef5ea4620db8c460aa91de8a82084145abd67d0bc0c7f889654608650efa",
+      "key": "wix:asset:wix:activity:wquq1:7f456cd3edd40864eeed",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "7581c86bac280e78efea9d780e195136dc4b708fcca6856536ab4786a684d7b6",
+      "key": "wix:asset:wix:activity:wquq1:917d65dcbd1a83a975bf",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "961ff581f9867a8354315fce0a8436fe3c94736a992791c9876aa75ac2f26482",
+      "key": "wix:asset:wix:activity:wquq1:ce075dfae960881ee10b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "e046e102c692e954a601ea935739c584a48e7c599a27622c74f17cbe94e1312e",
+      "key": "wix:asset:wix:activity:wquq1:d5f73977efca0532877b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "29845d2a8151cfc52a63b26d2f4941bf44686c7718db2c16cd1e9a48f66086d0",
+      "key": "wix:asset:wix:activity:xhbeh:26ca9e9819dcf964467b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b7daf5b38e8754cadd6d9eb464c50c3782731ae865899c5bfb0201717e19ff13",
+      "key": "wix:asset:wix:activity:xhbeh:27d8088a539e872bfc56",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "23008127f6a4ecfef933dfd88aa0c70b2110497de0fe0d1fecdc55622e7eccd5",
+      "key": "wix:asset:wix:activity:xhbeh:5dcbad331ec385a3ed23",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "97c734dd2c8736a1ebebb5c7801ac4a8ed88c26225f7cbe6ee14bb8c5fb5d2e9",
+      "key": "wix:asset:wix:activity:xhbeh:701bd6c862e2ed08e72f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "dcee372a9a1ed8e72106e0f0b60acd95ef1743e081bcfb32f177ee5e0f3c3c13",
+      "key": "wix:asset:wix:activity:xhbeh:79062af9fbaaa72a9b92",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3c14b1e8148ace8262a831333d03858432ce0a516c7dc46923ed40d8de4b04d4",
+      "key": "wix:asset:wix:activity:xhbeh:803518444d55af745154",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b98a2ac2a3b2ca189cd793e38b7d551c07067192b893630ccfa88cda270f9a7c",
+      "key": "wix:asset:wix:activity:xhbeh:c28d5d53bc4031704264",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "c1d4eebb5d32c1cc8c445a9e4d32696112daa8869c795f345916576af9ac7f4c",
+      "key": "wix:asset:wix:activity:xhbeh:fdb2bca1f6548166e2d7",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a1cfeae0b1fd76a856557962456f30516162b224ebae6c0def76b1c13f0baa86",
+      "key": "wix:asset:wix:activity:y2p9y:29766935d14fc347524d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "e4a2e70bb6c237b083d39ff0763b0b65499b334a658c81f97f3f53c457ef61a2",
+      "key": "wix:asset:wix:activity:y2p9y:394a02cc06ff616ac40f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f587b1268b66ba37ef59d619088044c0f6d04897d404d6ca85c3f12b3b3dc85c",
+      "key": "wix:asset:wix:activity:y2p9y:3d069d2a81e82c6a0f09",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "2c3aa94dfeb557588a8d61e29b4f3b6e7b36d0af115c8a35981691631b00f813",
+      "key": "wix:asset:wix:activity:y2p9y:40a5ddd00aea74356923",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b580124460035fdc94496f981009be3d174635a52df9f80f70d78db75298b2e5",
+      "key": "wix:asset:wix:activity:y2p9y:cca4e9217ce3c5652e2e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "57c8d2ec4c7002f2c29b26b8d1fc80a9d44c008f4dcc8fb080ef8bd07fd8c144",
+      "key": "wix:asset:wix:activity:y2p9y:d8fcd158a00f6044ce44",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "9aeb385829185b174265adf13d5d35803110985426ecb4647f2ffe090db23583",
+      "key": "wix:asset:wix:activity:y2p9y:f6f5d078184ef502bcca",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "912afa2570dc3e2e91c201c09741d2c43941cf82c20ef9d45d7f7406ea69572f",
+      "key": "wix:asset:wix:activity:yq45v:19dc20f71c55ae3d3d78",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "4f1971586b4dc0e974c7d472c26a2c5d9d8d254a91e08a7929282459fea66bec",
+      "key": "wix:asset:wix:activity:yq45v:4faed95a291a89690bc9",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "eff11a51426e951ddb604c74d564ff940e299de7db17c3b86ecf424aaee1ceeb",
+      "key": "wix:asset:wix:activity:yq45v:8943f9f2bb6d07b34896",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "a8f157a29b694cf5fe6cca6f6d544798a54fafc77803ea97a02c53b01ec070e1",
+      "key": "wix:asset:wix:activity:yq45v:9d87b26d79ec37a3c467",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b9ba5d2e994b36ec7efc962c59164d7b42a5a036b92b8ad5c4c4f71313583f2f",
+      "key": "wix:asset:wix:activity:yq45v:abb4b1acf92bc6e96f28",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "055f988760f34bc193024cb2d438a2c8f673fb80056b435533292e9b2b131810",
+      "key": "wix:asset:wix:activity:yq45v:b120d75eb82c1ba65dfe",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b62b5f586dfc9386b3948812b01c486c28fde65eb8c0aa281d1dc5a376528a1f",
+      "key": "wix:asset:wix:activity:yq45v:da8741b49dce9038c58b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f195f6dae99ceadc155ef4a542cfb3b97e0b2c1b2272c08f1e7ca1aee63a1132",
+      "key": "wix:asset:wix:activity:yq45v:f69350d68f4a0b84ac39",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "1517ca93e636689fbd0c03a36c035ef84812175973cf8d866fe50c374caf2097",
+      "key": "wix:asset:wix:activity:zsngn:16c16326e4d720be12ee",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f4ee249eeea7663cf7773ce83e24822ae969bdf9141cd12bedc05b74f583f1cc",
+      "key": "wix:asset:wix:activity:zsngn:5801aba4a75b304b00fd",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f2f965ffcbe4f9eec1ab99d895578ecd1d4a5feb50dbedf5d03c2123037aa6c4",
+      "key": "wix:asset:wix:activity:zsngn:89c967318e08fd1fe391",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "35c859467ecc09449d64d8c82ca31a98aae7231473ea8b53e5c027ff59b05871",
+      "key": "wix:asset:wix:activity:zsngn:95d70cd1d2dac157f2b5",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d4bc598770e5f200bf5c91fa1fe692f4d204c66a43ca6b83b1b4385a85ce116f",
+      "key": "wix:asset:wix:activity:zsngn:973e0b62377dd28b8ef1",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "02c3fb7f61341cf968555ae6065fae62795732b490350026d23e6d5f938347b5",
+      "key": "wix:asset:wix:activity:zsngn:a169b864937a45bfaa11",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "82dcca77723213a026a0c5c118b5bc6c099e64faca6376b5e9db22e627d03d8a",
+      "key": "wix:asset:wix:activity:zsngn:b33f04b46bad7949b669",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "7b599f8692de0e4f58992965564daf70d9fe7100c0e228f73166d62014251dc9",
+      "key": "wix:asset:wix:activity:zsngn:dabe2f6fbfb58ae0160b",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "7bbb3d6450c40040b16616eb3bbebf46a0867795e1e6ca367d9ef95473230903",
+      "key": "wix:asset:wix:activity:zsngn:dc5c364cfa4d65236903",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "1495eaf6bc2771867c575d65d78d74533ba5a1d71fefd80c4d8042526903ff8b",
+      "key": "wix:asset:wix:file:2642b76d6996564aa309ac96:2642b76d6996564aa309",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "d223c988c45b287c860664519181eb145fdaa760c2b20ad2eef698dd87d08a89",
+      "key": "wix:asset:wix:file:30190e56aab62c7f108079d1:30190e56aab62c7f1080",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "58f690241f5a0ec1933e3796c857d9d6c7e2184adc574d6431d7a64b327986b1",
+      "key": "wix:asset:wix:file:4c029f4e34dbd6107e4def18:4c029f4e34dbd6107e4d",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "033ec648b800d166b152ee3005a55f68a80b434ebf6f6e2240b9a3f920b02b80",
+      "key": "wix:asset:wix:file:56af2bce6dcf1cf08a4958c0:56af2bce6dcf1cf08a49",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3a97b055a033675f33086b80ac0f69b0ea95af929aae33d2d65f0bb6231f3c36",
+      "key": "wix:asset:wix:file:5f3e6d8ae5c8f95e2fddd990:5f3e6d8ae5c8f95e2fdd",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3722d9b154a08f2df738943a130d3aa9f50489554427d3f4d1e4b3e993e519e0",
+      "key": "wix:asset:wix:file:60339fa72b13d2999f69dd06:60339fa72b13d2999f69",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "06195b27f05056442459becbbe1074cd95e94ecca0a9bc1d2eaee459993a69a1",
+      "key": "wix:asset:wix:file:63cfed568f7d99489500216c:63cfed568f7d99489500",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "b4f3b0db893549c57e6c0857509dd24abcbe58f3119805c344aa9cb2011deecd",
+      "key": "wix:asset:wix:file:65b1e1abce9823ceb2f35dda:65b1e1abce9823ceb2f3",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "5adb8c01943fb781907b68c55ed80670647a425324f59cbe0e317c1551b6a5e7",
+      "key": "wix:asset:wix:file:72d413405514683aa64f5891:72d413405514683aa64f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "5ba2c4a5b49bb47255717b59df39a67d225cf085dd692776b22984b71ef52f1f",
+      "key": "wix:asset:wix:file:761807c59197dd1755c8e662:761807c59197dd1755c8",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "dc2a5ab085c876887743768d8c8716b6d9f755ef5dcdc366e075a0214db53d04",
+      "key": "wix:asset:wix:file:8490a7532a6706aa4b4fa12f:8490a7532a6706aa4b4f",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "32ee3b34e4746a6348689507b5e38225ee84574ce3eaf7f8d8912a7ba79f0cce",
+      "key": "wix:asset:wix:file:a84719ce6814635cd33ebf42:a84719ce6814635cd33e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "3f22cecea20788738cb94254613a288d8c9075f13c4c5508850480e905ce7088",
+      "key": "wix:asset:wix:file:a8dd4833fe0e8f39782a96c1:a8dd4833fe0e8f39782a",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "8d4d6a5515e1445a8fd4e48be5ac15eb10a283a9209f037028650e73bbe1da1c",
+      "key": "wix:asset:wix:file:b18e08a186c9bcb684812f5d:b18e08a186c9bcb68481",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "49d283073a05cbb9c3ab0c1f390ad658b1bd7e20b85c58b5e79125fcfdbfc61b",
+      "key": "wix:asset:wix:file:b3e6692cb0c07293a5fe23e4:b3e6692cb0c07293a5fe",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "8712d555859ce379a05308a82ca84bd330a101adbb923393c4d107b5cd525ac5",
+      "key": "wix:asset:wix:file:c40624c3103a6418dd4cd931:c40624c3103a6418dd4c",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "0cc0d23404639fa753dd1bd258ef9fd8127575564a71bec7a98434ef653b8ace",
+      "key": "wix:asset:wix:file:dcb696435cf76e68685e1eda:dcb696435cf76e68685e",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "f8f1b9001d7cdb53f64bcf667e27af74a5170aa195d67e6f47a292a59fb53ab9",
+      "key": "wix:asset:wix:file:edf9ad6849ee0ce35383ffad:edf9ad6849ee0ce35383",
+      "recordKind": "storage-assignment"
+    },
+    {
+      "fingerprint": "ebae366d2cf951b33d4d49a3349892baac8d5d4e642fa3d890789c3f6242d1ee",
+      "key": "wix:activity:acrjz",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "4471c036b08106cccd358e2a009050ef6470dfdd6292724ee48af9e922cfa741",
+      "key": "wix:activity:ad87y",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "22776a9854ed4d37a39e3f1691407c11aef0bd392259673dff61a66575ee0d75",
+      "key": "wix:activity:ay10r",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "389a798702b07666e1b96fd1a0f2ac929303e602ae617e6686cae8d710e2aa0f",
+      "key": "wix:activity:eeuqi",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "9912995751b9d4605aa42caf4e1c8a64a430c9d604acc8fe8d380d47044e249f",
+      "key": "wix:activity:eove1",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "077f6065245b0be3440bb101c899c16e2a9adb7a4d9a476fb12d5badea42adc5",
+      "key": "wix:activity:euvvm",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "c8456350bbe627e8bfab27d1b6f3a00c63f296c8e2e317bd4a3e370b65397c71",
+      "key": "wix:activity:finuh",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "0bd7db15e24dc505347ae7b3c72b2f0abfc95e82edde3598b69174165bf9a64c",
+      "key": "wix:activity:fl2ot",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "36dc101d40906a015c27ed95c666b18557887871713f5f5607dd990eb7cedeed",
+      "key": "wix:activity:fpv52",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "43fc60fe45e47d70248be1c5a827baf85e581e3151e057e1d9025beb98883805",
+      "key": "wix:activity:fu3bz",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "8958b12c602e872135548c1200938bc4d8d8655dbaa4b013df7be5f88c6700ac",
+      "key": "wix:activity:fuug2",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "ab835ce3d77ebc4718f6925c2058ba6321171a2aa95347cc228786e4bea0c54c",
+      "key": "wix:activity:fxl97",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "d7aaa8e8faec20198e70a3b778c0e119dcbbde297d30781ceb2dfdbcbc7efc0a",
+      "key": "wix:activity:g23od",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "b175d1e255b361e366af030a2defed0b83d71aef7259c37de4f8a9b22437d67b",
+      "key": "wix:activity:gqhoh",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "e20a1d47cb641f878fbbb3a25e62835be9a2d6aba0df6122037b76d19796a150",
+      "key": "wix:activity:io4hd",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "be00bb94712c23ed896d2f3a3cd49eed99e47da8b2a1f44368246166c300647c",
+      "key": "wix:activity:j881c",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "83bc57c5f6553a5784017a949ab839695d676a8b76ff98abcdd91537055368bc",
+      "key": "wix:activity:jd4jc",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "200d151eb6bad18fc5d9b7988f3712a993817a2e856e5b867631a8eff035d02f",
+      "key": "wix:activity:jefj3",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "9ab4779443e2c1054414149a52db034f95c4f2d7994af9c6029f17d4d362e8e7",
+      "key": "wix:activity:k9aiv",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "2e3ec8d9bc27b5b56ef8574365298d43599156ae6ee18576c7c0a68d7efe8354",
+      "key": "wix:activity:lb7xk",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "b95db93e707c8d7cc409c36403df19909c03c7a9b1425bdeb7d7896af84716b6",
+      "key": "wix:activity:mh72i",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "2dc3b1a564e8abd9a96d4cb2c8d8be24fd14040c2c4e83c9471f240b8f11496e",
+      "key": "wix:activity:mqpxs",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "3f5643ceae70376f564da233d6cf69e53b408dd11476616860ccf611c96ae674",
+      "key": "wix:activity:mwqi8",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "59e64d98356f6c43da723352cfb6694add2947653ac0e30ce7df42b745d990a8",
+      "key": "wix:activity:ncu3n",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "6051ad6de54f3985aeeec7ec9818cabd8a6e67b4b000abeac94b7e00e3498232",
+      "key": "wix:activity:nz8m8",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "8ee95b1495e8a2b1cb99d0ae9245146d55352787f6e3caa635952bc1407ae5d2",
+      "key": "wix:activity:o2emp",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "3e568f6a394bb1b14ea4486b6d82612594fe43292e82389cb1b1d744d843ce29",
+      "key": "wix:activity:o3j0h",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "74e007e01bcf4c9dfba04aac4f207c04ccb8322c4b6a596dc5a254dc9e8c845c",
+      "key": "wix:activity:o6h8s",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "0f78b5fbed32be0bf09d90f2489eb7f981ec71aef12aad7c5c0b21b651c58736",
+      "key": "wix:activity:on53s",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "887d22fab14eb526109ba5e65cef882a3ceebd889c5fcbd70d06ea18edbdc2c7",
+      "key": "wix:activity:r9q61",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "8bc0469da1054879d6737d151d4938742df616b2642d521615b01b4e15bd11b0",
+      "key": "wix:activity:ra9kd",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "f830c06f8577858bfc1f82326d0175eb726a6c961835f5fe725784fb4a5e80a9",
+      "key": "wix:activity:rndc1",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "431f3277cd16c0d2c3678c7a85682039b5760a140f331ef7db4df321f1c1bb19",
+      "key": "wix:activity:shxze",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "f306eb8f1c7b38c02da55b304277815060d45587bc86f0d1a95bcc4bab3e95f2",
+      "key": "wix:activity:sr7vx",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "95440681c88fccd485ed43c65425b1d14f1ff455555df64fa5b14e0acec0d251",
+      "key": "wix:activity:syp73",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "13e9f2ccea38e7747bf826b89a4a592eaedd1314e788cd9b6a3c0e510d0fea9f",
+      "key": "wix:activity:t4l6d",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "3f3e29a6fa0b91b902e6647ca11ced77d58fb40419b0ff0df5f33f35a6e98adc",
+      "key": "wix:activity:u61it",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "8b1cbfb8711a436918a9c14c0623fec308f39147728e1b869dea473f8298e241",
+      "key": "wix:activity:vro4w",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "fb6330a77a0b2d6cdd9acd96d1d89aa46772fa97e708ae6e734397d53c20056c",
+      "key": "wix:activity:vzfv3",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "223255b74ff84509feabe748e5ccd989c0a41497adc952e77987aa7337c51463",
+      "key": "wix:activity:wiy6e",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "30b228c0167b9b6cec46a87fd25db6e8dbde4d13f9432c7da214acf2d1b95d19",
+      "key": "wix:activity:wnlfh",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "dd0b64e8cf9ad85a71191380c2ef3f30dde289c8f8227c034443c248709c10d2",
+      "key": "wix:activity:wquq1",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "7d60e618a2b7b7ef0f3789a9861666102eaf6df200b2c5ddb2a21bbd58781d27",
+      "key": "wix:activity:xhbeh",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "15b03bcec116c37f103bc161197dd20a83d789f8bc059604b0a8f25e67083df5",
+      "key": "wix:activity:y2p9y",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "4e2211be6a6bd823bfd70b330eff8a89d17585123b246e72cc2027d332be7a28",
+      "key": "wix:activity:yq45v",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "5793fdf2fdc3ad06d284c6d2b53ac6fd9a4a47bbbcd6a97c78d4d72749e72eb2",
+      "key": "wix:activity:zsngn",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "118f78166ba16acb0d841c7102ca1f84be4aec7841413fba48cea62086e07b44",
+      "key": "wix:file:2642b76d6996564aa309ac96",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "c57fb8ac27e97946228a4cdf4227cf4f2c13e0f9f96f4e77e0177a3b6a6160b9",
+      "key": "wix:file:30190e56aab62c7f108079d1",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "9dd5e6a770f57dbc3fca8f1933d2b9c9717be82f1ad5a1daaba79f9fd81c5f1f",
+      "key": "wix:file:4c029f4e34dbd6107e4def18",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "15876ed2234328c103e8c374e550453da2f62e7c7561d1a48f9cf35ebedb772e",
+      "key": "wix:file:56af2bce6dcf1cf08a4958c0",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "92f2cb3facd8726e697ce5eb4b923ae78c0b66a8b8c9cec85c4e99bc3c55ddfa",
+      "key": "wix:file:5f3e6d8ae5c8f95e2fddd990",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "7b0de2e7081ef0204f6fd6b6f1c4b820b4d6e8e436392b539ffd4deeac7beed0",
+      "key": "wix:file:60339fa72b13d2999f69dd06",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "98ec198ff844e598bc952b356daba3df6f8cff4c04ebbba8dd8e26067e6191e1",
+      "key": "wix:file:63cfed568f7d99489500216c",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "1858aca0fd5c75e6e08621658b4c8eeef2a1ba4d56f6438ba5b3201a982d501d",
+      "key": "wix:file:65b1e1abce9823ceb2f35dda",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "70b378742211b5fad90168213686cf8bc3cadeaa29dd3055039786f1542f1050",
+      "key": "wix:file:72d413405514683aa64f5891",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "a6f78050bc5192b37de9a772c6c001d77440ad7240f30108abb0e8efd5be4a21",
+      "key": "wix:file:761807c59197dd1755c8e662",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "070a853aafa5efb7f9b76e0cfd2b4050677c5aa7d6c19f4f51e1daeaebab7f3f",
+      "key": "wix:file:8490a7532a6706aa4b4fa12f",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "c8e37e225bbe0bcdae08a895a6d5a9e1f92e70fb12a9b23e80d6e6e3ca930f61",
+      "key": "wix:file:a84719ce6814635cd33ebf42",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "991f5d20fa5a6697a4673dbeb7745b4d02e5d119c38c19eae7b30cb4aff6ce19",
+      "key": "wix:file:a8dd4833fe0e8f39782a96c1",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "e6510a8cb4efab5b75d90ca79adb9fad59731d79356158242e83d596a15c640d",
+      "key": "wix:file:b18e08a186c9bcb684812f5d",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "509197a2e00a1ce80ba0bc9e2614f7fb8298cd91bcfde976dce56b49270737de",
+      "key": "wix:file:b3e6692cb0c07293a5fe23e4",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "28f98ef8e26b45dbe92ddeda541494ad2c27a362f253f4508ae0deb2ecba8704",
+      "key": "wix:file:c40624c3103a6418dd4cd931",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "4669fa55bcdca3ba4e8fa439f2f1885f7cee28eb811bd393d9e3060b6984caf4",
+      "key": "wix:file:dcb696435cf76e68685e1eda",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "8796d29e5995a0de009ce38aaae8723e5f100a5a7c0245913d13dde2addb53cd",
+      "key": "wix:file:edf9ad6849ee0ce35383ffad",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "0ff8b91445d40cd269c05ba5856db71c6ed313d9c8fff9fcc43dc86a9be4d324",
+      "key": "wix:year:109",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "37f9addcbf7b376a9b44e08fd726e99c79bc6595e0e04779734aa8970648b1e6",
+      "key": "wix:year:110",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "639749d7e6ab516aff93bcc6c46862b09deb82341478ef90768b4cb4f7ff8a8e",
+      "key": "wix:year:111",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "aec8d0be3334ab22ba88ce02fefa64d837cb11544ca48ce58e4b114a19225eb5",
+      "key": "wix:year:112",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "1489c7d0a2bb125c173ad39f094eae91453d286206c71e56efc0ad0668d13d50",
+      "key": "wix:year:113",
+      "recordKind": "target-record"
+    },
+    {
+      "fingerprint": "d3bd46f38b8ac76cc2677fd9e39066d6f7a2220e8645ded70608ae31442a4cc9",
+      "key": "wix:year:114",
+      "recordKind": "target-record"
+    }
+  ],
+  "countDomains": {
+    "imported_target_records_by_module": {
+      "domain": "imported target module",
+      "evidence": "migration/phase9/content-manifest.jsonl",
+      "historicalOnly": true,
+      "values": {
+        "activity": 46,
+        "file": 18,
+        "year-summary": 6
+      }
+    },
+    "imported_target_records_draft": {
+      "domain": "imported_targets.status=draft",
+      "evidence": "migration/phase9/content-manifest.jsonl",
+      "historicalOnly": true,
+      "value": 70
+    },
+    "imported_target_records_total": {
+      "domain": "imported_targets.operation=create",
+      "evidence": "migration/phase9/content-manifest.jsonl",
+      "historicalOnly": true,
+      "value": 70
+    },
+    "migrated_storage_objects": {
+      "domain": "historical migrated private Storage object assignments",
+      "evidence": "migration/phase9/assets-manifest.jsonl",
+      "historicalOnly": true,
+      "value": 378
+    },
+    "missing_evidence_total": {
+      "domain": "canonical records missing repository source evidence",
+      "evidence": "Phase 13 schema validation and evidence index",
+      "historicalOnly": true,
+      "value": 0
+    },
+    "owner_references_total": {
+      "domain": "asset assignment owner references",
+      "evidence": "migration/phase9/assets-manifest.jsonl",
+      "historicalOnly": true,
+      "value": 378
+    },
+    "publication_reviews_total": {
+      "domain": "publication review rows",
+      "evidence": "migration/phase9/manual-review.csv",
+      "historicalOnly": true,
+      "value": 122
+    },
+    "redirects_accepted_out_of_scope_total": {
+      "domain": "redirects.accepted_out_of_scope",
+      "evidence": "migration/phase9/url-redirects.csv and owner DECISION-P13-002",
+      "historicalOnly": true,
+      "value": 52
+    },
+    "source_assets": {
+      "domain": "Wix/source asset inventory rows",
+      "evidence": "migration/phase9/source-inventory.jsonl",
+      "historicalOnly": true,
+      "value": 398
+    },
+    "source_inventory_items_by_historical_disposition": {
+      "domain": "source inventory disposition",
+      "evidence": "migration/phase9/source-inventory.jsonl",
+      "historicalOnly": true,
+      "values": {
+        "archive": 2,
+        "merge": 6,
+        "migrate": 423,
+        "redirect-only": 25,
+        "skip": 70
+      }
+    },
+    "source_inventory_items_total": {
+      "domain": "source inventory rows",
+      "evidence": "migration/phase9/source-inventory.jsonl",
+      "historicalOnly": true,
+      "value": 526
+    },
+    "source_inventory_skip_items": {
+      "domain": "source_items.disposition=skip",
+      "evidence": "migration/phase9/source-inventory.jsonl",
+      "historicalOnly": true,
+      "value": 70
+    },
+    "source_unique_assets_total": {
+      "domain": "unique source asset keys",
+      "evidence": "migration/phase9/source-inventory.jsonl",
+      "historicalOnly": true,
+      "value": 397
+    },
+    "storage_assignments_total": {
+      "domain": "storage assignment manifest rows",
+      "evidence": "migration/phase9/assets-manifest.jsonl",
+      "historicalOnly": true,
+      "value": 378
+    },
+    "unresolved_relationships_total": {
+      "domain": "explicit unresolved cross-domain or owner relationships",
+      "evidence": "Phase 13 derived reconciliation",
+      "historicalOnly": true,
+      "value": 28
+    }
+  },
+  "generatedFrom": [
+    {
+      "path": "migration/phase9/source-inventory.jsonl",
+      "sha256": "e95629d3b03071d2b3eb8fd133a652ff477ec63f07b6a5f190ba64f71002629e"
+    },
+    {
+      "path": "migration/phase9/content-manifest.jsonl",
+      "sha256": "f81ea01c3e550c5e514da72d5dc3b964af790850b731b5262deba6c966223939"
+    },
+    {
+      "path": "migration/phase9/assets-manifest.jsonl",
+      "sha256": "95327031e54721c2eac1a970b1a1dc561185e1cf6e06c2202b87e253a794556d"
+    },
+    {
+      "path": "migration/phase9/manual-review.csv",
+      "sha256": "70aebb8a2d7f714f8b3e0daf53addf5a8c88895a704203b2faed664a9aadb27c"
+    },
+    {
+      "path": "migration/phase9/url-redirects.csv",
+      "sha256": "31e17b10a28fa9bdae834f729d1980ccbb41710bc7ca99324d863926dc3058ef"
+    },
+    {
+      "path": "migration/phase9/source-snapshot.json",
+      "sha256": "e00ac4b7dea81cb7d84e6a338824706e562f36d110e97726e56b6ed6a45fdd07"
+    },
+    {
+      "path": "migration/phase10/editorial-decisions.json",
+      "sha256": "9ee717643c1a96e18a7c1168f9d620eb67127fd47d1d86f90648c4b3bba0d2f4"
+    },
+    {
+      "path": "migration/phase10/redirect-decisions.json",
+      "sha256": "1aa64cbca9ee649a76a31c96b2e76463c7f22171f07f44f4f9110a0659ca4052"
+    }
+  ],
+  "historicalBaselines": {
+    "currentProductionStateClaimed": false,
+    "evidenceAsOf": "2026-07-22",
+    "sourceSnapshotSha256": "3a6a00bcd5a5b8030ab5da6b61cd597f2df4c0762edb46dd9f8655e003cceb60"
+  },
+  "schemaVersion": 1,
+  "unresolvedRelationships": [
+    {
+      "count": 1,
+      "phase14Checkpoint": "Compare owner-authorized sanitized production exports and review source skip items independently.",
+      "reason": "The equal historical value 70 does not establish row identity or a one-to-one relationship between the two count domains.",
+      "relationship": "source_inventory_skip_items_to_imported_target_records_draft",
+      "status": "unresolved"
+    },
+    {
+      "count": 27,
+      "phase14Checkpoint": "Owner confirms each accepted-skip asset before Wix cutover using the repository review CSV and read-only production export.",
+      "reason": "Phase 9 records these source assets as intentionally unassigned Wix chrome/background/decorative objects; Phase 13 does not infer an owner or production object.",
+      "relationship": "accepted_skip_source_asset_to_owner_or_storage_assignment",
+      "status": "unresolved"
+    }
+  ],
+  "warnings": [
+    "All values are historical repository evidence baselines as of 2026-07-22; they are not current production truth.",
+    "Phase 10 conservative decisions retain 70 imported targets as private drafts.",
+    "source_assets = 398 and migrated_storage_objects = 378 are separate count domains; subtraction does not establish missing assets.",
+    "source_inventory_skip_items = 70 and imported_target_records_draft = 70 are separate count domains with an unresolved relationship.",
+    "The asset manifest has 378 assignments from 370 assigned unique source objects; 27 source-unique assets have accepted-skip evidence and 8 sources have multiple assignments.",
+    "The Phase 9 narrative report says 28 unassigned objects, but authoritative manifests resolve to 398 inventory rows, 397 unique source keys, 371 migrate rows, 370 assigned unique source keys, and 27 skip/unassigned unique source keys. Phase 13 records the discrepancy instead of overwriting the manifests."
+  ]
+}

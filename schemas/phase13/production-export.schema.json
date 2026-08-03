@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://marchout.invalid/schemas/phase13/production-export.schema.json",
+  "title": "Sanitized future production content and asset export",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "exportKind", "releaseSha", "records"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "exportKind": { "const": "sanitized-production-content-asset-inventory" },
+    "releaseSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["recordKind", "key", "fingerprint", "status", "ownerKind", "targetBucket", "targetStoragePathRedacted", "databaseReferenceKey", "privacyStatus"],
+        "properties": {
+          "recordKind": { "enum": ["target-record", "storage-assignment"] },
+          "key": { "type": "string", "minLength": 1 },
+          "fingerprint": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "status": { "enum": ["draft", "published", "private", "unknown"] },
+          "ownerKind": { "enum": ["activity", "post", "file", "year-summary", "site-settings", "shared", "unresolved"] },
+          "targetBucket": { "enum": ["activity-assets", "content-assets", "downloads", null] },
+          "targetStoragePathRedacted": { "type": ["string", "null"], "pattern": "^(?!https?://)[^?&#]+$" },
+          "databaseReferenceKey": { "type": ["string", "null"] },
+          "privacyStatus": { "enum": ["private-draft", "published", "restricted", "unknown"] }
+        }
+      }
+    }
+  }
+}

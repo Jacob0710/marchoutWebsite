@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://marchout.invalid/schemas/phase13/asset.schema.json",
+  "title": "Phase 13 canonical asset relationship",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "assetKey", "sourceAssetUrl", "sourcePageUrl", "sourceFilename", "sourceExtension",
+    "sourceMimeType", "sourceSha256", "sourceSizeBytes", "sourceAssetKind", "role", "ownerKind",
+    "ownerMigrationKey", "ownerTitle", "ownerYear", "ownerCategory", "historicalDisposition",
+    "normalizedDisposition", "targetBucket", "targetStoragePathRedacted", "targetDatabaseReferenceKind",
+    "targetDatabaseReferenceKey", "duplicateGroup", "privacyStatus", "reviewStatus", "evidenceFiles", "notes"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "assetKey": { "type": "string", "minLength": 1 },
+    "sourceAssetUrl": { "type": ["string", "null"], "pattern": "^https://" },
+    "sourcePageUrl": { "type": ["string", "null"], "pattern": "^https://" },
+    "sourceFilename": { "type": ["string", "null"] },
+    "sourceExtension": { "type": ["string", "null"], "pattern": "^\\.[a-z0-9]{1,10}$" },
+    "sourceMimeType": { "type": ["string", "null"], "pattern": "^[a-z0-9.+-]+/[a-z0-9.+-]+$" },
+    "sourceSha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+    "sourceSizeBytes": { "type": ["integer", "null"], "minimum": 0 },
+    "sourceAssetKind": { "enum": ["image", "document", "logo", "unknown"] },
+    "role": { "enum": ["cover", "gallery", "attachment", "download", "logo", "content-image", "document", "unknown"] },
+    "ownerKind": { "enum": ["activity", "post", "file", "year-summary", "site-settings", "static-page", "shared", "unresolved"] },
+    "ownerMigrationKey": { "type": ["string", "null"] },
+    "ownerTitle": { "type": ["string", "null"] },
+    "ownerYear": { "type": ["integer", "null"], "minimum": 1 },
+    "ownerCategory": { "type": ["string", "null"] },
+    "historicalDisposition": { "enum": ["migrate", "merge", "redirect-only", "archive", "duplicate", "manual-review", "skip"] },
+    "normalizedDisposition": { "enum": ["migrated", "merged", "archived", "kept-draft", "reused", "duplicate", "accepted-skip", "requires-owner-review", "missing-evidence"] },
+    "targetBucket": { "enum": ["activity-assets", "content-assets", "downloads", null] },
+    "targetStoragePathRedacted": { "type": ["string", "null"], "pattern": "^(?!https?://)[^?&#]+$" },
+    "targetDatabaseReferenceKind": { "enum": ["activity-assets", "post-cover", "file", "year-summary-cover", "site-settings", null] },
+    "targetDatabaseReferenceKey": { "type": ["string", "null"] },
+    "duplicateGroup": { "type": ["string", "null"] },
+    "privacyStatus": { "enum": ["public-source", "private-draft", "restricted", "unknown"] },
+    "reviewStatus": { "enum": ["requires-owner-review", "not-required", "accepted-out-of-scope", "unresolved"] },
+    "evidenceFiles": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+    "notes": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+  }
+}

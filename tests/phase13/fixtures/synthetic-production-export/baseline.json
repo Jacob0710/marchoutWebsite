@@ -1,0 +1,7 @@
+{
+  "comparisonRecords": [
+    { "recordKind": "target-record", "key": "synthetic:target:matched", "fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" },
+    { "recordKind": "target-record", "key": "synthetic:target:changed", "fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" },
+    { "recordKind": "storage-assignment", "key": "synthetic:asset:missing", "fingerprint": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" }
+  ]
+}

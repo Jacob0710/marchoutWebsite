@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "exportKind": "sanitized-production-content-asset-inventory",
+  "releaseSha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "records": [{
+    "recordKind": "target-record",
+    "key": "synthetic:target:1",
+    "fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "status": "draft",
+    "ownerKind": "activity",
+    "targetBucket": null,
+    "targetStoragePathRedacted": null,
+    "databaseReferenceKey": "synthetic:target:1",
+    "privacyStatus": "private-draft"
+  }]
+}
