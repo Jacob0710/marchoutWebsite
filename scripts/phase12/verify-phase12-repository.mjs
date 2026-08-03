@@ -166,7 +166,10 @@ if (!/PHASE12_REQUIRED_CHECKS:\s*quality,phase12-quality,dependency-review,Verce
 const releaseEvidenceVerifier = fs.readFileSync(path.join(root, 'scripts/phase12/verify-release-evidence.mjs'), 'utf8')
 if (!/check-runs\?filter=latest&per_page=100/.test(releaseEvidenceVerifier)
   || !/\/status\?per_page=100/.test(releaseEvidenceVerifier)
-  || !/check\?\.conclusion === 'success' \|\| status\?\.state === 'success'/.test(releaseEvidenceVerifier)) {
+  || !/Array\.isArray\(checks\.check_runs\) && Array\.isArray\(statuses\.statuses\)/.test(releaseEvidenceVerifier)
+  || !/checks\.check_runs\.some\(item => item\.name === name && item\.conclusion === 'success'\)/.test(releaseEvidenceVerifier)
+  || !/statuses\.statuses\.some\(item => item\.context === name && item\.state === 'success'\)/.test(releaseEvidenceVerifier)
+  || /checks\.check_runs\.find\(item => item\.name === name\)/.test(releaseEvidenceVerifier)) {
   throw new Error('Production release evidence must fail closed across Check Runs and commit statuses.')
 }
 if (!/quality,phase12-quality,dependency-review,Vercel – marchout-website/.test(releaseEvidenceVerifier)) {
