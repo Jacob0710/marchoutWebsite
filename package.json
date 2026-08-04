@@ -55,6 +55,8 @@
     "phase14:reconcile": "node scripts/phase14/reconcile-inventory.mjs",
     "phase14:owner-review": "node scripts/phase14/owner-review.mjs --mode generate",
     "phase14:owner-review:validate": "node scripts/phase14/owner-review.mjs --mode validate",
+    "phase14:gate3:generate": "node scripts/phase14/generate-gate3-outputs.mjs",
+    "phase14:gate3:verify": "node scripts/phase14/verify-phase14-gate3-preparation.mjs",
     "phase14:authorization-check": "node scripts/phase14/authorization-check.mjs",
     "phase14:security-scan": "node scripts/phase14/scan-secrets-network.mjs",
     "test:phase5": "node --env-file-if-exists=.env.phase6.local scripts/phase5-auth-smoke.mjs",

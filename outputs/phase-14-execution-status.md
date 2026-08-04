@@ -1,15 +1,19 @@
 # Phase 14 execution status
 
-- Phase 14 overall: **IN PROGRESS**
-- Gate 1: **COMPLETE**
-- Gate 2 production read-only inventory: **COMPLETE, OWNER-AUTHORIZED READ-ONLY EXECUTION**
-- Gate 3 owner review and admin UAT: **READY, HUMAN EXECUTION REQUIRED**
-- Gate 4 cutover and production mutation: **NOT AUTHORIZED**
+Overall: **IN PROGRESS**
 
-Gate 1 includes repository-only schemas, synthetic dry run, reconciliation, 405-row owner-review working copy, discrepancy governance, human runbooks, fail-closed authorization checks, tests, and CI.
+Gate 1 repository readiness: **COMPLETE**.
 
-Gate 2 used the owner's explicit bounded authorization to read allowlisted production content/editorial metadata and private Storage bucket/object metadata. The sanitized real export, adapted Phase 13 baseline, row-level reconciliation, and local verification evidence remain only under ignored `.private/phase14-production-export/`. Tracked outputs contain aggregate counts and cryptographic hashes only. Gate 2 performed no production mutation, object download, signed URL creation, live Wix recrawl, redirect activation, owner sign-off, or admin UAT.
+Gate 2 owner-authorized production read-only inventory: **COMPLETE**. Historical Gate 2 safety counters remain 331 read-only queries and 5 authenticated sessions; all sessions were closed and no credential was persisted.
 
-Historical repository counts and current production inventory counts remain separate domains. In particular, `source_inventory_skip_items = 70` is not `imported_target_records_draft = 70`, and `source_assets = 398` is not `migrated_storage_objects = 378`. Current production values are identified explicitly in `outputs/phase-14-gate2-readonly-status.json`; historical values are not re-labeled as current production truth.
+Gate 3 owner review and administrator UAT: **PREPARATION COMPLETE; HUMAN INPUT REQUIRED**.
 
-Stop point: Phase 14 owner review and admin UAT human execution gate.
+| Gate 3 workstream | Current state | Pending |
+| --- | --- | ---: |
+| 405-row owner review | IN PROGRESS | 405 |
+| production-only disposition | IN PROGRESS | 158 |
+| owner-review exceptions | IN PROGRESS | 9 |
+| Phase 9 28/27 evidence discrepancy | UNRESOLVED | 1 |
+| administrator UAT | NOT EXECUTED | 23 |
+
+Gate 4 production mutation and cutover: **NOT AUTHORIZED**. No production mutation, publication, redirect activation, DNS/domain change, Wix recrawl, cutover, rollback, merge, or completion tag is permitted by Gate 3 preparation.

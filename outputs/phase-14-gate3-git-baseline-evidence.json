@@ -1,0 +1,11 @@
+{
+  "branch": "codex/phase14-prelaunch-verification-uat-cutover-prep",
+  "gate1Commit": "57133e1a97818b4c80175ff1d733a3143c156a3c",
+  "gate2Commit": "7623f36b3074fe38794d4a5096b8b1d075345e93",
+  "mainAtPreparationStart": "598882e371a01c832832d7141acec918143c133c",
+  "phase13Baseline": "598882e371a01c832832d7141acec918143c133c",
+  "pullRequest": 19,
+  "pullRequestStateAtPreparationStart": "OPEN_DRAFT_NOT_MERGED",
+  "remoteBranchAtPreparationStart": "7623f36b3074fe38794d4a5096b8b1d075345e93",
+  "schemaVersion": 1
+}

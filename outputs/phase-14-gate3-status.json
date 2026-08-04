@@ -1,0 +1,67 @@
+{
+  "countDomains": {
+    "accepted_skip_unique_sources": 27,
+    "imported_target_records_draft": 70,
+    "migrated_storage_objects": 378,
+    "source_assets": 398,
+    "source_inventory_skip_items": 70,
+    "source_unique_assets_total": 397
+  },
+  "counts": {
+    "adminUatCases": 23,
+    "adminUatUnexecuted": 23,
+    "evidenceDiscrepancies": 1,
+    "exceptionRows": 9,
+    "exceptionUnreviewed": 9,
+    "ownerReviewRows": 405,
+    "ownerReviewUnreviewed": 405,
+    "productionOnlyRows": 158,
+    "productionOnlyUnreviewed": 158
+  },
+  "decisionBoundary": "OWNER_REVIEW_AND_ADMIN_UAT_HUMAN_INPUT_REQUIRED",
+  "evidenceHashes": {
+    "outputs/phase-14-admin-uat-evidence-index.md": "9c64feb7ef287584fc8184a0a452b4ec71b966804599b2dd5e217e33527544be",
+    "outputs/phase-14-admin-uat-execution-status.md": "50ed6aae30a48dca184724fd831ba4bc88053aa981280e7db9562beeb83c44b6",
+    "outputs/phase-14-admin-uat-execution.csv": "db519abb811e9d78efd0ae719f62703b129cce98b47fb38aa17a6603b34ad0e5",
+    "outputs/phase-14-evidence-discrepancy-decision-package.md": "d20ee8a9314be5f6637170e739a91d509b2e626601ac7106a9878acb3aa4deec",
+    "outputs/phase-14-execution-status.md": "be9874c750e9eb6b276c45e69152ae7d96c9f01edb4953056281057bef3f6992",
+    "outputs/phase-14-gate3-git-baseline-evidence.json": "340b5d143ee66980b5b241f16fe31d6a916eaae88d6c74223c94182d8c392135",
+    "outputs/phase-14-gate3-preparation-report.md": "7a042767c260f48fd6dbd2958770819fc5eab020b12c7d27d92cf9411e0f2824",
+    "outputs/phase-14-owner-review-exceptions.csv": "811e9d157760dcf90b287723d464cd46964491dd20edbdcbd680a17fee8918d9",
+    "outputs/phase-14-owner-review-exceptions.md": "2c3c315cf8777cd424d118687a4de5ec9425dd5c8917028c0ba97f931a63e3e0",
+    "outputs/phase-14-owner-review-status.json": "0915d029fea6cf605ff82bf8a9f8a45563e1efe5dccc13d48ffa7587a0eadaca",
+    "outputs/phase-14-owner-review-summary.md": "b78901ef3a38ff15635e42de8431ee30c16c77889ba9dd858a03d7a8287ba122",
+    "outputs/phase-14-production-only-disposition.csv": "3ff6c7fd7556eddd67e639855724ffc2782b4f8025d4ce838da85c11398f5760",
+    "outputs/phase-14-production-only-disposition.md": "cfc2bcc45a81899f8a54348d4a3c1336cc15f96ec10248fe91c9a4378543db29"
+  },
+  "gate2HistoricalSafetyReference": {
+    "productionAuthenticatedSessions": 5,
+    "productionQueries": 331
+  },
+  "gate3": {
+    "adminUat": "NOT_EXECUTED_HUMAN_INPUT_REQUIRED",
+    "evidenceDiscrepancy": "UNRESOLVED",
+    "ownerReview": "IN_PROGRESS_HUMAN_INPUT_REQUIRED",
+    "ownerReviewExceptions": "IN_PROGRESS_HUMAN_INPUT_REQUIRED",
+    "productionOnlyDisposition": "IN_PROGRESS_HUMAN_INPUT_REQUIRED"
+  },
+  "gate3Safety": {
+    "adminUatExecutionsClaimedByAutomation": 0,
+    "assetDownloads": 0,
+    "cutoverActions": 0,
+    "liveWixRecrawls": 0,
+    "newProductionAuthenticatedSessions": 0,
+    "newProductionQueries": 0,
+    "ownerSignaturesCreatedByAutomation": 0,
+    "productionMutations": 0,
+    "redirectActivations": 0,
+    "secretFindings": 0,
+    "signedUrlsCreated": 0,
+    "trackedPrivateFiles": 0
+  },
+  "overall": "IN_PROGRESS",
+  "phase": 14,
+  "productionStateClaimBoundary": "Only the owner-authorized Gate 2 read-only inventory is described as current; historical repository counts remain labeled historical.",
+  "schemaVersion": 1,
+  "stopPoint": "PHASE_14_OWNER_REVIEW_OR_ADMIN_UAT_HUMAN_INPUT"
+}

@@ -36,7 +36,7 @@ export const generateOwnerReviewRows = (sourceRows, existingRows = []) => {
   return { rows, conflicts }
 }
 
-const decisions = new Set(['approved', 'accepted-skip', 'rejected', 'replace', 'remigrate', 'defer'])
+const decisions = new Set(['approved', 'accepted-skip', 'rejected', 'replace', 'remigrate', 'archive', 'defer'])
 export const validateOwnerReviewRows = rows => {
   const errors = []
   const ids = new Set()
@@ -55,7 +55,7 @@ export const validateOwnerReviewRows = rows => {
     if (decision && !reviewer) errors.push(`${at}: ownerDecision requires reviewer`)
     if (decision && !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(reviewedAt || '')) errors.push(`${at}: ownerDecision requires reviewedAt in UTC ISO format`)
     if (['approved', 'accepted-skip'].includes(decision) && row.evidenceChecked !== 'yes') errors.push(`${at}: approval requires evidenceChecked=yes`)
-    if (['rejected', 'replace', 'remigrate'].includes(decision) && !row.ownerNotes?.trim()) errors.push(`${at}: ${decision} requires ownerNotes`)
+    if (['rejected', 'replace', 'remigrate', 'archive'].includes(decision) && !row.ownerNotes?.trim()) errors.push(`${at}: ${decision} requires ownerNotes`)
     if (['unknown', 'conflict'].includes(row.currentAutomatedClassification) && decision === 'approved') errors.push(`${at}: unknown/conflict cannot be approved`)
   }
   return errors

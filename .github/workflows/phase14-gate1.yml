@@ -30,6 +30,7 @@ jobs:
       - run: pnpm run phase12:verify
       - run: pnpm run phase14:test
       - run: pnpm run phase14:verify
+      - run: pnpm run phase14:gate3:verify
       - run: pnpm run phase13:verify
       - run: pnpm run phase13:test
       - run: pnpm run lint
