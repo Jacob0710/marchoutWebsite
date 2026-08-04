@@ -1,0 +1,15 @@
+PHASE 14 GATE 2 TEMPLATE — DO NOT EXECUTE WITHOUT OWNER AUTHORIZATION
+
+1. Place a valid, secret-free authorization artifact only at:
+   .private/phase14-production-readonly-authorization.json
+2. Inject the least-privilege credential into the current process only, without
+   command-line arguments, shell history, repository files, logs, or screenshots.
+3. Run phase14:authorization-check and require status=authorized-readonly.
+4. Use an owner-approved external exporter to execute only the operations listed
+   in the authorization artifact. Save only its sanitized JSON result under:
+   .private/phase14-production-export/
+5. Run phase14:normalize-inventory with local --input and --output paths.
+
+This repository intentionally contains no production URL, credential loader,
+Supabase client initialization, database connection, HTTP request, SQL query,
+Storage listing, authenticated browser automation, or Wix crawler.

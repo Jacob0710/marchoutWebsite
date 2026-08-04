@@ -1,0 +1,287 @@
+{
+  "contentRecords": [
+    {
+      "metadataFingerprint": "1515151515151515151515151515151515151515151515151515151515151515",
+      "migrationKey": null,
+      "publicationState": "not-applicable",
+      "recordKey": "content:activity-asset:one",
+      "recordKind": "activity-asset",
+      "relationshipFingerprint": null,
+      "sourceIdentity": "source:asset:one",
+      "visibility": "private"
+    },
+    {
+      "metadataFingerprint": "1414141414141414141414141414141414141414141414141414141414141414",
+      "migrationKey": null,
+      "publicationState": "not-applicable",
+      "recordKey": "content:activity-image:legacy",
+      "recordKind": "activity-image",
+      "relationshipFingerprint": null,
+      "sourceIdentity": "source:legacy-image",
+      "visibility": "private"
+    },
+    {
+      "metadataFingerprint": "1616161616161616161616161616161616161616161616161616161616161616",
+      "migrationKey": null,
+      "publicationState": "not-applicable",
+      "recordKey": "content:activity-video:one",
+      "recordKind": "activity-video",
+      "relationshipFingerprint": null,
+      "sourceIdentity": "source:video:one",
+      "visibility": "restricted"
+    },
+    {
+      "metadataFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "migrationKey": "fixture:activity:match",
+      "publicationState": "draft",
+      "recordKey": "content:activity:match",
+      "recordKind": "activity",
+      "relationshipFingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+      "sourceIdentity": "source:activity:match",
+      "visibility": "private"
+    },
+    {
+      "metadataFingerprint": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "migrationKey": "fixture:activity:relationship",
+      "publicationState": "draft",
+      "recordKey": "content:activity:relationship-change",
+      "recordKind": "activity",
+      "relationshipFingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+      "sourceIdentity": "source:activity:relationship",
+      "visibility": "private"
+    },
+    {
+      "metadataFingerprint": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "migrationKey": null,
+      "publicationState": "unknown",
+      "recordKey": "content:category:unknown",
+      "recordKind": "category",
+      "relationshipFingerprint": null,
+      "sourceIdentity": "source:category:unknown",
+      "visibility": "unknown"
+    },
+    {
+      "metadataFingerprint": "2020202020202020202020202020202020202020202020202020202020202020",
+      "migrationKey": null,
+      "publicationState": "not-applicable",
+      "recordKey": "content:editorial-redirect:one",
+      "recordKind": "editorial-redirect",
+      "relationshipFingerprint": null,
+      "sourceIdentity": "source:redirect:one",
+      "visibility": "restricted"
+    },
+    {
+      "metadataFingerprint": "1919191919191919191919191919191919191919191919191919191919191919",
+      "migrationKey": "fixture:editorial:one",
+      "publicationState": "draft",
+      "recordKey": "content:editorial-target:one",
+      "recordKind": "editorial-target",
+      "relationshipFingerprint": null,
+      "sourceIdentity": "source:editorial:one",
+      "visibility": "restricted"
+    },
+    {
+      "metadataFingerprint": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "migrationKey": null,
+      "publicationState": "visible",
+      "recordKey": "content:faq:production-only",
+      "recordKind": "faq",
+      "relationshipFingerprint": null,
+      "sourceIdentity": "source:faq:production-only",
+      "visibility": "public"
+    },
+    {
+      "metadataFingerprint": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "migrationKey": "fixture:file:publication",
+      "publicationState": "published",
+      "recordKey": "content:file:publication-change",
+      "recordKind": "file",
+      "relationshipFingerprint": null,
+      "sourceIdentity": "source:file:publication",
+      "visibility": "public"
+    },
+    {
+      "metadataFingerprint": "1212121212121212121212121212121212121212121212121212121212121212",
+      "migrationKey": null,
+      "publicationState": "draft",
+      "recordKey": "content:post:duplicate-a",
+      "recordKind": "post",
+      "relationshipFingerprint": null,
+      "sourceIdentity": "source:duplicate",
+      "visibility": "private"
+    },
+    {
+      "metadataFingerprint": "1313131313131313131313131313131313131313131313131313131313131313",
+      "migrationKey": null,
+      "publicationState": "draft",
+      "recordKey": "content:post:duplicate-b",
+      "recordKind": "post",
+      "relationshipFingerprint": null,
+      "sourceIdentity": "source:duplicate",
+      "visibility": "private"
+    },
+    {
+      "metadataFingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "migrationKey": "fixture:post:metadata",
+      "publicationState": "draft",
+      "recordKey": "content:post:metadata-change",
+      "recordKind": "post",
+      "relationshipFingerprint": null,
+      "sourceIdentity": "source:post:metadata",
+      "visibility": "private"
+    },
+    {
+      "metadataFingerprint": "1818181818181818181818181818181818181818181818181818181818181818",
+      "migrationKey": null,
+      "publicationState": "not-applicable",
+      "recordKey": "content:site-settings:singleton",
+      "recordKind": "site-settings",
+      "relationshipFingerprint": null,
+      "sourceIdentity": "source:settings",
+      "visibility": "public"
+    },
+    {
+      "metadataFingerprint": "1717171717171717171717171717171717171717171717171717171717171717",
+      "migrationKey": "fixture:year:one",
+      "publicationState": "draft",
+      "recordKey": "content:year-summary:one",
+      "recordKind": "year-summary",
+      "relationshipFingerprint": null,
+      "sourceIdentity": "source:year:one",
+      "visibility": "private"
+    }
+  ],
+  "environment": "fixture",
+  "exportKind": "phase14-sanitized-production-inventory",
+  "redirectSourcePaths": [
+    {
+      "active": false,
+      "decision": "accepted-out-of-scope",
+      "metadataFingerprint": "3939393939393939393939393939393939393939393939393939393939393939",
+      "redirectKey": "redirect:accepted-out-of-scope",
+      "sourcePathHash": "3737373737373737373737373737373737373737373737373737373737373737",
+      "targetPathHash": "3838383838383838383838383838383838383838383838383838383838383838"
+    }
+  ],
+  "relationships": [
+    {
+      "assignmentOrdinal": 0,
+      "objectKey": null,
+      "recordKey": null,
+      "relationshipFingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+      "relationshipKey": "relationship:accepted-skip",
+      "role": "accepted-skip",
+      "sourceIdentity": "source:accepted-skip"
+    },
+    {
+      "assignmentOrdinal": 0,
+      "objectKey": "object:match",
+      "recordKey": "content:activity:relationship-change",
+      "relationshipFingerprint": "3232323232323232323232323232323232323232323232323232323232323232",
+      "relationshipKey": "relationship:changed",
+      "role": "gallery",
+      "sourceIdentity": "source:asset:match"
+    },
+    {
+      "assignmentOrdinal": 0,
+      "objectKey": "object:match",
+      "recordKey": "content:activity:match",
+      "relationshipFingerprint": "3131313131313131313131313131313131313131313131313131313131313131",
+      "relationshipKey": "relationship:match",
+      "role": "cover",
+      "sourceIdentity": "source:asset:match"
+    },
+    {
+      "assignmentOrdinal": 0,
+      "objectKey": "object:multiple-assignment",
+      "recordKey": "content:activity:match",
+      "relationshipFingerprint": "3535353535353535353535353535353535353535353535353535353535353535",
+      "relationshipKey": "relationship:multi:1",
+      "role": "gallery",
+      "sourceIdentity": "source:asset:multi"
+    },
+    {
+      "assignmentOrdinal": 1,
+      "objectKey": "object:multiple-assignment",
+      "recordKey": "content:post:metadata-change",
+      "relationshipFingerprint": "3636363636363636363636363636363636363636363636363636363636363636",
+      "relationshipKey": "relationship:multi:2",
+      "role": "content-image",
+      "sourceIdentity": "source:asset:multi"
+    },
+    {
+      "assignmentOrdinal": 0,
+      "objectKey": "object:orphan",
+      "recordKey": "content:missing-owner",
+      "relationshipFingerprint": "3434343434343434343434343434343434343434343434343434343434343434",
+      "relationshipKey": "relationship:orphan",
+      "role": "unknown",
+      "sourceIdentity": "source:asset:orphan"
+    }
+  ],
+  "releaseSha": "598882e371a01c832832d7141acec918143c133c",
+  "schemaVersion": 1,
+  "sourceKind": "local-fixture",
+  "storageBuckets": [
+    {
+      "allowedMimeTypesFingerprint": "2121212121212121212121212121212121212121212121212121212121212121",
+      "bucketId": "activity-assets",
+      "fileSizeLimit": 20971520,
+      "visibility": "private"
+    },
+    {
+      "allowedMimeTypesFingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+      "bucketId": "content-assets",
+      "fileSizeLimit": 10485760,
+      "visibility": "private"
+    },
+    {
+      "allowedMimeTypesFingerprint": "2323232323232323232323232323232323232323232323232323232323232323",
+      "bucketId": "downloads",
+      "fileSizeLimit": 20971520,
+      "visibility": "private"
+    }
+  ],
+  "storageObjects": [
+    {
+      "bucketId": "downloads",
+      "checksumSha256": "2626262626262626262626262626262626262626262626262626262626262626",
+      "metadataFingerprint": "2727272727272727272727272727272727272727272727272727272727272727",
+      "objectKey": "object:checksum-change",
+      "pathRedacted": "downloads/<redacted>",
+      "sizeBytes": 2048,
+      "sourceIdentity": "source:asset:checksum",
+      "visibility": "private"
+    },
+    {
+      "bucketId": "activity-assets",
+      "checksumSha256": "2424242424242424242424242424242424242424242424242424242424242424",
+      "metadataFingerprint": "2525252525252525252525252525252525252525252525252525252525252525",
+      "objectKey": "object:match",
+      "pathRedacted": "activity-assets/<redacted>",
+      "sizeBytes": 1024,
+      "sourceIdentity": "source:asset:match",
+      "visibility": "private"
+    },
+    {
+      "bucketId": "activity-assets",
+      "checksumSha256": "2929292929292929292929292929292929292929292929292929292929292929",
+      "metadataFingerprint": "3030303030303030303030303030303030303030303030303030303030303030",
+      "objectKey": "object:multiple-assignment",
+      "pathRedacted": "activity-assets/<redacted>",
+      "sizeBytes": 4096,
+      "sourceIdentity": "source:asset:multi",
+      "visibility": "private"
+    },
+    {
+      "bucketId": "content-assets",
+      "checksumSha256": null,
+      "metadataFingerprint": "2828282828282828282828282828282828282828282828282828282828282828",
+      "objectKey": "object:orphan",
+      "pathRedacted": "content-assets/<redacted>",
+      "sizeBytes": 512,
+      "sourceIdentity": "source:asset:orphan",
+      "visibility": "private"
+    }
+  ]
+}

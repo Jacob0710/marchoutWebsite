@@ -36,6 +36,8 @@ outputs/phase10-browser-private/
 # Phase 12 Playwright auth, fixtures, reports, and failure artifacts
 .phase12-cache/
 .private/phase14-production-export/
+.private/phase14-production-readonly-authorization.json
+.phase14-cache/
 .env.e2e
 .env.phase12.local
 playwright/.auth/

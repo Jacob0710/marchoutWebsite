@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://marchout.invalid/schemas/phase14/production-inventory-export.v1.schema.json",
+  "title": "Phase 14 sanitized production read-only inventory export",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "exportKind", "environment", "releaseSha", "sourceKind", "contentRecords", "storageBuckets", "storageObjects", "relationships", "redirectSourcePaths"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "exportKind": { "const": "phase14-sanitized-production-inventory" },
+    "environment": { "enum": ["fixture", "production"] },
+    "releaseSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "sourceKind": { "enum": ["local-fixture", "owner-authorized-readonly-export"] },
+    "contentRecords": { "type": "array", "items": { "$ref": "#/$defs/contentRecord" } },
+    "storageBuckets": { "type": "array", "items": { "$ref": "#/$defs/storageBucket" } },
+    "storageObjects": { "type": "array", "items": { "$ref": "#/$defs/storageObject" } },
+    "relationships": { "type": "array", "items": { "$ref": "#/$defs/relationship" } },
+    "redirectSourcePaths": { "type": "array", "items": { "$ref": "#/$defs/redirect" } }
+  },
+  "$defs": {
+    "contentRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["recordKey", "recordKind", "migrationKey", "sourceIdentity", "publicationState", "visibility", "metadataFingerprint", "relationshipFingerprint"],
+      "properties": {
+        "recordKey": { "type": "string", "minLength": 1 },
+        "recordKind": { "enum": ["activity", "activity-image", "activity-asset", "activity-video", "post", "file", "category", "faq", "year-summary", "site-settings", "editorial-target", "editorial-redirect"] },
+        "migrationKey": { "type": ["string", "null"] },
+        "sourceIdentity": { "type": ["string", "null"] },
+        "publicationState": { "enum": ["draft", "published", "visible", "hidden", "not-applicable", "unknown"] },
+        "visibility": { "enum": ["public", "private", "restricted", "unknown"] },
+        "metadataFingerprint": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "relationshipFingerprint": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "storageBucket": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bucketId", "visibility", "fileSizeLimit", "allowedMimeTypesFingerprint"],
+      "properties": {
+        "bucketId": { "enum": ["activity-assets", "content-assets", "downloads"] },
+        "visibility": { "const": "private" },
+        "fileSizeLimit": { "type": ["integer", "null"], "minimum": 1 },
+        "allowedMimeTypesFingerprint": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "storageObject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["objectKey", "bucketId", "pathRedacted", "sourceIdentity", "checksumSha256", "sizeBytes", "visibility", "metadataFingerprint"],
+      "properties": {
+        "objectKey": { "type": "string", "minLength": 1 },
+        "bucketId": { "enum": ["activity-assets", "content-assets", "downloads"] },
+        "pathRedacted": { "type": "string", "pattern": "^(?!https?://)[^?&#]+/<redacted>$" },
+        "sourceIdentity": { "type": ["string", "null"] },
+        "checksumSha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "sizeBytes": { "type": ["integer", "null"], "minimum": 0 },
+        "visibility": { "const": "private" },
+        "metadataFingerprint": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relationshipKey", "recordKey", "objectKey", "sourceIdentity", "role", "assignmentOrdinal", "relationshipFingerprint"],
+      "properties": {
+        "relationshipKey": { "type": "string", "minLength": 1 },
+        "recordKey": { "type": ["string", "null"] },
+        "objectKey": { "type": ["string", "null"] },
+        "sourceIdentity": { "type": ["string", "null"] },
+        "role": { "enum": ["cover", "gallery", "attachment", "download", "content-image", "accepted-skip", "unknown"] },
+        "assignmentOrdinal": { "type": "integer", "minimum": 0 },
+        "relationshipFingerprint": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "redirect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["redirectKey", "sourcePathHash", "targetPathHash", "decision", "active", "metadataFingerprint"],
+      "properties": {
+        "redirectKey": { "type": "string", "minLength": 1 },
+        "sourcePathHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "targetPathHash": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "decision": { "enum": ["pending", "activate", "keep-inactive", "archive", "accepted-out-of-scope"] },
+        "active": { "type": "boolean" },
+        "metadataFingerprint": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    }
+  }
+}

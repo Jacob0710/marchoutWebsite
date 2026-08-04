@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://marchout.invalid/schemas/phase14/production-readonly-authorization.v1.schema.json",
+  "title": "Phase 14 production read-only authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "phase", "environment", "scope", "readonly", "authorizedBy", "authorizedAt", "expiresAt", "approvedOperations", "prohibitedOperations", "credentialHandlingRules", "evidenceOutputLocation"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "phase": { "const": 14 },
+    "environment": { "const": "production" },
+    "scope": { "const": "production-readonly-inventory" },
+    "readonly": { "const": true },
+    "authorizedBy": { "type": "string", "minLength": 1 },
+    "authorizedAt": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$" },
+    "expiresAt": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$" },
+    "approvedOperations": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["select-content-metadata", "list-storage-metadata", "select-editorial-metadata", "export-sanitized-inventory"] } },
+    "prohibitedOperations": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["insert", "update", "delete", "upload", "move", "publish", "unpublish", "redirect-activation", "auth-admin", "wix-recrawl", "dns-change"] } },
+    "credentialHandlingRules": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "evidenceOutputLocation": { "type": "string", "pattern": "^\\.private/phase14-production-export/[A-Za-z0-9._/-]+$" }
+  }
+}
