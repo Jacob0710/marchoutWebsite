@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "phase": 14,
+  "overall": "IN_PROGRESS",
+  "gates": {
+    "gate1": "COMPLETE",
+    "gate2ProductionReadonlyInventory": "COMPLETE_OWNER_AUTHORIZED_READONLY",
+    "gate3OwnerReviewAndAdminUat": "READY_HUMAN_EXECUTION_REQUIRED",
+    "gate4CutoverAndProductionMutation": "NOT_AUTHORIZED"
+  },
+  "productionReleaseSha": "f99e335b20b311d1c101a7ad60fe125ee045bdf0",
+  "historicalRepositoryCountDomains": {
+    "currentProductionStateClaimed": false,
+    "source_inventory_skip_items": 70,
+    "imported_target_records_draft": 70,
+    "source_assets": 398,
+    "source_unique_assets_total": 397,
+    "migrated_storage_objects": 378,
+    "storage_assignments_total": 378,
+    "accepted_skip_or_unassigned_unique_sources": 27,
+    "multiple_assignment_groups": 8
+  },
+  "currentProductionReadonlyCounts": {
+    "activities": 50,
+    "activity_images": 0,
+    "activity_assets": 360,
+    "activity_videos": 0,
+    "posts": 0,
+    "files": 18,
+    "categories": 0,
+    "faq": 0,
+    "year_summaries": 6,
+    "site_settings": 1,
+    "editorial_targets": 70,
+    "editorial_reviews": 122,
+    "editorial_redirects": 83,
+    "storage_objects": 378,
+    "storage_objects_by_bucket": {
+      "activity-assets": 360,
+      "content-assets": 0,
+      "downloads": 18
+    },
+    "imported_targets_draft": 70,
+    "imported_targets_published": 0,
+    "redirect_decisions": {
+      "activate": 0,
+      "archive": 2,
+      "keep-inactive": 81
+    }
+  },
+  "reconciliation": {
+    "rows": 1021,
+    "matched": 826,
+    "accepted_skip": 27,
+    "production_only": 158,
+    "requires_owner_review": 9,
+    "evidence_discrepancy": 1,
+    "metadata_mismatch": 0,
+    "publication_state_mismatch": 0,
+    "relationship_mismatch": 0,
+    "asset_identity_mismatch": 0,
+    "offline_only": 0,
+    "invalid_input": 0,
+    "blocked_sensitive_data": 0,
+    "matchedByDomain": {
+      "imported_target_records": 70,
+      "storage_objects": 378,
+      "storage_assignment_relationships": 378
+    }
+  },
+  "assetMetadataChecks": {
+    "manifest_identity_matches": 378,
+    "database_reference_present": 378,
+    "storage_object_present": 378,
+    "recorded_checksum_matches_manifest": 378,
+    "database_size_matches_storage_metadata": 378,
+    "manifest_size_matches_storage_metadata": 378,
+    "binary_downloads": 0,
+    "binary_hashes_recomputed": 0
+  },
+  "verification": {
+    "authorizationSchemaValid": true,
+    "inventorySchemaValid": true,
+    "secretFindings": 0,
+    "urlFindings": 0,
+    "normalizedDeterministicRuns": 3,
+    "reconciliationDeterministicRuns": 3,
+    "credentialsPersisted": false,
+    "realExportTracked": false,
+    "ownerHumanFieldsModified": false
+  },
+  "metrics": {
+    "productionQueries": 331,
+    "productionAuthenticatedSessions": 5,
+    "productionMutations": 0,
+    "liveWixRecrawls": 0,
+    "networkPathsUsedForProduction": 333,
+    "secretFindings": 0,
+    "ownerSignaturesCreatedByAutomation": 0,
+    "adminUatExecutionsClaimed": 0,
+    "cutoverActions": 0
+  },
+  "evidenceHashes": {
+    "sanitizedInventorySha256": "345db36fda912e89fb65282ef2d89c4eb9d1a989207edfe401cfdbb238a6ed65",
+    "adaptedBaselineSha256": "74f27228f9534e7d29111d9e038372b1ba4b8613c3a1f9601477b9ed17675d58",
+    "reconciliationSha256": "bef35bafce931e6d163a2a649830aef1c80e858c92ac807a9088d3c3c72d16d4",
+    "countDomainReconciliationSha256": "35e0681067d2ed29eb6bbea7c14350707dafc6fe08f0f7e220e1cb09d66aba54"
+  },
+  "decisionBoundary": "OWNER_REVIEW_AND_ADMIN_UAT_HUMAN_EXECUTION_REQUIRED",
+  "stopPoint": "PHASE_14_OWNER_REVIEW_AND_ADMIN_UAT_HUMAN_EXECUTION_GATE"
+}
