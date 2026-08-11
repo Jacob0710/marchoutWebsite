@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-08-04T00:00:00+08:00",
+  "observationTimePolicy": "fixed Gate 1 execution date; not a production timestamp",
+  "initialBranch": "main",
+  "initialHead": "598882e371a01c832832d7141acec918143c133c",
+  "main": "598882e371a01c832832d7141acec918143c133c",
+  "originMain": "598882e371a01c832832d7141acec918143c133c",
+  "remoteMain": "598882e371a01c832832d7141acec918143c133c",
+  "phase13Tag": "phase-13-content-asset-reconciliation-prep-complete",
+  "phase13TagType": "tag",
+  "phase13TagObject": "2ed33151596e5605059771283f00700a1d2b62eb",
+  "phase13TagPeeledCommit": "598882e371a01c832832d7141acec918143c133c",
+  "trackedWorktreeClean": true,
+  "untrackedFiles": [
+    {
+      "path": "outputs/phase-12-codex-handoff.md",
+      "gitStatus": "untracked",
+      "bytes": 10889,
+      "sha256": "c6464200384c2de6c60ba970d1ee26123938ca2822aad47ef5827d45140c9c25",
+      "preservationRule": "unchanged-and-uncommitted"
+    }
+  ],
+  "productionAccessPerformed": false
+}

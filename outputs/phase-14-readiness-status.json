@@ -1,0 +1,45 @@
+{
+  "baseline": {
+    "phase13MergeCommit": "598882e371a01c832832d7141acec918143c133c",
+    "phase13Tag": "phase-13-content-asset-reconciliation-prep-complete",
+    "phase13TagObject": "2ed33151596e5605059771283f00700a1d2b62eb",
+    "phase13TagPeeledCommit": "598882e371a01c832832d7141acec918143c133c"
+  },
+  "gates": {
+    "gate1": "COMPLETE",
+    "gate2ProductionReadonlyInventory": "READY_AUTHORIZATION_REQUIRED",
+    "gate3OwnerReviewAndAdminUat": "PREPARED_HUMAN_EXECUTION_REQUIRED",
+    "gate4CutoverAndProductionMutation": "NOT_AUTHORIZED"
+  },
+  "historicalCountDomains": {
+    "accepted_skip_or_unassigned_unique_sources": 27,
+    "assigned_unique_sources": 370,
+    "canonical_relationships": 405,
+    "currentProductionStateClaimed": false,
+    "imported_target_records_draft": 70,
+    "migrated_storage_objects": 378,
+    "multiple_assignment_groups": 8,
+    "owner_references_total": 378,
+    "publication_reviews_total": 122,
+    "redirects_accepted_out_of_scope_total": 52,
+    "source_assets": 398,
+    "source_inventory_skip_items": 70,
+    "source_unique_assets_total": 397,
+    "storage_assignments_total": 378
+  },
+  "metrics": {
+    "adminUatExecutionsClaimed": 0,
+    "cutoverActions": 0,
+    "liveWixRecrawls": 0,
+    "networkPathsUsedForProduction": 0,
+    "ownerSignaturesCreatedByAutomation": 0,
+    "productionAuthenticatedSessions": 0,
+    "productionMutations": 0,
+    "productionQueries": 0,
+    "secretFindings": 0
+  },
+  "overall": "IN_PROGRESS",
+  "phase": 14,
+  "schemaVersion": 1,
+  "stopPoint": "PHASE_14_PRODUCTION_READONLY_AUTHORIZATION_GATE"
+}

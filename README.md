@@ -222,6 +222,21 @@ pnpm phase13:normalize-production-export -- --input <LOCAL_EXPORT_PATH> --output
 pnpm phase13:compare-production-export -- --baseline outputs/phase-13-offline-baseline.json --production <SANITIZED_EXPORT_PATH> --output <LOCAL_COMPARISON_PATH>
 ```
 
+## Phase 14 pre-launch Gate 1
+
+Phase 14 Gate 1 prepares production inventory reconciliation, 405-row human owner review, administrator UAT, redirect/Wix decisions, cutover, and rollback without connecting to production or Wix. Gate 1 completion is not Phase 14 completion. Historical `70/70` and `398/378` values remain separate evidence domains and are not current production claims.
+
+```bash
+pnpm phase14:generate
+pnpm phase14:validate
+pnpm phase14:test
+pnpm phase14:verify
+pnpm phase14:security-scan
+pnpm phase14:authorization-check
+```
+
+`phase14:authorization-check` intentionally exits blocked while the ignored owner authorization artifact is absent. The tracked sample inventory is synthetic; executable Phase 14 tools accept repository-local files only and contain no production URL, credential loader, Supabase client, database connection, HTTP request, or Wix crawler. See `codexSteps/phase14.md`, `docs/phase14-production-readonly-inventory-runbook.md`, and `outputs/phase-14-authorization-request.md` before requesting Gate 2 authority.
+
 Phase 10 includes implementation and runbooks for these gates. The production deployment is the independent Vercel site at `https://marchout-website.vercel.app`; Wix has no DNS, redirect, hosting, or runtime role. Platform credentials, database restore authority, monitoring ownership, and production HTTP/Browser evidence remain controlled operational inputs. See `docs/deployment-readiness.md`.
 
 ## Known limitations and next phase
