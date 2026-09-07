@@ -9,9 +9,13 @@ if (!['http:', 'https:'].includes(origin.protocol) || origin.pathname !== '/' ||
 
 const timeoutMs = Number(process.env.PHASE10_SYNTHETIC_TIMEOUT_MS || 10_000)
 const maxLatencyMs = Number(process.env.PHASE10_SYNTHETIC_MAX_LATENCY_MS || 5_000)
+const expectedEnvironment = process.env.PHASE10_EXPECTED_ENVIRONMENT || ''
 if (!Number.isInteger(timeoutMs) || timeoutMs < 1_000 || timeoutMs > 60_000
   || !Number.isInteger(maxLatencyMs) || maxLatencyMs < 100 || maxLatencyMs > timeoutMs) {
   throw new Error('Synthetic timeout/latency thresholds are invalid')
+}
+if (expectedEnvironment && !/^[a-z0-9-]{1,32}$/i.test(expectedEnvironment)) {
+  throw new Error('Synthetic expected environment is invalid')
 }
 
 const checks = []
@@ -80,6 +84,9 @@ const livenessBody = await liveness.json()
 if (livenessBody?.status !== 'ok' || !liveness.headers.get('cache-control')?.includes('no-store')) {
   fail('Liveness body/cache contract failed')
 }
+if (expectedEnvironment && livenessBody?.environment !== expectedEnvironment) {
+  fail(`Liveness environment mismatch; expected ${expectedEnvironment}`)
+}
 
 const readiness = await expectStatus('/api/health/ready')
 if ((await readiness.json())?.status !== 'ready') fail('Readiness body contract failed')
@@ -133,6 +140,7 @@ console.log(JSON.stringify({
   status: 'passed',
   origin: origin.origin,
   checkedAt: new Date().toISOString(),
+  expectedEnvironment: expectedEnvironment || undefined,
   thresholds: { timeoutMs, maxLatencyMs },
   checks,
   redirectConfig: {

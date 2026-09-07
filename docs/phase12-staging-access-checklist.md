@@ -56,7 +56,7 @@ Workflow-generated values require no GitHub configuration:
 
 | Name | Source | Use |
 | --- | --- | --- |
-| `PHASE12_RELEASE_SHA` | Explicit dispatch input or scheduled workflow SHA | Exact candidate traceability |
+| `PHASE12_RELEASE_SHA` | Explicit dispatch input or protected caller SHA | Exact candidate traceability |
 | `PHASE12_PR_NUMBER` | Explicit dispatch input for pre-merge staging | Require an open Draft PR whose head equals the release SHA |
 | `PHASE12_STAGING_APPROVAL_ISSUE` | Explicit dispatch input for protected-main staging only | Owner staging-authorization evidence |
 | `PHASE12_E2E_RUN_ID` | GitHub `run_id-run_attempt` | Fixture namespace |
@@ -92,6 +92,12 @@ It receives only staging public runtime values. It does not receive a Supabase
 service-role key, database password, production administrator credential, or
 production runtime value.
 
+The deployment token must cover the owning Vercel team and all projects because
+the CLI reads team-level project settings before it can constrain deployment to
+`PHASE12_VERCEL_PROJECT_ID`. Rotate it before its expiry, update only the GitHub
+`staging` environment secret, and verify the secret update timestamp before a
+release run. Project-only tokens fail closed at `vercel pull`.
+
 ## Verified Supabase staging inventory
 
 A separate staging project is linked and proven distinct from production. All
@@ -101,6 +107,12 @@ identity has exactly one active mapping, and one dedicated non-admin has none.
 Site and redirect URLs use the independent Vercel staging canonical origin.
 Credentials remain in platform secret stores; database credentials are not
 required by the browser workflow.
+
+The Free-plan staging project may be paused after low database activity. The
+separate scheduled staging synthetic performs a real readiness query every six
+hours. Alert on any failed run and restore the exact staging project when its
+Management API status is `INACTIVE`; never redirect staging to production as a
+workaround.
 
 ## Ordered execution for the Draft PR exact head
 

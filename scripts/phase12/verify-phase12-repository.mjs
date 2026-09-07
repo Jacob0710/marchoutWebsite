@@ -32,7 +32,9 @@ const required = [
   'tests/phase12/github-evidence.test.mjs',
   '.github/workflows/phase12-quality.yml',
   '.github/workflows/phase12-staging-e2e.yml',
-  '.github/workflows/phase12-production-release.yml'
+  '.github/workflows/phase12-production-release.yml',
+  '.github/workflows/staging-synthetic.yml',
+  '.github/workflows/production-synthetic.yml'
 ]
 for (const file of required) {
   if (!fs.existsSync(path.join(root, file))) throw new Error(`Missing required Phase 12 file: ${file}`)
@@ -114,6 +116,9 @@ if (!/push:\s*\r?\n\s+branches:\s*\[main\]/.test(qualityWorkflow)) throw new Err
 if (!/pnpm run phase12:test/.test(qualityWorkflow)) throw new Error('Phase 12 quality workflow does not run verifier regression tests.')
 const stagingWorkflow = fs.readFileSync(path.join(root, '.github/workflows/phase12-staging-e2e.yml'), 'utf8')
 if (!/environment:\s*staging/.test(stagingWorkflow)) throw new Error('Staging workflow lacks its protected environment.')
+if (/\bschedule:\s*\r?\n/.test(stagingWorkflow)) {
+  throw new Error('The approval-gated staging deployment workflow must not run on an unattended schedule.')
+}
 if (!/workflow_call:[\s\S]*?release_sha:[\s\S]*?required:\s*true/.test(stagingWorkflow)) {
   throw new Error('Staging workflow cannot be called through a default-branch registered workflow.')
 }
@@ -126,6 +131,14 @@ if (!/vercel@\$VERCEL_CLI_VERSION" pull[\s\S]*?phase12:normalize-vercel[\s\S]*?N
 }
 if (/vercel@\$VERCEL_CLI_VERSION" build/.test(stagingWorkflow)) {
   throw new Error('Staging build must not delegate to remote output-directory settings.')
+}
+const stagingSyntheticWorkflow = fs.readFileSync(path.join(root, '.github/workflows/staging-synthetic.yml'), 'utf8')
+if (!/schedule:[\s\S]*?cron:\s*'41 \*\/6 \* \* \*'/.test(stagingSyntheticWorkflow)
+  || !/environment:\s*staging/.test(stagingSyntheticWorkflow)
+  || !/PHASE10_SYNTHETIC_ORIGIN:\s*\$\{\{ vars\.PHASE12_STAGING_BASE_URL \}\}/.test(stagingSyntheticWorkflow)
+  || !/PHASE10_EXPECTED_ENVIRONMENT:\s*staging/.test(stagingSyntheticWorkflow)
+  || !/node scripts\/phase10\/synthetic-check\.mjs/.test(stagingSyntheticWorkflow)) {
+  throw new Error('Staging keepalive must run the fail-closed synthetic contract against the protected staging origin.')
 }
 const validateJob = stagingWorkflow.match(/\n {2}validate-commit:[\s\S]*?(?=\n {2}[a-z][a-z0-9-]+:|\s*$)/)?.[0] || ''
 if (!/\n {6}statuses:\s*read\b/.test(validateJob)) {

@@ -4,8 +4,19 @@ const { stagingOrigin, productionOrigin } = assertIsolatedStaging()
 let current = new URL(stagingBaseUrl)
 const redirects = []
 
+const fetchWithContext = async (url, label) => {
+  const started = performance.now()
+  try {
+    return await fetch(url, { redirect: 'manual', signal: AbortSignal.timeout(15_000) })
+  } catch (error) {
+    const durationMs = Math.round(performance.now() - started)
+    const errorName = error?.name && /^[a-z]+$/i.test(error.name) ? error.name : 'RequestError'
+    throw new Error(`${label} request failed after ${durationMs}ms (${errorName}).`, { cause: error })
+  }
+}
+
 for (let hop = 0; hop < 5; hop += 1) {
-  const response = await fetch(current, { redirect: 'manual', signal: AbortSignal.timeout(15_000) })
+  const response = await fetchWithContext(current, `Staging navigation hop ${hop + 1}`)
   if (![301, 302, 303, 307, 308].includes(response.status)) break
   const location = response.headers.get('location')
   assert(location, `Redirect ${hop + 1} has no Location header.`)
@@ -16,7 +27,7 @@ for (let hop = 0; hop < 5; hop += 1) {
 }
 
 assert(current.origin === stagingOrigin, 'Staging canonical navigation left the staging origin.')
-const health = await fetch(`${stagingOrigin}/api/health`, { redirect: 'manual', signal: AbortSignal.timeout(15_000) })
+const health = await fetchWithContext(`${stagingOrigin}/api/health`, 'Staging health')
 assert(health.status === 200, `Staging health returned ${health.status}.`)
 const healthBody = await health.json()
 assert(healthBody.status === 'ok' && healthBody.environment === 'staging', 'Staging health lacks the staging environment marker.')
@@ -25,7 +36,7 @@ assert(expectedReleaseSha && healthBody.releaseSha === expectedReleaseSha, 'Stag
 assert(health.headers.get('x-app-environment') === 'staging', 'Staging health lacks X-App-Environment: staging.')
 assert(health.headers.get('cache-control')?.includes('no-store'), 'Staging health is cacheable.')
 
-const ready = await fetch(`${stagingOrigin}/api/health/ready`, { redirect: 'manual', signal: AbortSignal.timeout(15_000) })
+const ready = await fetchWithContext(`${stagingOrigin}/api/health/ready`, 'Staging readiness')
 assert(ready.status === 200, `Staging readiness returned ${ready.status}.`)
 const readyBody = await ready.json()
 assert(readyBody.status === 'ready', 'Staging readiness is not ready.')

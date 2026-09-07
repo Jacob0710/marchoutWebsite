@@ -26,9 +26,6 @@ on:
         description: Owner approval issue for protected-main runs; leave empty for pre-merge staging
         required: false
         type: string
-  schedule:
-    - cron: '23 3 * * 1'
-
 permissions:
   contents: read
 

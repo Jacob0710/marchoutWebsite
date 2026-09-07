@@ -75,8 +75,17 @@ Before dispatch, create or reuse an issue with label `phase12-staging-approved`;
 
 Dispatch **Phase 12 isolated staging E2E** from protected `main` with the exact
 current `main` commit SHA, an empty `pull_request`, and that approval issue
-number. A scheduled run discovers a labeled issue for the current SHA and fails
-closed when no matching owner marker exists.
+number. This approval-gated deployment workflow is never scheduled unattended.
+
+The separate **Staging synthetic health and public-route contract** workflow
+runs every six hours against the protected staging origin. It is read-only,
+requires `environment: staging`, verifies the liveness environment marker,
+executes the same fail-closed readiness and public-route contract used for
+production, and creates enough real database activity to detect or prevent a
+Free-plan staging Supabase pause. It cannot deploy, seed, approve, promote, or
+substitute for the full staging matrix. Treat `INACTIVE`, missing Supabase DNS,
+or `READINESS_DEPENDENCY_UNAVAILABLE` as an infrastructure incident; restore
+the staging project before rerunning the full matrix.
 
 The workflow must complete, in order:
 
