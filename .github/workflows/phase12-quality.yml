@@ -28,6 +28,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm run phase11:verify
       - run: pnpm run phase12:verify
+      - run: pnpm run phase12:test
       - run: pnpm run phase13:verify
       - run: pnpm run phase13:test
       - run: pnpm run lint

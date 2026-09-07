@@ -20,6 +20,7 @@ const required = [
   'tests/e2e/accessibility-smoke.spec.ts',
   'scripts/phase12/seed-e2e-fixtures.mjs',
   'scripts/phase12/cleanup-e2e-fixtures.mjs',
+  'scripts/phase12/lib/github-evidence.mjs',
   'scripts/phase12/verify-staging-approval.mjs',
   'scripts/phase12/verify-staging-origin.mjs',
   'scripts/phase12/normalize-vercel-project-settings.mjs',
@@ -28,9 +29,12 @@ const required = [
   'scripts/phase12/verify-release-evidence.mjs',
   'scripts/phase12/production-post-release-smoke.mjs',
   'scripts/phase12/production-auth-readonly-smoke.mjs',
+  'tests/phase12/github-evidence.test.mjs',
   '.github/workflows/phase12-quality.yml',
   '.github/workflows/phase12-staging-e2e.yml',
-  '.github/workflows/phase12-production-release.yml'
+  '.github/workflows/phase12-production-release.yml',
+  '.github/workflows/staging-synthetic.yml',
+  '.github/workflows/production-synthetic.yml'
 ]
 for (const file of required) {
   if (!fs.existsSync(path.join(root, file))) throw new Error(`Missing required Phase 12 file: ${file}`)
@@ -73,7 +77,7 @@ if (/^\s*(?:update|delete|truncate)\b/im.test(baseline)
 
 const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'))
 if (packageJson.packageManager !== 'pnpm@11.9.0') throw new Error('pnpm package-manager contract changed.')
-for (const script of ['test:e2e', 'test:e2e:chromium', 'test:e2e:staging', 'phase12:verify', 'phase12:verify-staging-approval', 'phase12:verify-staging', 'phase12:normalize-vercel', 'phase12:seed', 'phase12:cleanup', 'phase12:staging-result', 'phase12:verify-release', 'phase12:production-smoke', 'phase12:production-auth-smoke']) {
+for (const script of ['test:e2e', 'test:e2e:chromium', 'test:e2e:staging', 'phase12:verify', 'phase12:test', 'phase12:verify-staging-approval', 'phase12:verify-staging', 'phase12:normalize-vercel', 'phase12:seed', 'phase12:cleanup', 'phase12:staging-result', 'phase12:verify-release', 'phase12:production-smoke', 'phase12:production-auth-smoke']) {
   if (!packageJson.scripts?.[script]) throw new Error(`Missing Phase 12 script: ${script}`)
 }
 if (!/\bnuxi prepare\b[\s\S]*\bplaywright test\b/.test(packageJson.scripts['test:e2e:staging'])) {
@@ -109,19 +113,32 @@ for (const workflow of workflows) {
 const qualityWorkflow = fs.readFileSync(path.join(root, '.github/workflows/phase12-quality.yml'), 'utf8')
 if (/\$\{\{\s*secrets\./.test(qualityWorkflow)) throw new Error('Phase 12 PR quality workflow must not reference secrets.')
 if (!/push:\s*\r?\n\s+branches:\s*\[main\]/.test(qualityWorkflow)) throw new Error('Phase 12 quality workflow must validate final main commits.')
+if (!/pnpm run phase12:test/.test(qualityWorkflow)) throw new Error('Phase 12 quality workflow does not run verifier regression tests.')
 const stagingWorkflow = fs.readFileSync(path.join(root, '.github/workflows/phase12-staging-e2e.yml'), 'utf8')
 if (!/environment:\s*staging/.test(stagingWorkflow)) throw new Error('Staging workflow lacks its protected environment.')
+if (/\bschedule:\s*\r?\n/.test(stagingWorkflow)) {
+  throw new Error('The approval-gated staging deployment workflow must not run on an unattended schedule.')
+}
 if (!/workflow_call:[\s\S]*?release_sha:[\s\S]*?required:\s*true/.test(stagingWorkflow)) {
   throw new Error('Staging workflow cannot be called through a default-branch registered workflow.')
 }
 if (/PRODUCTION_ADMIN_(?:EMAIL|PASSWORD)/.test(stagingWorkflow)) throw new Error('Staging workflow has cross-environment credentials.')
 if (!/verify-staging-approval\.mjs/.test(stagingWorkflow)) throw new Error('Staging workflow lacks verifiable owner approval.')
+if (!/pnpm run phase12:test/.test(stagingWorkflow)) throw new Error('Staging quality does not run verifier regression tests.')
 if (!/needs\.seed\.result != 'skipped'/.test(stagingWorkflow)) throw new Error('Staging cleanup is not fail-safe after a partial seed.')
 if (!/vercel@\$VERCEL_CLI_VERSION" pull[\s\S]*?phase12:normalize-vercel[\s\S]*?NITRO_PRESET=vercel[\s\S]*?pnpm run build[\s\S]*?vercel@\$VERCEL_CLI_VERSION" deploy --prebuilt/.test(stagingWorkflow)) {
   throw new Error('Staging deployment does not create a Vercel Nitro artifact from normalized settings before deploy.')
 }
 if (/vercel@\$VERCEL_CLI_VERSION" build/.test(stagingWorkflow)) {
   throw new Error('Staging build must not delegate to remote output-directory settings.')
+}
+const stagingSyntheticWorkflow = fs.readFileSync(path.join(root, '.github/workflows/staging-synthetic.yml'), 'utf8')
+if (!/schedule:[\s\S]*?cron:\s*'41 \*\/6 \* \* \*'/.test(stagingSyntheticWorkflow)
+  || !/environment:\s*staging/.test(stagingSyntheticWorkflow)
+  || !/PHASE10_SYNTHETIC_ORIGIN:\s*\$\{\{ vars\.PHASE12_STAGING_BASE_URL \}\}/.test(stagingSyntheticWorkflow)
+  || !/PHASE10_EXPECTED_ENVIRONMENT:\s*staging/.test(stagingSyntheticWorkflow)
+  || !/node scripts\/phase10\/synthetic-check\.mjs/.test(stagingSyntheticWorkflow)) {
+  throw new Error('Staging keepalive must run the fail-closed synthetic contract against the protected staging origin.')
 }
 const validateJob = stagingWorkflow.match(/\n {2}validate-commit:[\s\S]*?(?=\n {2}[a-z][a-z0-9-]+:|\s*$)/)?.[0] || ''
 if (!/\n {6}statuses:\s*read\b/.test(validateJob)) {
@@ -164,16 +181,30 @@ if (!/PHASE12_REQUIRED_CHECKS:\s*quality,phase12-quality,dependency-review,Verce
   throw new Error('Production release verification does not require the exact production Vercel status.')
 }
 const releaseEvidenceVerifier = fs.readFileSync(path.join(root, 'scripts/phase12/verify-release-evidence.mjs'), 'utf8')
-if (!/check-runs\?filter=latest&per_page=100/.test(releaseEvidenceVerifier)
-  || !/\/status\?per_page=100/.test(releaseEvidenceVerifier)
-  || !/Array\.isArray\(checks\.check_runs\) && Array\.isArray\(statuses\.statuses\)/.test(releaseEvidenceVerifier)
-  || !/checks\.check_runs\.some\(item => item\.name === name && item\.conclusion === 'success'\)/.test(releaseEvidenceVerifier)
-  || !/statuses\.statuses\.some\(item => item\.context === name && item\.state === 'success'\)/.test(releaseEvidenceVerifier)
-  || /checks\.check_runs\.find\(item => item\.name === name\)/.test(releaseEvidenceVerifier)) {
-  throw new Error('Production release evidence must fail closed across Check Runs and commit statuses.')
+const stagingApprovalVerifier = fs.readFileSync(path.join(root, 'scripts/phase12/verify-staging-approval.mjs'), 'utf8')
+const githubEvidenceVerifier = fs.readFileSync(path.join(root, 'scripts/phase12/lib/github-evidence.mjs'), 'utf8')
+const stagingRunbook = fs.readFileSync(path.join(root, 'docs/phase12-staging-release-runbook.md'), 'utf8')
+for (const [name, source] of [['staging', stagingApprovalVerifier], ['production', releaseEvidenceVerifier]]) {
+  if (!/verifyRequiredChecks\(\{ api, releaseSha, required \}\)/.test(source)
+    || !/hasExactApprovalMarker\(item\.body, marker\)/.test(source)
+    || !/readGithubArrayPages\(api,/.test(source)) {
+    throw new Error(`Phase 12 ${name} verifier does not use fail-closed paginated GitHub evidence.`)
+  }
+}
+if (!/check_name=\$\{encodedName\}&filter=all&per_page=\$\{perPage\}&page=\$\{page\}/.test(githubEvidenceVerifier)
+  || !/item\.conclusion !== 'skipped'/.test(githubEvidenceVerifier)
+  || !/successfulLatestEvidence\(check, status\)/.test(githubEvidenceVerifier)
+  || !/checkTime === statusTime/.test(githubEvidenceVerifier)
+  || !/checkTime > statusTime \? check\.conclusion === 'success' : status\.state === 'success'/.test(githubEvidenceVerifier)
+  || !/line\.trim\(\) === marker/.test(githubEvidenceVerifier)) {
+  throw new Error('Shared GitHub evidence verifier does not enforce pagination, decisive checks, exact markers, and success.')
 }
 if (!/quality,phase12-quality,dependency-review,Vercel – marchout-website/.test(releaseEvidenceVerifier)) {
   throw new Error('Production release evidence default checks do not name the exact production Vercel status.')
+}
+if (!/Pre-merge Draft PR staging execution[\s\S]*?from protected `main`[\s\S]*?every code checkout, build, deployment, and test uses[\s\S]*?`release_sha`/.test(stagingRunbook)
+  || /codex\/phase12-e2e-staging-release-hardening/.test(stagingRunbook)) {
+  throw new Error('The staging runbook does not preserve the protected-main run ref and exact candidate SHA boundary.')
 }
 if (!/vercel@\$VERCEL_CLI_VERSION" pull[\s\S]*?phase12:normalize-vercel[\s\S]*?NITRO_PRESET=vercel[\s\S]*?pnpm run build[\s\S]*?vercel@\$VERCEL_CLI_VERSION" deploy --prebuilt --prod/.test(productionWorkflow)) {
   throw new Error('Production deployment does not create a Vercel Nitro artifact from normalized settings before deploy.')

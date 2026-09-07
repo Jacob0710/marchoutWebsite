@@ -1,6 +1,6 @@
 # Phase 10 incident and monitoring runbook
 
-The production owner is GitHub user `Jacob0710`. The scheduled `production-synthetic` job in `.github/workflows/phase11-quality.yml` checks `https://marchout-website.vercel.app` hourly on the free GitHub Actions/Vercel Hobby setup. A failed run is retained in GitHub Actions and uses the repository owner's configured Actions notification channel; the owner must investigate or pause mutations before any editorial release continues.
+The production owner is GitHub user `Jacob0710`. The scheduled `production-synthetic` job in `.github/workflows/production-synthetic.yml` checks `https://marchout-website.vercel.app` hourly on the free GitHub Actions/Vercel Hobby setup. Keeping this schedule separate prevents non-scheduled quality jobs from emitting repeated skipped check runs for an unchanged commit. A failed run is retained in GitHub Actions and uses the repository owner's configured Actions notification channel; the owner must investigate or pause mutations before any editorial release continues.
 
 Monitoring must use an externally owned uptime/alerting system. This repository provides stable endpoints, redacted structured logs, and a read-only synthetic probe; it does not claim that a vendor, alert destination, or on-call owner exists until the operator records real evidence.
 

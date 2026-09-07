@@ -29,6 +29,7 @@
     "phase11:audit": "pnpm audit --prod --audit-level=high",
     "test:phase11": "pnpm run phase11:verify && pnpm run lint && pnpm run phase11:audit && pnpm run test:coverage && pnpm run typecheck && pnpm run test:phase10 && pnpm run build && pnpm run test:integration",
     "phase12:verify": "node scripts/phase12/verify-phase12-repository.mjs",
+    "phase12:test": "node --test tests/phase12/*.test.mjs",
     "phase12:verify-staging-approval": "node scripts/phase12/verify-staging-approval.mjs",
     "phase12:verify-staging": "node scripts/phase12/verify-staging-origin.mjs",
     "phase12:normalize-vercel": "node scripts/phase12/normalize-vercel-project-settings.mjs",
@@ -91,8 +92,9 @@
     "phase10:privacy": "node scripts/phase10/privacy-fixture-test.mjs",
     "phase10:static": "node scripts/phase10/static-verify.mjs",
     "phase10:synthetic": "node scripts/phase10/synthetic-check.mjs",
+    "phase10:synthetic:test": "node --test tests/phase10/synthetic-check.test.mjs",
     "test:phase10:smoke": "node --env-file-if-exists=.env --env-file-if-exists=.env.phase10.local --env-file-if-exists=.env.phase6.local scripts/phase10/smoke-read-only.mjs",
-    "test:phase10": "pnpm run phase10:static && pnpm run phase10:redirect:verify && pnpm run phase10:privacy"
+    "test:phase10": "pnpm run phase10:static && pnpm run phase10:redirect:verify && pnpm run phase10:privacy && pnpm run phase10:synthetic:test"
   },
   "dependencies": {
     "@lucide/vue": "1.27.0",

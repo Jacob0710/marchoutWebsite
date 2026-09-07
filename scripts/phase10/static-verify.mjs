@@ -156,6 +156,8 @@ for (const route of ['/api/public/activity-assets/**', '/api/public/files/**/dow
 }
 const requiredOperationalFiles = [
   'scripts/phase10/synthetic-check.mjs',
+  'tests/phase10/synthetic-check.test.mjs',
+  'server/api/health/ready.get.ts',
   'docs/phase10-backup-restore-runbook.md',
   'docs/phase10-editorial-release-runbook.md',
   'docs/phase10-environments-deployment-runbook.md',
@@ -165,6 +167,22 @@ const requiredOperationalFiles = [
 for (const path of requiredOperationalFiles) {
   const body = await readFile(resolve(root, path), 'utf8')
   if (body.length < 500) throw new Error(`Phase 10 operational contract is missing or incomplete: ${path}`)
+}
+const readinessHandler = await readFile(resolve(root, 'server/api/health/ready.get.ts'), 'utf8')
+if (!/\.abortSignal\(controller\.signal\)/.test(readinessHandler)
+  || !/}, 3000\)/.test(readinessHandler)
+  || !/result: failureResult/.test(readinessHandler)
+  || !/errorCode: 'READINESS_DEPENDENCY_UNAVAILABLE'/.test(readinessHandler)
+  || !/durationMs: Date\.now\(\) - startedAt/.test(readinessHandler)) {
+  throw new Error('Readiness must retain its three-second fail-closed dependency probe with safe diagnostics')
+}
+const syntheticCheck = await readFile(resolve(root, 'scripts/phase10/synthetic-check.mjs'), 'utf8')
+if (!/status: 'failed'/.test(syntheticCheck)
+  || !/x-request-id/.test(syntheticCheck)
+  || !/x-vercel-id/.test(syntheticCheck)
+  || !/responseCode/.test(syntheticCheck)
+  || !/throw new Error\(message\)/.test(syntheticCheck)) {
+  throw new Error('Synthetic check must emit safe failure evidence and remain fail closed')
 }
 console.log(JSON.stringify({
   status: 'passed', baseline, phase9: { drafts: 70, reviews: 122, redirects: 83 },

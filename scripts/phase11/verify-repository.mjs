@@ -16,6 +16,7 @@ const trackedSet = new Set(tracked)
 const required = [
   '.github/dependabot.yml',
   '.github/workflows/phase11-quality.yml',
+  '.github/workflows/production-synthetic.yml',
   'codexSteps/phase11.md',
   'eslint.config.mjs',
   'scripts/phase11/local-ssr-smoke.mjs',
@@ -127,6 +128,18 @@ for (const path of workflowPaths) {
       fail(`mutable action reference in ${path}: ${reference}`)
     }
   }
+}
+
+const phase11Workflow = readFileSync('.github/workflows/phase11-quality.yml', 'utf8')
+if (/^\s*schedule\s*:/m.test(phase11Workflow) || /\n {2}production-synthetic:/.test(phase11Workflow)) {
+  fail('production synthetic schedule must remain isolated from quality check names')
+}
+const productionSyntheticWorkflow = readFileSync('.github/workflows/production-synthetic.yml', 'utf8')
+if (!/schedule:[\s\S]*?cron:\s*'17 \* \* \* \*'/.test(productionSyntheticWorkflow)
+  || !/\n {2}production-synthetic:/.test(productionSyntheticWorkflow)
+  || !/PHASE10_SYNTHETIC_ORIGIN:\s*https:\/\/marchout-website\.vercel\.app/.test(productionSyntheticWorkflow)
+  || !/node scripts\/phase10\/synthetic-check\.mjs/.test(productionSyntheticWorkflow)) {
+  fail('isolated production synthetic workflow contract is incomplete')
 }
 
 const packageJson = JSON.parse(readFileSync('package.json', 'utf8'))

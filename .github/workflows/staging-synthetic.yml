@@ -1,0 +1,29 @@
+name: Staging synthetic health and public-route contract
+
+on:
+  schedule:
+    - cron: '41 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: staging-synthetic
+  cancel-in-progress: true
+
+jobs:
+  staging-synthetic:
+    environment: staging
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+      - name: Staging health, dependency readiness, and public-route contract
+        env:
+          PHASE10_SYNTHETIC_ORIGIN: ${{ vars.PHASE12_STAGING_BASE_URL }}
+          PHASE10_EXPECTED_ENVIRONMENT: staging
+        run: node scripts/phase10/synthetic-check.mjs

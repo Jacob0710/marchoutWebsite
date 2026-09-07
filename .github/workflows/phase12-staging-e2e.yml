@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
     inputs:
       release_sha:
-        description: Exact protected main or Draft PR head commit to deploy and test
+        description: Exact protected main or Draft PR head; launch the workflow from protected main
         required: true
         type: string
       pull_request:
@@ -26,9 +26,6 @@ on:
         description: Owner approval issue for protected-main runs; leave empty for pre-merge staging
         required: false
         type: string
-  schedule:
-    - cron: '23 3 * * 1'
-
 permissions:
   contents: read
 
@@ -94,6 +91,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm run phase11:verify
       - run: pnpm run phase12:verify
+      - run: pnpm run phase12:test
       - run: pnpm run lint
       - run: pnpm run phase11:audit
       - run: pnpm run test:coverage
