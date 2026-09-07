@@ -1,3 +1,5 @@
+import { hasExactApprovalMarker, readGithubArrayPages, verifyRequiredChecks } from './lib/github-evidence.mjs'
+
 const token = process.env.GITHUB_TOKEN || ''
 const repository = process.env.GITHUB_REPOSITORY || ''
 const releaseSha = process.env.PHASE12_RELEASE_SHA || ''
@@ -31,27 +33,20 @@ assert(String(run.path).endsWith('/phase12-staging-e2e.yml'), 'Referenced run is
 
 const issue = await api(`/issues/${approvalIssue}`)
 assert(issue.labels.some(label => label.name === 'phase12-release-approved'), 'Approval issue lacks the release approval label.')
-const comments = await api(`/issues/${approvalIssue}/comments?per_page=100`)
+const comments = await readGithubArrayPages(api, `/issues/${approvalIssue}/comments`)
 const marker = `PHASE12-APPROVED ${releaseSha}`
 const approval = [issue, ...comments].find(item =>
-  item.user?.login?.toLowerCase() === owner.toLowerCase() && String(item.body || '').includes(marker)
+  item.user?.login?.toLowerCase() === owner.toLowerCase() && hasExactApprovalMarker(item.body, marker)
 )
 assert(approval, 'Repository owner approval marker is missing.')
 
-const checks = await api(`/commits/${releaseSha}/check-runs?filter=latest&per_page=100`)
-const statuses = await api(`/commits/${releaseSha}/status?per_page=100`)
-assert(Array.isArray(checks.check_runs) && Array.isArray(statuses.statuses), 'GitHub check or status evidence is malformed.')
 const required = String(process.env.PHASE12_REQUIRED_CHECKS || 'quality,phase12-quality,dependency-review,Vercel – marchout-website')
   .split(',')
   .map(value => value.trim())
   .filter(Boolean)
-for (const name of required) {
-  const successfulCheck = checks.check_runs.some(item => item.name === name && item.conclusion === 'success')
-  const successfulStatus = statuses.statuses.some(item => item.context === name && item.state === 'success')
-  assert(
-    successfulCheck || successfulStatus,
-    `Required check or status ${name} is not successful.`
-  )
+const requiredCheckEvidence = await verifyRequiredChecks({ api, releaseSha, required })
+for (const evidence of requiredCheckEvidence) {
+  assert(evidence.successful, `Required check or status ${evidence.name} is not successful.`)
 }
 
 console.log(JSON.stringify({
@@ -61,5 +56,6 @@ console.log(JSON.stringify({
   stagingConclusion: run.conclusion,
   approvalIssue: Number(approvalIssue),
   approvalAuthor: approval.user.login,
-  requiredChecks: required
+  requiredChecks: required,
+  requiredCheckEvidence
 }, null, 2))

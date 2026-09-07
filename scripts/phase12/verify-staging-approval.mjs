@@ -1,3 +1,5 @@
+import { hasExactApprovalMarker, readGithubArrayPages, verifyRequiredChecks } from './lib/github-evidence.mjs'
+
 const token = process.env.GITHUB_TOKEN || ''
 const repository = process.env.GITHUB_REPOSITORY || ''
 const releaseSha = process.env.PHASE12_RELEASE_SHA || ''
@@ -42,13 +44,13 @@ if (requestedPullRequest) {
   const marker = `PHASE12-STAGING-APPROVED ${releaseSha}`
   const candidates = requestedIssue
     ? [await api(`/issues/${requestedIssue}`)]
-    : await api('/issues?state=all&labels=phase12-staging-approved&per_page=100')
+    : await readGithubArrayPages(api, '/issues?state=all&labels=phase12-staging-approved')
 
   for (const issue of candidates) {
     if (issue.pull_request || !issue.labels?.some(label => label.name === 'phase12-staging-approved')) continue
-    const comments = await api(`/issues/${issue.number}/comments?per_page=100`)
+    const comments = await readGithubArrayPages(api, `/issues/${issue.number}/comments`)
     const match = [issue, ...comments].find(item =>
-      item.user?.login?.toLowerCase() === owner.toLowerCase() && String(item.body || '').includes(marker)
+      item.user?.login?.toLowerCase() === owner.toLowerCase() && hasExactApprovalMarker(item.body, marker)
     )
     if (match) {
       approvedIssue = issue
@@ -59,19 +61,13 @@ if (requestedPullRequest) {
   assert(approval, 'Traceable repository-owner staging approval is missing for this commit.')
 }
 
-const checks = await api(`/commits/${releaseSha}/check-runs?filter=latest&per_page=100`)
-const statuses = await api(`/commits/${releaseSha}/status?per_page=100`)
 const required = String(process.env.PHASE12_REQUIRED_CHECKS || 'quality,phase12-quality,Vercel – marchout-staging')
   .split(',')
   .map(value => value.trim())
   .filter(Boolean)
-for (const name of required) {
-  const check = checks.check_runs.find(item => item.name === name)
-  const status = statuses.statuses.find(item => item.context === name)
-  assert(
-    check?.conclusion === 'success' || status?.state === 'success',
-    `Required check or status ${name} is not successful.`
-  )
+const requiredCheckEvidence = await verifyRequiredChecks({ api, releaseSha, required })
+for (const evidence of requiredCheckEvidence) {
+  assert(evidence.successful, `Required check or status ${evidence.name} is not successful.`)
 }
 
 console.log(JSON.stringify({
@@ -80,5 +76,6 @@ console.log(JSON.stringify({
   releaseSha,
   ...(pullRequest ? { pullRequest: pullRequest.number, pullRequestDraft: pullRequest.draft } : {}),
   ...(approvedIssue ? { approvalIssue: approvedIssue.number, approvalAuthor: approval.user.login } : {}),
-  requiredChecks: required
+  requiredChecks: required,
+  requiredCheckEvidence
 }, null, 2))
