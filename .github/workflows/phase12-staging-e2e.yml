@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
     inputs:
       release_sha:
-        description: Exact protected main or Draft PR head commit to deploy and test
+        description: Exact protected main or Draft PR head; launch the workflow from protected main
         required: true
         type: string
       pull_request:

@@ -5,8 +5,8 @@ identity change, secret change, merge, or production operation.
 
 ## Required state until full staging evidence exists
 
-- Keep PR `#12` in Draft.
-- Keep `codex/phase12-e2e-staging-release-hardening` pushed and clean.
+- Keep the candidate PR open, targeting `main`, and in Draft.
+- Keep the exact candidate SHA pushed with all required checks successful.
 - Do not use the production Vercel project, production canonical origin,
   production Supabase project, production Auth identities, or production data as
   staging substitutes.
@@ -26,8 +26,9 @@ Verified inventory on 2026-07-31:
 - Independent staging Vercel URL/project/token names are configured.
 - No required reviewer blocks the pre-merge matrix. Owner approval is obtained
   only after `90/90`, cleanup, residual-zero, and artifact evidence succeeds.
-- The deployment branch policies are `main` and the exact Phase 12 branch
-  `codex/phase12-e2e-staging-release-hardening`.
+- The canonical deployment run ref is protected `main`. The Draft PR exact head
+  is supplied as `release_sha` and checked out explicitly, so no candidate
+  branch needs to be added to the staging environment allowlist.
 - Actual values remain outside Git, PR text, Markdown, logs, and artifacts.
 
 ## GitHub `staging` environment contract
@@ -106,54 +107,57 @@ required by the browser workflow.
 No step below is authorized by this document. Stop immediately on any origin,
 project, identity, check, cleanup, or SHA mismatch.
 
-1. Re-read the Vercel project ID, canonical staging origin, Supabase project
+1. From protected `main`, dispatch **Phase 12 isolated staging E2E** with the
+   exact Draft PR head as `release_sha`, its open Draft PR number as
+   `pull_request`, and an empty `approval_issue`.
+2. Re-read the Vercel project ID, canonical staging origin, Supabase project
    ref, and production comparison references.
-2. Run `pnpm run phase12:verify-staging`; require different web origins,
+3. Run `pnpm run phase12:verify-staging`; require different web origins,
    different Supabase origins, no production redirect, `environment=staging`,
    the exact candidate SHA, and readiness `200`.
-3. Confirm the eleven tracked migrations remain LOCAL／REMOTE aligned and rerun
+4. Confirm the eleven tracked migrations remain LOCAL／REMOTE aligned and rerun
    the read-only SQL/RLS/policy/grant/function verification set. Do not proceed
    on any false invariant.
-4. Confirm the active-admin and non-admin staging identities and their opposite
+5. Confirm the active-admin and non-admin staging identities and their opposite
    authorization results.
-5. Confirm `activity-assets`, `content-assets`, and `downloads` are private and
+6. Confirm `activity-assets`, `content-assets`, and `downloads` are private and
    their policies match the tracked migrations.
-6. Deploy the Draft PR exact head to the dedicated staging Vercel project and
+7. Deploy the Draft PR exact head to the dedicated staging Vercel project and
    repeat the origin/Supabase/release-SHA verification.
-7. Run `pnpm run phase12:seed` with the staging-only service role and
+8. Run `pnpm run phase12:seed` with the staging-only service role and
    run-scoped namespace.
-8. Run the full staging Playwright matrix: Chromium `27`, Firefox `21`,
+9. Run the full staging Playwright matrix: Chromium `27`, Firefox `21`,
    WebKit `21`, Mobile Chromium `21`; require `90/90` passed, `0` skipped,
    `0` failed, and `0` flaky.
-9. Run `pnpm run phase12:staging-result` and
+10. Run `pnpm run phase12:staging-result` and
    `pnpm run phase12:scan-artifacts`; require secret findings `0`.
-10. Run `pnpm run phase12:cleanup` even after a browser failure.
-11. Verify fixture rows, asset rows, and exact Storage objects are all `0`.
+11. Run `pnpm run phase12:cleanup` even after a browser failure.
+12. Verify fixture rows, asset rows, and exact Storage objects are all `0`.
     Repeat cleanup once to prove idempotency.
-12. Record owner PR acceptance for the tested PR SHA and evidence; only then
-    convert PR `#12` from Draft to Ready.
-13. Merge through protected `main`; do not bypass branch protection. Record the
+13. Record owner PR acceptance for the tested PR SHA and evidence; only then
+    convert the candidate PR from Draft to Ready.
+14. Merge through protected `main`; do not bypass branch protection. Record the
     resulting final-main SHA.
-14. Require final-main `quality`, `phase12-quality`, `dependency-review`, and
+15. Require final-main `quality`, `phase12-quality`, `dependency-review`, and
     `Vercel` checks to succeed.
-15. Because the protected staging workflow requires the exact current
+16. Because the protected staging workflow requires the exact current
     `origin/main` SHA, record
     `PHASE12-STAGING-APPROVED <final-main-sha>` in an issue labeled
     `phase12-staging-approved`, then dispatch the full staging workflow for that
     exact SHA. This is a second, mandatory unchanged-release staging run; the
     pre-merge result cannot substitute for final-main evidence.
-16. Require the final-main staging workflow, cleanup, residual `0`, artifact
+17. Require the final-main staging workflow, cleanup, residual `0`, artifact
     scan, and machine-readable result to succeed.
-17. Record `PHASE12-APPROVED <final-main-sha>` in an issue labeled
+18. Record `PHASE12-APPROVED <final-main-sha>` in an issue labeled
     `phase12-release-approved`.
-18. Dispatch production promotion with the exact final-main SHA, successful
+19. Dispatch production promotion with the exact final-main SHA, successful
     final-main staging run ID, and approval issue number.
-19. Run credential-free and authenticated read-only production smoke only.
-20. Verify production content mutation count is `0` and staging credentials
+20. Run credential-free and authenticated read-only production smoke only.
+21. Verify production content mutation count is `0` and staging credentials
     were absent from production jobs.
-21. Commit the Phase 12 completion report only after every Definition of Done
+22. Commit the Phase 12 completion report only after every Definition of Done
     item above has evidence.
-22. Create and push the annotated completion tag only after the report,
+23. Create and push the annotated completion tag only after the report,
     production evidence, final-main CI, clean worktree, and remote SHA all
     agree.
 

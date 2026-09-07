@@ -43,7 +43,9 @@ Secrets:
 
 The service role is injected only into the seed and cleanup jobs. It is
 prohibited in deployment verification and browser jobs. Deployment branch
-policies permit only protected `main` and the exact Phase 12 PR branch. A
+policies must permit protected `main`; operators launch staging from `main` and
+the workflow checks out the candidate exclusively through the exact
+`release_sha` input. Candidate branches do not need environment allowlisting. A
 required reviewer must not block the pre-merge matrix because owner approval
 occurs after `90/90`, cleanup, residual-zero, and artifact evidence.
 
@@ -53,14 +55,16 @@ Apply all tracked migrations to staging in filename order, create the three priv
 
 ## Pre-merge Draft PR staging execution
 
-Dispatch **Phase 12 isolated staging E2E** from
-`codex/phase12-e2e-staging-release-hardening` with:
+Dispatch **Phase 12 isolated staging E2E** from protected `main` with:
 
 - `release_sha`: the exact 40-character Draft PR head;
-- `pull_request`: `12`;
+- `pull_request`: the open Draft PR number;
 - `approval_issue`: empty.
 
-The verifier requires PR `#12` to remain open and Draft, target `main`, match the
+The GitHub run ref remains protected `main`, satisfying the staging environment
+branch policy, while every code checkout, build, deployment, and test uses
+`release_sha`. The verifier requires the referenced PR to remain open and
+Draft, target `main`, match the
 exact release SHA, and have successful `quality`, `phase12-quality`, and
 `Vercel` checks. Pre-merge staging deliberately does not accept or require
 owner approval before the matrix.

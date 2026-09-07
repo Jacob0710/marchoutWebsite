@@ -170,6 +170,7 @@ if (!/PHASE12_REQUIRED_CHECKS:\s*quality,phase12-quality,dependency-review,Verce
 const releaseEvidenceVerifier = fs.readFileSync(path.join(root, 'scripts/phase12/verify-release-evidence.mjs'), 'utf8')
 const stagingApprovalVerifier = fs.readFileSync(path.join(root, 'scripts/phase12/verify-staging-approval.mjs'), 'utf8')
 const githubEvidenceVerifier = fs.readFileSync(path.join(root, 'scripts/phase12/lib/github-evidence.mjs'), 'utf8')
+const stagingRunbook = fs.readFileSync(path.join(root, 'docs/phase12-staging-release-runbook.md'), 'utf8')
 for (const [name, source] of [['staging', stagingApprovalVerifier], ['production', releaseEvidenceVerifier]]) {
   if (!/verifyRequiredChecks\(\{ api, releaseSha, required \}\)/.test(source)
     || !/hasExactApprovalMarker\(item\.body, marker\)/.test(source)
@@ -187,6 +188,10 @@ if (!/check_name=\$\{encodedName\}&filter=all&per_page=\$\{perPage\}&page=\$\{pa
 }
 if (!/quality,phase12-quality,dependency-review,Vercel – marchout-website/.test(releaseEvidenceVerifier)) {
   throw new Error('Production release evidence default checks do not name the exact production Vercel status.')
+}
+if (!/Pre-merge Draft PR staging execution[\s\S]*?from protected `main`[\s\S]*?every code checkout, build, deployment, and test uses[\s\S]*?`release_sha`/.test(stagingRunbook)
+  || /codex\/phase12-e2e-staging-release-hardening/.test(stagingRunbook)) {
+  throw new Error('The staging runbook does not preserve the protected-main run ref and exact candidate SHA boundary.')
 }
 if (!/vercel@\$VERCEL_CLI_VERSION" pull[\s\S]*?phase12:normalize-vercel[\s\S]*?NITRO_PRESET=vercel[\s\S]*?pnpm run build[\s\S]*?vercel@\$VERCEL_CLI_VERSION" deploy --prebuilt --prod/.test(productionWorkflow)) {
   throw new Error('Production deployment does not create a Vercel Nitro artifact from normalized settings before deploy.')
